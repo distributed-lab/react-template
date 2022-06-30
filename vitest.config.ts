@@ -7,6 +7,7 @@ import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
 
 import * as fs from 'fs'
 import * as path from 'path'
+import { configDefaults } from 'vitest/config'
 
 const appDirectory = fs.realpathSync(process.cwd())
 const resolveApp = (relative: string) => path.resolve(appDirectory, relative)
@@ -35,16 +36,16 @@ export default defineConfig(({ command, mode }) => {
         typescript: true,
         eslint: {
           lintCommand:
-              'eslint "{src,config}/**/*.{jsx,tsx}" --cache --max-warnings=0',
+            'eslint "{src,config}/**/*.{jsx,tsx}" --cache --max-warnings=0',
         },
       }),
       ...(isAnalyze
-          ? [
+        ? [
             visualizer({
               open: true,
             }),
           ]
-          : []),
+        : []),
     ],
     css: {
       preprocessorOptions: {
@@ -76,6 +77,9 @@ export default defineConfig(({ command, mode }) => {
           }),
         ],
       },
+    },
+    test: {
+      exclude: [...configDefaults.exclude],
     },
   }
 })
