@@ -1,0 +1,57 @@
+/* stylelint-disable scss/dollar-variable-empty-line-before */
+$col-primary-light: #000000;
+$col-primary-main: #000000;
+$col-primary-dark: #000000;
+$col-primary-light-rgb: hex-to-rgb($col-primary-light);
+$col-primary-main-rgb: hex-to-rgb($col-primary-main);
+$col-primary-dark-rgb: hex-to-rgb($col-primary-dark);
+
+$col-secondary-light: #000000;
+$col-secondary-main: #000000;
+$col-secondary-dark: #000000;
+$col-secondary-light-rgb: hex-to-rgb($col-secondary-light);
+$col-secondary-main-rgb: hex-to-rgb($col-secondary-main);
+$col-secondary-dark-rgb: hex-to-rgb($col-secondary-dark);
+
+$col-background-light: #ffffff;
+$col-background-main: #ffffff;
+$col-background-dark: #ffffff;
+$col-background-light-rgb: hex-to-rgb($col-background-light);
+$col-background-main-rgb: hex-to-rgb($col-background-main);
+$col-background-dark-rgb: hex-to-rgb($col-background-dark);
+
+$col-error-light: #000000;
+$col-error-main: #000000;
+$col-error-dark: #000000;
+$col-error-light-rgb: hex-to-rgb($col-error-light);
+$col-error-main-rgb: hex-to-rgb($col-error-main);
+$col-error-dark-rgb: hex-to-rgb($col-error-dark);
+
+$col-warning-light: #000000;
+$col-warning-main: #000000;
+$col-warning-right: #000000;
+$col-warning-light-rgb: hex-to-rgb($col-warning-light);
+$col-warning-main-rgb: hex-to-rgb($col-warning-main);
+$col-warning-right-rgb: hex-to-rgb($col-warning-right);
+
+$col-info-light: #000000;
+$col-info-main: #000000;
+$col-info-dark: #000000;
+$col-info-light-rgb: hex-to-rgb($col-info-light);
+$col-info-main-rgb: hex-to-rgb($col-info-main);
+$col-info-dark-rgb: hex-to-rgb($col-info-dark);
+
+$col-success-light: #000000;
+$col-success-main: #000000;
+$col-success-dark: #000000;
+$col-success-light-rgb: hex-to-rgb($col-success-light);
+$col-success-main-rgb: hex-to-rgb($col-success-main);
+$col-success-dark-rgb: hex-to-rgb($col-success-dark);
+
+$col-text-light: #000000;
+$col-text-main: #000000;
+$col-text-dark: #000000;
+$col-text-light-rgb: hex-to-rgb($col-text-light);
+$col-text-main-rgb: hex-to-rgb($col-text-main);
+$col-text-dark-rgb: hex-to-rgb($col-text-dark);
+/* stylelint-enable scss/dollar-variable-empty-line-before */
