@@ -1,5 +1,8 @@
 {
-  "app": {
-    "welcome-title": "Web client template react"
+  "home": {
+    "title": "Home"
+  },
+  "about": {
+    "title": "About"
   }
 }
