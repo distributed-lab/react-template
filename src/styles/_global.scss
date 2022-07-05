@@ -1,0 +1,129 @@
+/* stylelint-disable declaration-no-important */
+/* stylelint-disable unit-disallowed-list */
+
+html {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  font-family: var(--app-font-family);
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  min-height: vh(100);
+  overflow: auto !important;
+  -webkit-overflow-scrolling: touch !important;
+}
+
+body, #root {
+  background-color: var(--app-bg);
+  color: var(--text-primary-main);
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+}
+
+input,
+select,
+textarea {
+  background: var(--app-bg);
+  color: var(--text-primary-main);
+  font-family: var(--app-font-family);
+  font-size: to-rem(16);
+  font-weight: 400;
+
+  &:focus {
+    outline: none;
+  }
+}
+
+body,
+span,
+p,
+a {
+  font-size: to-rem(16);
+}
+
+button {
+  -webkit-appearance: none;
+  background-color: var(--col-background-main);
+  border: none;
+  border-radius: to-rem(52);
+  color: var(--col-text-light);
+  cursor: pointer;
+  font-family: var(--text-font-family);
+  font-size: to-rem(16);
+  -webkit-font-smoothing: inherit;
+  -moz-osx-font-smoothing: inherit;
+  font-weight: 700;
+  line-height: 1.5;
+  margin: 0;
+  outline: 0;
+  overflow: visible;
+  padding: 0;
+  user-select: none;
+  width: auto;
+
+  &::-moz-focus-inner {
+    border: 0;
+    padding: 0;
+  }
+}
+
+ul,
+li,
+body,
+p {
+  color: var(--col-text-main);
+  list-style-type: none;
+}
+
+p {
+  line-height: 2;
+
+  @include respond-to(tablet) { line-height: 1.6; }
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  color: var(--text-primary-main);
+  font-family: var(--app-font-family);
+  font-weight: 600;
+  line-height: 1;
+}
+
+h1 {
+  font-size: to-rem(24);
+}
+
+h2 {
+  font-size: to-rem(20);
+}
+
+h3 {
+  font-size: to-rem(18);
+}
+
+h4 {
+  font-size: to-rem(16);
+}
+
+h5 {
+  font-size: to-rem(14);
+}
+
+a {
+  color: var(--primary-main);
+  font-size: to-rem(16);
+  font-weight: 600;
+  line-height: 1.25;
+  outline: none;
+  text-decoration: none;
+
+  &:hover,
+  &:focus,
+  &:active {
+    text-decoration: none;
+  }
+}
