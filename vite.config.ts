@@ -54,7 +54,6 @@ export default defineConfig(({ command, mode }) => {
           @import "src/styles/_mixins.scss";
           @import "src/styles/_placeholders.scss";
           @import "src/styles/_functions.scss";
-          @import "src/styles/_media.scss";
         `,
         },
       },
