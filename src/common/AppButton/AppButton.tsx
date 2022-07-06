@@ -4,7 +4,7 @@ import { AnchorHTMLAttributes, HTMLAttributes } from 'react'
 import { LinkProps, NavLink } from 'react-router-dom'
 
 import { Icon } from '@/common'
-import { ICON_NAMES } from '@/enums/icon-names.enum'
+import { ICON_NAMES } from '@/enums'
 
 enum SCHEMES {
   primary = 'primary',

@@ -1,8 +1,7 @@
 import './styles.scss'
 
 import { AppButton } from '@/common'
-import { RoutesPaths } from '@/enums'
-import { ICON_NAMES } from '@/enums/icon-names.enum'
+import { ICON_NAMES, RoutesPaths } from '@/enums'
 
 const ButtonsOverview = () => {
   return (

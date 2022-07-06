@@ -2,7 +2,7 @@ import './style.scss'
 
 import { FC, HTMLAttributes } from 'react'
 
-import { ICON_NAMES } from '@/enums/icon-names.enum'
+import { ICON_NAMES } from '@/enums'
 
 interface IconProps extends HTMLAttributes<HTMLOrSVGElement> {
   name: ICON_NAMES
