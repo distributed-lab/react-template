@@ -1,8 +1,11 @@
 {
-  "home": {
-    "title": "Home"
+  "app-navbar": {
+    "buttons-overview-link": "Buttons",
+    "inputs-overview-link": "Inputs",
+    "home-link": "Home"
   },
-  "about": {
-    "title": "About"
+  "buttons-overview": {
+    "primary-btn": "Primary",
+    "flat-btn": "Flat"
   }
 }

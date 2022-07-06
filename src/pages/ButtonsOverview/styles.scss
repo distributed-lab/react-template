@@ -1,0 +1,15 @@
+.buttons-overview {
+  display: grid;
+  grid-gap: to-rem(50);
+  padding: 0 var(--app-padding-right) 0 var(--app-padding-left);
+}
+
+.buttons-overview__row {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.buttons-overview__col {
+  display: grid;
+  grid-gap: to-rem(10);
+}

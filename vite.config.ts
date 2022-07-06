@@ -33,6 +33,9 @@ export default defineConfig(({ command, mode }) => {
         symbolId: '[name]',
       }),
       checker({
+        overlay: {
+          initialIsOpen: false,
+        },
         typescript: true,
         eslint: {
           lintCommand:
