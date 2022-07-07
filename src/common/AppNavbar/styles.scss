@@ -1,7 +1,11 @@
 .app-navbar {
   display: flex;
   align-items: center;
-  padding: to-rem(24) var(--app-padding-right) to-rem(24) var(--app-padding-left);
+  padding:
+    to-rem(24)
+    var(--app-padding-right)
+    to-rem(24)
+    var(--app-padding-left);
   background: var(--app-bg);
   border-bottom: var(--border-primary-main);
 }

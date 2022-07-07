@@ -313,5 +313,7 @@ module.exports = {
     'scss/at-else-closing-brace-space-after': null,
     'declaration-colon-newline-after': null,
     'scss/at-function-pattern': null,
+    'order/properties-order': null,
+    'scss/selector-no-redundant-nesting-selector': null,
   },
 }
