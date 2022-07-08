@@ -8,6 +8,7 @@ import {
   useRef,
   useState,
 } from 'react'
+import { CSSTransition } from 'react-transition-group'
 import { useClickAway } from 'react-use'
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
@@ -35,7 +36,8 @@ const Collapse = forwardRef<CollapseRef, Props>(
     },
     ref,
   ) => {
-    const rootRef = useRef(null)
+    const rootRef = useRef<HTMLDivElement>(null)
+    const bodyRef = useRef<HTMLDivElement>(null)
     const [isCollapseOpen, setIsCollapseOpen] = useState(isOpenedByDefault)
 
     const toggleCollapse = () => {
@@ -63,10 +65,29 @@ const Collapse = forwardRef<CollapseRef, Props>(
       }
     })
 
+    const setHeightCSSVar = () => {
+      bodyRef.current?.style.setProperty(
+        '--collapse-body-height',
+        `${bodyRef.current?.scrollHeight}px`,
+      )
+    }
+
     return (
       <div ref={rootRef} className={`collapse ${className}`} {...rest}>
         <div className='collapse__head'>{head}</div>
-        {isCollapseOpen ? <div className='collapse__body'>{body}</div> : <></>}
+        <CSSTransition
+          nodeRef={bodyRef}
+          in={isCollapseOpen}
+          timeout={250}
+          classNames='collapse__body'
+          unmountOnExit
+          onEnter={setHeightCSSVar}
+          onExited={setHeightCSSVar}
+        >
+          <div ref={bodyRef} className='collapse__body'>
+            {body}
+          </div>
+        </CSSTransition>
       </div>
     )
   },
