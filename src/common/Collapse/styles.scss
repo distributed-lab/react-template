@@ -1,0 +1,21 @@
+.collapse__body {
+  overflow: hidden;
+}
+
+.collapse__body-transition-enter-active {
+  animation: collapse-frame-keyframes 0.25s ease-in-out;
+}
+
+.collapse__body-transition-leave-active {
+  animation: collapse-frame-keyframes 0.25s ease-in-out reverse;
+}
+
+@keyframes collapse-frame-keyframes {
+  from {
+    height: 0;
+  }
+
+  to {
+    height: var(--collapse-body-height);
+  }
+}

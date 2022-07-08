@@ -29,6 +29,9 @@ const ButtonsOverview = () => {
             schemes='primary'
             modifications='icon-first'
             text="'primary, icon-first'"
+            onClick={() => {
+              alert('buttons page')
+            }}
           />
           <AppButton
             className='buttons-overview__button'

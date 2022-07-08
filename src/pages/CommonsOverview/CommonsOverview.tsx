@@ -1,13 +1,23 @@
 import './styles.scss'
 
-import { FC } from 'react'
+import { FC, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { ErrorMessage, Icon, Loader, NoDataMessage } from '@/common'
+import {
+  AppButton,
+  Collapse,
+  ErrorMessage,
+  Icon,
+  Loader,
+  NoDataMessage,
+} from '@/common'
+import { CollapseRef } from '@/common/Collapse'
 import { ICON_NAMES } from '@/enums'
 
 const CommonsOverview: FC = () => {
   const { t } = useTranslation()
+
+  const collapseRef = useRef<CollapseRef>(null)
 
   return (
     <div className='commons-overview'>
@@ -21,6 +31,37 @@ const CommonsOverview: FC = () => {
         <div className='commons-overview__col'>
           <Loader />
         </div>
+      </div>
+      <div className='commons-overview__row'>
+        <div className='commons-overview__col'>
+          <Collapse
+            className='commons-overview__collapse'
+            ref={collapseRef}
+            head={
+              <AppButton
+                className='commons-overview__collapse-btn'
+                schemes='flat'
+                text={t('commons-overview.collapse-btn')}
+                onClick={() => collapseRef.current?.toggleCollapse()}
+              />
+            }
+            body={
+              <div className='commons-overview__collapse-body'>
+                {t('commons-overview.collapse-text')}
+              </div>
+            }
+          />
+        </div>
+        {/*<div class="commons-overview__col">*/}
+        {/* eslint-disable-next-line max-len */}
+        {/*  <app-button text="$t('commons-overview.modal-btn')" @click="isModalShown = true" />*/}
+        {/*<modal v-model:is-shown="isModalShown">*/}
+        {/*  <template #default="{ modal }">*/}
+        {/* eslint-disable-next-line max-len */}
+        {/*    <app-button @click="modal.close" :icon-name="$icons.xCircle" />*/}
+        {/*  </template>*/}
+        {/*</modal>*/}
+        {/*</div>*/}
       </div>
       <div className='commons-overview__row'>
         <div className='commons-overview__col commons-overview__icons-wrp'>
