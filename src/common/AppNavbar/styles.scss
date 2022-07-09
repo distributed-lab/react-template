@@ -22,9 +22,10 @@
 }
 
 .app-navbar__link {
+  position: relative;
   transition: 0.35s ease-in-out;
 
   &.active {
-    transform: translateY(50%);
+    box-shadow: 0 0 to-rem(15) var(--primary-main);
   }
 }

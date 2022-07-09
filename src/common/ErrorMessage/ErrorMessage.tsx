@@ -15,10 +15,11 @@ const ErrorMessage: FC<Props> = ({
   title,
   message,
   iconName = ICON_NAMES.exclamationCircle,
+  className,
   ...rest
 }) => {
   return (
-    <div className='error-message' {...rest}>
+    <div className={`error-message ${className}`} {...rest}>
       <Icon className='error-message__icon' name={iconName} />
       {title ? <h3 className='error-message__title'>{title}</h3> : <></>}
       <p className='error-message__message'>{message}</p>

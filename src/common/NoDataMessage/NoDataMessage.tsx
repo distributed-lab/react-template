@@ -13,10 +13,11 @@ interface Props extends HTMLAttributes<HTMLDivElement> {
 const NoDataMessage: FC<Props> = ({
   message,
   iconName = ICON_NAMES.archive,
+  className,
   ...rest
 }) => {
   return (
-    <div className='no-data-message' {...rest}>
+    <div className={`no-data-message ${className}`} {...rest}>
       <Icon className='no-data-message__icon' name={iconName} />
       <span className='no-data-message__message'>{message}</span>
     </div>

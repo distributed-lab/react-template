@@ -12,7 +12,7 @@ const ButtonsOverview = () => {
             className='buttons-overview__button'
             schemes='primary'
             modifications='border-rounded'
-            icon-name={ICON_NAMES.gift}
+            iconName={ICON_NAMES.gift}
             text="'primary, border-rounded'"
             routePath={RoutesPaths.inputsOverview}
           />
@@ -87,7 +87,7 @@ const ButtonsOverview = () => {
             className='buttons-overview__button'
             schemes='primary'
             modifications='icon-first'
-            icon-name={ICON_NAMES.gift}
+            iconName={ICON_NAMES.gift}
             text="'primary, icon-first'"
           />
           <AppButton
@@ -140,7 +140,7 @@ const ButtonsOverview = () => {
             className='buttons-overview__button'
             schemes='flat'
             modifications='border-rounded'
-            icon-name={ICON_NAMES.gift}
+            iconName={ICON_NAMES.gift}
             text="'flat, border-rounded'"
           />
           <AppButton
@@ -203,7 +203,7 @@ const ButtonsOverview = () => {
             className='buttons-overview__button'
             schemes='flat'
             modifications='icon-first'
-            icon-name={ICON_NAMES.gift}
+            iconName={ICON_NAMES.gift}
             text="'flat, icon-first'"
           />
           <AppButton

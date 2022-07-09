@@ -78,7 +78,11 @@ const AppButton = <R extends string, H extends string>({
         to={routePath}
         {...(rest as HTMLAttributes<HTMLAnchorElement>)}
       >
-        {children || <span className='app-button__text'>{text}</span>}
+        {children || text ? (
+          <span className='app-button__text'>{text}</span>
+        ) : (
+          <></>
+        )}
         {iconName ? (
           <Icon className='app-button__icon' name={iconName} />
         ) : (
@@ -93,7 +97,11 @@ const AppButton = <R extends string, H extends string>({
         href={href}
         {...(rest as HTMLAttributes<HTMLAnchorElement>)}
       >
-        {children || <span className='app-button__text'>{text}</span>}
+        {children || text ? (
+          <span className='app-button__text'>{text}</span>
+        ) : (
+          <></>
+        )}
         {iconName ? (
           <Icon className='app-button__icon' name={iconName} />
         ) : (
@@ -109,7 +117,11 @@ const AppButton = <R extends string, H extends string>({
       disabled={isDisabled}
       {...(rest as HTMLAttributes<HTMLButtonElement>)}
     >
-      {children || <span className='app-button__text'>{text}</span>}
+      {children || text ? (
+        <span className='app-button__text'>{text}</span>
+      ) : (
+        <></>
+      )}
       {iconName ? <Icon className='app-button__icon' name={iconName} /> : <></>}
     </button>
   )

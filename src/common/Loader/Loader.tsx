@@ -2,7 +2,7 @@ import './styles.scss'
 
 import { FC, HTMLAttributes } from 'react'
 
-import { Spinner } from '@/common/Loader/variants'
+import { Spinner } from './variants'
 
 enum SCHEMES {
   spinner = 'spinner',
@@ -12,7 +12,7 @@ interface Props extends HTMLAttributes<HTMLDivElement> {
   scheme?: keyof typeof SCHEMES
 }
 
-const Loader: FC<Props> = ({ scheme, ...rest }) => {
+const Loader: FC<Props> = ({ scheme, className, ...rest }) => {
   let variant
 
   switch (scheme) {
@@ -21,7 +21,7 @@ const Loader: FC<Props> = ({ scheme, ...rest }) => {
   }
 
   return (
-    <div className='loader' {...rest}>
+    <div className={`loader ${className}`} {...rest}>
       {variant}
     </div>
   )

@@ -1,23 +1,25 @@
 import './styles.scss'
 
-import { FC, useRef } from 'react'
+import { FC, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import {
   AppButton,
   Collapse,
+  CollapseRef,
   ErrorMessage,
   Icon,
   Loader,
+  Modal,
   NoDataMessage,
 } from '@/common'
-import { CollapseRef } from '@/common/Collapse'
 import { ICON_NAMES } from '@/enums'
 
 const CommonsOverview: FC = () => {
   const { t } = useTranslation()
 
   const collapseRef = useRef<CollapseRef>(null)
+  const [isModalShown, setIsModalShown] = useState(false)
 
   return (
     <div className='commons-overview'>
@@ -52,16 +54,15 @@ const CommonsOverview: FC = () => {
             }
           />
         </div>
-        {/*<div class="commons-overview__col">*/}
-        {/* eslint-disable-next-line max-len */}
-        {/*  <app-button text="$t('commons-overview.modal-btn')" @click="isModalShown = true" />*/}
-        {/*<modal v-model:is-shown="isModalShown">*/}
-        {/*  <template #default="{ modal }">*/}
-        {/* eslint-disable-next-line max-len */}
-        {/*    <app-button @click="modal.close" :icon-name="$icons.xCircle" />*/}
-        {/*  </template>*/}
-        {/*</modal>*/}
-        {/*</div>*/}
+        <div className='commons-overview__col'>
+          <AppButton
+            text={t('commons-overview.modal-btn')}
+            onClick={() => setIsModalShown(true)}
+          />
+          <Modal isShown={isModalShown} setIsShown={setIsModalShown}>
+            <AppButton iconName={ICON_NAMES.xCircle} />
+          </Modal>
+        </div>
       </div>
       <div className='commons-overview__row'>
         <div className='commons-overview__col commons-overview__icons-wrp'>

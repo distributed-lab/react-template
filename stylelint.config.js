@@ -315,5 +315,6 @@ module.exports = {
     'scss/at-function-pattern': null,
     'order/properties-order': null,
     'scss/selector-no-redundant-nesting-selector': null,
+    'color-function-notation': null,
   },
 }
