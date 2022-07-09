@@ -1,4 +1,4 @@
-import { AppNavbar } from '@/common'
+import { AppNavbar, Notification } from '@/common'
 import { useViewportSizes } from '@/hooks'
 import { AppRoutes } from '@/routes'
 
@@ -9,6 +9,7 @@ export const App = () => {
     <div className='app'>
       <AppNavbar className='app__navbar' />
       <AppRoutes />
+      <Notification />
     </div>
   )
 }

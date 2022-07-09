@@ -1,9 +1,13 @@
 import './styles.scss'
 
+import { useTranslation } from 'react-i18next'
+
 import { AppButton } from '@/common'
 import { ICON_NAMES, RoutesPaths } from '@/enums'
+import { Bus, ErrorHandler } from '@/helpers'
 
 const ButtonsOverview = () => {
+  const { t } = useTranslation()
   return (
     <div className='buttons-overview'>
       <div className='buttons-overview__row'>
@@ -50,24 +54,36 @@ const ButtonsOverview = () => {
             schemes='primary'
             modifications='success'
             text="'primary, success'"
+            onClick={() => {
+              Bus.success(t('yopta'))
+            }}
           />
           <AppButton
             className='buttons-overview__button'
             schemes='primary'
             modifications='error'
             text="'primary, error'"
+            onClick={() => {
+              Bus.error(t('yopta'))
+            }}
           />
           <AppButton
             className='buttons-overview__button'
             schemes='primary'
             modifications='warning'
             text="'primary, warning'"
+            onClick={() => {
+              Bus.warning(t('yopta'))
+            }}
           />
           <AppButton
             className='buttons-overview__button'
             schemes='primary'
             modifications='info'
             text="'primary, info'"
+            onClick={() => {
+              Bus.info(t('yopta'))
+            }}
           />
         </div>
         <div className='buttons-overview__col'>
@@ -76,6 +92,9 @@ const ButtonsOverview = () => {
             schemes='primary'
             modifications='border-circle success'
             text="'primary, border-circle, success'"
+            onClick={() =>
+              ErrorHandler.process(new Error('some error by error handler'))
+            }
           />
           <AppButton
             className='buttons-overview__button'

@@ -28,11 +28,13 @@
     "i18next": "^21.8.11",
     "lodash-es": "^4.17.21",
     "loglevel": "^1.8.0",
+    "mitt": "^3.0.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-i18next": "^11.17.4",
     "react-redux": "^7.2.6",
     "react-router-dom": "^6.3.0",
+    "react-toastify": "^9.0.5",
     "react-transition-group": "^4.4.2",
     "react-use": "^17.4.0"
   },
