@@ -1,0 +1,15 @@
+.inputs-overview {
+  display: grid;
+  grid-gap: to-rem(50);
+  padding: 0 var(--app-padding-left) 0 var(--app-padding-right);
+}
+
+.inputs-overview__row {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.inputs-overview__col {
+  display: grid;
+  grid-gap: to-rem(10);
+}
