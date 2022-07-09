@@ -1,6 +1,7 @@
 .commons-overview {
   display: grid;
   grid-gap: to-rem(48);
+  padding: 0 var(--app-padding-left) 0 var(--app-padding-right);
 }
 
 .commons-overview__row {

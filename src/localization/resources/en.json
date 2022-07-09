@@ -19,6 +19,11 @@
     "inputs-overview-link": "Inputs",
     "commons-link": "Commons"
   },
+  "inputs-overview": {
+    "some-placeholder": "placeholder",
+    "some-label": "label",
+    "some-error-message": "error-message"
+  },
   "commons-overview": {
     "modal-btn": "Open modal",
     "collapse-btn": "Toggle Collapse",
