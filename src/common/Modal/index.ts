@@ -1,3 +1,4 @@
-import Modal from './Modal'
+import Modal, { ModalRef } from './Modal'
 
 export default Modal
+export type { ModalRef }

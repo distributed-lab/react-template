@@ -1,6 +1,13 @@
 import './styles.scss'
 
-import { Dispatch, HTMLAttributes, SetStateAction, useRef } from 'react'
+import {
+  Dispatch,
+  forwardRef,
+  HTMLAttributes,
+  SetStateAction,
+  useImperativeHandle,
+  useRef,
+} from 'react'
 import { createPortal } from 'react-dom'
 import { CSSTransition } from 'react-transition-group'
 import { useClickAway } from 'react-use'
@@ -13,38 +20,58 @@ interface Props extends HTMLAttributes<HTMLDivElement> {
 
 const modalRoot = document.getElementById('modal') as HTMLElement
 
-const Modal = ({
-  isShown,
-  setIsShown,
-  isCloseByClickOutside = true,
-  children,
-  ...rest
-}: Props) => {
-  const modalRef = useRef(null)
-  const modalPaneRef = useRef(null)
+export interface ModalRef {
+  closeModal: () => void
+}
 
-  useClickAway(modalPaneRef, () => {
-    if (isCloseByClickOutside) {
+const Modal = forwardRef(
+  (
+    {
+      isShown,
+      setIsShown,
+      isCloseByClickOutside = true,
+      children,
+      ...rest
+    }: Props,
+    ref,
+  ) => {
+    const modalRef = useRef(null)
+    const modalPaneRef = useRef(null)
+
+    useClickAway(modalPaneRef, () => {
+      if (isCloseByClickOutside) {
+        setIsShown(false)
+      }
+    })
+
+    const closeModal = () => {
       setIsShown(false)
     }
-  })
 
-  return createPortal(
-    <CSSTransition
-      nodeRef={modalRef}
-      in={isShown}
-      timeout={250}
-      classNames='modal'
-      unmountOnExit
-    >
-      <div ref={modalRef} className='modal' {...rest}>
-        <div ref={modalPaneRef} className='modal__pane'>
-          {children}
+    useImperativeHandle(
+      ref,
+      (): ModalRef => ({
+        closeModal,
+      }),
+    )
+
+    return createPortal(
+      <CSSTransition
+        nodeRef={modalRef}
+        in={isShown}
+        timeout={250}
+        classNames='modal'
+        unmountOnExit
+      >
+        <div ref={modalRef} className='modal' {...rest}>
+          <div ref={modalPaneRef} className='modal__pane'>
+            {children}
+          </div>
         </div>
-      </div>
-    </CSSTransition>,
-    modalRoot,
-  )
-}
+      </CSSTransition>,
+      modalRoot,
+    )
+  },
+)
 
 export default Modal

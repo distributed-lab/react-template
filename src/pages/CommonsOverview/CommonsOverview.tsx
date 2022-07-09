@@ -11,6 +11,7 @@ import {
   Icon,
   Loader,
   Modal,
+  ModalRef,
   NoDataMessage,
 } from '@/common'
 import { ICON_NAMES } from '@/enums'
@@ -19,6 +20,7 @@ const CommonsOverview: FC = () => {
   const { t } = useTranslation()
 
   const collapseRef = useRef<CollapseRef>(null)
+  const modalRef = useRef<ModalRef>(null)
   const [isModalShown, setIsModalShown] = useState(false)
 
   return (
@@ -59,8 +61,17 @@ const CommonsOverview: FC = () => {
             text={t('commons-overview.modal-btn')}
             onClick={() => setIsModalShown(true)}
           />
-          <Modal isShown={isModalShown} setIsShown={setIsModalShown}>
-            <AppButton iconName={ICON_NAMES.xCircle} />
+          <Modal
+            ref={modalRef}
+            isShown={isModalShown}
+            setIsShown={setIsModalShown}
+          >
+            <AppButton
+              iconName={ICON_NAMES.xCircle}
+              onClick={() => {
+                modalRef.current?.closeModal()
+              }}
+            />
           </Modal>
         </div>
       </div>
