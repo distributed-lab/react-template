@@ -21,7 +21,8 @@
       "node",
       "vite/client",
       "@types/lodash-es",
-      "vitest/globals"
+      "vitest/globals",
+      "@types/react-transition-group"
     ],
     "paths": {
       "@/*": ["src/*"],

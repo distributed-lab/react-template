@@ -1,0 +1,175 @@
+.app-button {
+  --button-transition-duration: 0.2s;
+
+  outline: 0;
+  font-family: var(--app-font-family);
+  margin: 0;
+  cursor: pointer;
+  user-select: none;
+  overflow: hidden;
+  display: grid;
+  width: min-content;
+  grid: auto / auto-flow max-content;
+  grid-gap: to-rem(12);
+  align-items: center;
+  justify-content: center;
+  padding: to-rem(16) to-rem(30);
+  font-size: to-rem(16);
+  line-height: 1.4;
+  font-weight: 600;
+  letter-spacing: 0;
+  transition: var(--button-transition-duration) ease-in;
+  transition-property: background-color, color;
+  text-decoration: none;
+  border: var(--app-button-border);
+  background-color: var(--app-button-bg);
+  color: var(--app-button-text);
+
+  &:disabled,
+  &--disabled {
+    cursor: not-allowed;
+    pointer-events: none;
+    filter: grayscale(0.75);
+    opacity: 0.5;
+  }
+
+  &:not([disabled]):hover,
+  &:not([disabled]):focus {
+    text-decoration: none;
+    transition-timing-function: ease-out;
+    color: var(--app-button-text-hover);
+    background-color: var(--app-button-bg-hover);
+    border-color: var(--app-button-border-hover);
+    border: var(--app-button-border-hover);
+  }
+
+  &:not([disabled]):active {
+    text-decoration: none;
+    transition-timing-function: ease-out;
+    background-color: var(--app-button-bg-active);
+    border: var(--app-button-border-active);
+  }
+
+  &--primary {
+    --app-button-primary-bg: var(--primary-main);
+    --app-button-primary-bg-hover: var(--primary-dark);
+    --app-button-primary-bg-active: var(--primary-dark);
+
+    --app-button-primary-text: var(--text-primary-invert-main);
+    --app-button-primary-text-hover: var(--text-primary-invert-main);
+
+    --app-button-bg: var(--app-button-primary-bg);
+    --app-button-bg-hover: var(--app-button-primary-bg-hover);
+    --app-button-bg-active: var(--app-button-primary-bg-active);
+
+    --app-button-text: var(--app-button-primary-text);
+    --app-button-text-hover: var(--app-button-primary-text-hover);
+
+    --app-button-border: 0;
+    --app-button-border-hover: 0;
+    --app-button-border-active: 0;
+  }
+
+  &--flat {
+    --app-button-flat-text: var(--text-primary-main);
+    --app-button-flat-text-hover: var(--text-primary-dark);
+
+    --app-button-flat-border: #{to-rem(2)} solid var(--text-primary-light);
+    --app-button-flat-border-hover: var(--app-button-flat-border);
+    --app-button-flat-border-active: var(--app-button-flat-border);
+
+    --app-button-bg: transparent;
+    --app-button-bg-hover: transparent;
+    --app-button-bg-active: transparent;
+
+    --app-button-text: var(--app-button-flat-text);
+    --app-button-text-hover: var(--app-button-flat-text-hover);
+
+    --app-button-border: var(--app-button-flat-border);
+    --app-button-border-hover: var(--app-button-flat-border-hover);
+    --app-button-border-active: var(--app-button-flat-border-active);
+  }
+
+  &--success {
+    --app-button-flat-text: var(--success-main);
+    --app-button-flat-text-hover: var(--success-dark);
+    --app-button-flat-border: #{to-rem(2)} solid var(--success-main);
+    --app-button-flat-border-hover: #{to-rem(2)} solid var(--success-dark);
+    --app-button-flat-border-active: #{to-rem(2)} solid var(--success-dark);
+
+    --app-button-primary-bg: var(--success-main);
+    --app-button-primary-bg-hover: var(--success-dark);
+    --app-button-primary-bg-active: var(--success-dark);
+  }
+
+  &--error {
+    --app-button-flat-text: var(--error-main);
+    --app-button-flat-text-hover: var(--error-dark);
+    --app-button-flat-border: #{to-rem(2)} solid var(--error-main);
+    --app-button-flat-border-hover: #{to-rem(2)} solid var(--error-dark);
+    --app-button-flat-border-active: #{to-rem(2)} solid var(--error-dark);
+
+    --app-button-primary-bg: var(--error-main);
+    --app-button-primary-bg-hover: var(--error-dark);
+    --app-button-primary-bg-active: var(--error-dark);
+  }
+
+  &--warning {
+    --app-button-flat-text: var(--warning-main);
+    --app-button-flat-text-hover: var(--warning-dark);
+    --app-button-flat-border: #{to-rem(2)} solid var(--warning-dark);
+    --app-button-flat-border-hover: #{to-rem(2)} solid var(--warning-dark);
+    --app-button-flat-border-active: #{to-rem(2)} solid var(--warning-dark);
+
+    --app-button-primary-bg: var(--warning-main);
+    --app-button-primary-bg-hover: var(--warning-dark);
+    --app-button-primary-bg-active: var(--warning-dark);
+  }
+
+  &--info {
+    --app-button-flat-text: var(--info-main);
+    --app-button-flat-text-hover: var(--info-dark);
+    --app-button-flat-border: #{to-rem(2)} solid var(--info-main);
+    --app-button-flat-border-hover: #{to-rem(2)} solid var(--info-dark);
+    --app-button-flat-border-active: #{to-rem(2)} solid var(--info-dark);
+
+    --app-button-primary-bg: var(--info-main);
+    --app-button-primary-bg-hover: var(--info-dark);
+    --app-button-primary-bg-active: var(--info-dark);
+  }
+
+  &--border-circle {
+    border-radius: to-rem(50);
+  }
+
+  &--border-rounded {
+    border-radius: to-rem(10);
+  }
+
+  &--big {
+    padding: to-rem(20) to-rem(30);
+  }
+
+  &--small {
+    padding: to-rem(8) to-rem(30);
+  }
+}
+
+.app-button .app-button__icon {
+  height: 1.2em;
+  width: 1.2em;
+
+  .app-button--icon-first & {
+    grid-column: -1;
+  }
+}
+
+.app-button__text {
+  color: inherit;
+  font: inherit;
+  pointer-events: none;
+  word-break: break-all;
+  min-width: 0;
+
+  @extend %text-ellipsis;
+}

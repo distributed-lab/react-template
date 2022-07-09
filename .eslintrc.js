@@ -90,5 +90,6 @@ module.exports = {
         allow: ['warn', 'error'],
       },
     ],
+    'react/display-name': 'off',
   },
 }

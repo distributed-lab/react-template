@@ -1,0 +1,31 @@
+.app-navbar {
+  display: flex;
+  align-items: center;
+  padding:
+    to-rem(24)
+    var(--app-padding-right)
+    to-rem(24)
+    var(--app-padding-left);
+  background: var(--app-bg);
+  border-bottom: var(--border-primary-main);
+}
+
+.app-navbar__logo {
+  max-width: to-rem(250);
+}
+
+.app-navbar__links-section {
+  display: flex;
+  align-items: center;
+  gap: to-rem(24);
+  margin: 0 auto;
+}
+
+.app-navbar__link {
+  position: relative;
+  transition: 0.35s ease-in-out;
+
+  &.active {
+    box-shadow: 0 0 to-rem(15) var(--primary-main);
+  }
+}

@@ -1,0 +1,15 @@
+.no-data-message {
+  display: grid;
+  place-items: center;
+  grid-gap: to-rem(12);
+}
+
+.no-data-message__icon {
+  color: var(--text-primary-light);
+  font-size: to-rem(48);
+}
+
+.no-data-message__message {
+  color: var(--text-primary-light);
+  font-size: to-rem(18);
+}

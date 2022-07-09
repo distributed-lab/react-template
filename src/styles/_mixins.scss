@@ -1,12 +1,15 @@
 @use 'sass:map';
 
 $media-breakpoints: (
-  xs: 430px,
-  sm: 600px,
-  md: 900px,
-  xm: 1200px,
-  lg: 1536px,
-  xl: 1920px,
+  xsmall: 480px,
+  small: 600px,
+  tablet: 868px,
+  medium: 1024px,
+  xmedium: 1280px,
+  large: 1400px,
+  xlarge: 1920px,
+  xlarge2k: 2048px,
+  xlarge4k: 4096px,
 );
 
 @mixin respond-above($media) {
