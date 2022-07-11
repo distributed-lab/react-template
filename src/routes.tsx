@@ -3,9 +3,6 @@ import { lazy, Suspense } from 'react'
 import { Navigate, Route, Routes, useLocation } from 'react-router-dom'
 
 import { RoutesPaths } from '@/enums'
-// import ButtonsOverview from '@/pages/ButtonsOverview'
-// import CommonsOverview from '@/pages/CommonsOverview'
-// import InputsOverview from '@/pages/InputsOverview'
 
 export const AppRoutes = () => {
   const ButtonsOverview = lazy(() => import('@/pages/ButtonsOverview'))
