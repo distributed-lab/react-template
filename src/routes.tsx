@@ -22,9 +22,9 @@ export const AppRoutes = () => {
             path={RoutesPaths.buttonsOverview}
             element={
               <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
+                initial={{ opacity: 0, height: '200vh' }}
+                animate={{ opacity: 1, height: '100%' }}
+                exit={{ opacity: 0, height: '200vh' }}
               >
                 <ButtonsOverview />
               </motion.div>
@@ -34,9 +34,9 @@ export const AppRoutes = () => {
             path={RoutesPaths.inputsOverview}
             element={
               <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
+                initial={{ opacity: 0, height: '200vh' }}
+                animate={{ opacity: 1, height: '100%' }}
+                exit={{ opacity: 0, height: '200vh' }}
               >
                 <InputsOverview />
               </motion.div>
@@ -46,9 +46,9 @@ export const AppRoutes = () => {
             path={RoutesPaths.commonsOverview}
             element={
               <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
+                initial={{ opacity: 0, height: '200vh' }}
+                animate={{ opacity: 1, height: '100%' }}
+                exit={{ opacity: 0, height: '200vh' }}
               >
                 <CommonsOverview />
               </motion.div>
