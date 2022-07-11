@@ -31,6 +31,12 @@ const AppNavbar: FC<HTMLAttributes<HTMLDivElement>> = ({
         <AppButton
           className='app-navbar__link'
           schemes='flat'
+          text={t('app-navbar.forms-overview-link')}
+          routePath={RoutesPaths.formsOverview}
+        />
+        <AppButton
+          className='app-navbar__link'
+          schemes='flat'
           text={t('app-navbar.commons-link')}
           routePath={RoutesPaths.commonsOverview}
         />
