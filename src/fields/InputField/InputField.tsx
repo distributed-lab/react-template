@@ -141,8 +141,8 @@ const InputField: FC<Props> = ({
           type={isPasswordType && isPasswordShown ? 'text' : type}
           min={min}
           max={max}
-          {...rest}
           disabled={isDisabled || isReadonly}
+          {...rest}
         />
         {isPasswordType || iconName ? (
           <div className='input-field__icon-wrp'>

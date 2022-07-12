@@ -1,0 +1,34 @@
+.select-field {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  width: 100%;
+  flex: 1;
+
+  &--disabled,
+  &--readonly {
+    opacity: 0.5;
+  }
+}
+
+.select-field__err-msg {
+  @include field-error;
+}
+
+.select-field__err-msg-transition-enter {
+  animation: fade-down var(--field-transition-duration);
+}
+
+.select-field__err-msg-transition-exit {
+  animation: fade-down var(--field-transition-duration) reverse;
+}
+
+@keyframes fade-down {
+  from {
+    height: 0;
+  }
+
+  to {
+    height: var(--field-error-msg-height);
+  }
+}

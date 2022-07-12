@@ -3,10 +3,11 @@ import './styles.scss'
 import { FC, HTMLAttributes, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { CheckboxField, InputField } from '@/fields'
+import { CheckboxField, InputField, SelectField } from '@/fields'
 
 const InputsOverview: FC<HTMLAttributes<HTMLDivElement>> = () => {
-  const [simple, setSimple] = useState<string | number>('')
+  const [simpleInput, setSimpleInput] = useState<string | number>('')
+  const [simpleSelect, setSimpleSelect] = useState<string | number>('')
   const [isChecked, setIsChecked] = useState(false)
 
   const { t } = useTranslation()
@@ -16,28 +17,28 @@ const InputsOverview: FC<HTMLAttributes<HTMLDivElement>> = () => {
       <div className='inputs-overview__row'>
         <div className='inputs-overview__col'>
           <InputField
-            value={simple}
-            setValue={setSimple}
+            value={simpleInput}
+            setValue={setSimpleInput}
             label={t('inputs-overview.some-label')}
             placeholder={t('inputs-overview.some-placeholder')}
           />
           <InputField
-            value={simple}
-            setValue={setSimple}
+            value={simpleInput}
+            setValue={setSimpleInput}
             label={t('inputs-overview.some-label')}
-            errorMessage={simple as string}
+            errorMessage={simpleInput as string}
             placeholder={t('inputs-overview.some-placeholder')}
           />
           <InputField
-            value={simple}
-            setValue={setSimple}
+            value={simpleInput}
+            setValue={setSimpleInput}
             label={t('inputs-overview.some-label')}
             placeholder={t('inputs-overview.some-placeholder')}
             disabled
           />
           <InputField
-            value={simple}
-            setValue={setSimple}
+            value={simpleInput}
+            setValue={setSimpleInput}
             label={t('inputs-overview.some-label')}
             errorMessage={t('inputs-overview.some-error-message')}
             placeholder={t('inputs-overview.some-placeholder')}
@@ -48,6 +49,19 @@ const InputsOverview: FC<HTMLAttributes<HTMLDivElement>> = () => {
             setValue={setIsChecked}
             label={t('inputs-overview.some-label')}
           />
+          <SelectField
+            value={simpleSelect}
+            setValue={setSimpleSelect}
+            label={t('inputs-overview.some-label')}
+            errorMessage={simpleSelect as string}
+          >
+            <option value=''>select field</option>
+            <option value='1'>1</option>
+            <option value='2'>2</option>
+            <option value='3'>3</option>
+            <option value='4'>4</option>
+            <option value='5'>5</option>
+          </SelectField>
         </div>
       </div>
     </div>
