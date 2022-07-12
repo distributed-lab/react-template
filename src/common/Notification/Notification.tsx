@@ -39,18 +39,18 @@ const Notification = () => {
     let iconName: ICON_NAMES | undefined
 
     const defaultTitles = {
-      [TYPE.success]: t('notification.default-title-success'),
-      [TYPE.error]: t('notification.default-title-error'),
-      [TYPE.warning]: t('notification.default-title-warning'),
-      [TYPE.info]: t('notification.default-title-info'),
-      [TYPE.default]: t('notification.default-title-default'),
+      [TYPE.success]: t('notifications.default-title-success'),
+      [TYPE.error]: t('notifications.default-title-error'),
+      [TYPE.warning]: t('notifications.default-title-warning'),
+      [TYPE.info]: t('notifications.default-title-info'),
+      [TYPE.default]: t('notifications.default-title-default'),
     }
     const defaultMessages = {
-      [TYPE.default]: t('notification.default-message-default'),
-      [TYPE.info]: t('notification.default-message-info'),
-      [TYPE.success]: t('notification.default-message-success'),
-      [TYPE.error]: t('notification.default-message-error'),
-      [TYPE.warning]: t('notification.default-message-warning'),
+      [TYPE.default]: t('notifications.default-message-default'),
+      [TYPE.info]: t('notifications.default-message-info'),
+      [TYPE.success]: t('notifications.default-message-success'),
+      [TYPE.error]: t('notifications.default-message-error'),
+      [TYPE.warning]: t('notifications.default-message-warning'),
     }
     const defaultIconNames = {
       [TYPE.default]: ICON_NAMES.informationCircle,
