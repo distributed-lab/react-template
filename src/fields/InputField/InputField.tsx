@@ -29,7 +29,7 @@ enum SCHEMES {
 interface Props extends HTMLAttributes<HTMLInputElement> {
   value: string | number
   setValue: Dispatch<SetStateAction<string | number>>
-  type?: INPUT_TYPES
+  type?: string
   schemes?: SCHEMES
   label?: string
   placeholder?: string

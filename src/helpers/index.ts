@@ -1,2 +1,3 @@
-export * from './error-handler'
-export * from './event-bus'
+export * from './errorHandler'
+export * from './eventBus'
+export * from './promise.helpers'

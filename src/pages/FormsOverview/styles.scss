@@ -1,0 +1,11 @@
+.forms-overview {
+  display: grid;
+  grid-gap: to-rem(48);
+  padding: 0 var(--app-padding-left) 0 var(--app-padding-right);
+}
+
+.forms-overview__row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: to-rem(24);
+}
