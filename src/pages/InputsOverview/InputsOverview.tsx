@@ -3,10 +3,11 @@ import './styles.scss'
 import { FC, HTMLAttributes, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { InputField } from '@/fields'
+import { CheckboxField, InputField } from '@/fields'
 
 const InputsOverview: FC<HTMLAttributes<HTMLDivElement>> = () => {
   const [simple, setSimple] = useState<string | number>('')
+  const [isChecked, setIsChecked] = useState(false)
 
   const { t } = useTranslation()
 
@@ -41,6 +42,11 @@ const InputsOverview: FC<HTMLAttributes<HTMLDivElement>> = () => {
             errorMessage={t('inputs-overview.some-error-message')}
             placeholder={t('inputs-overview.some-placeholder')}
             disabled
+          />
+          <CheckboxField
+            value={isChecked}
+            setValue={setIsChecked}
+            label={t('inputs-overview.some-label')}
           />
         </div>
       </div>
