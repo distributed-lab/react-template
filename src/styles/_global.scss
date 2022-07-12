@@ -43,25 +43,29 @@ a {
 }
 
 button {
-  -webkit-appearance: none;
-  background-color: var(--col-background-main);
   border: none;
-  border-radius: to-rem(52);
-  color: var(--col-text-light);
+  width: auto;
+  overflow: visible;
   cursor: pointer;
-  font-family: var(--text-font-family);
-  font-size: to-rem(16);
+  user-select: none;
+  background: transparent;
+  font-family: var(--app-font-family);
+  font-size: toRem(16);
+  color: var(--text-primary-main);
+  line-height: 1.5;
+  font-weight: 600;
+  outline: 0;
+  margin: 0;
+  padding: 0;
+
+  /* Corrects font smoothing for webkit */
   -webkit-font-smoothing: inherit;
   -moz-osx-font-smoothing: inherit;
-  font-weight: 700;
-  line-height: 1.5;
-  margin: 0;
-  outline: 0;
-  overflow: visible;
-  padding: 0;
-  user-select: none;
-  width: auto;
 
+  /* Corrects inability to style clickable `input` types in iOS */
+  -webkit-appearance: none;
+
+  /* Remove excess padding and border in Firefox 4+ */
   &::-moz-focus-inner {
     border: 0;
     padding: 0;
