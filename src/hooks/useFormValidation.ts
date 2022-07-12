@@ -25,14 +25,6 @@ type ValidationFieldState = {
 
 type ValidationState = Record<keyof FormSchema, ValidationFieldState>
 
-/**
- * Нужно, чтобы, в зависимости от formSchema, установились начальные значения
- * состояния валидации, и если будут ошибки, то после touch сообщение появится
- *
- * Дальше, к этому моменту состояние должно было иметь актуальные данные
- * @param formSchema
- * @param validationRules
- */
 export const useFormValidation = (
   formSchema: FormSchema,
   // FIXME
@@ -51,19 +43,11 @@ export const useFormValidation = (
       }),
       {},
     )
-  }, [])
+  }, [validationRules])
 
   const [validationState, setValidationState] = useState<ValidationState>(
     validationDefaultState,
   )
-
-  useEffect(() => {
-    setValidationState(validationState => {
-      const newState = getValidationState()
-
-      return isEqual(validationState, newState) ? validationState : newState
-    })
-  }, [formSchema, validationState])
 
   const getValidationState = useCallback((): ValidationState => {
     return Object.keys(validationRules).reduce((acc, fieldName) => {
@@ -74,7 +58,16 @@ export const useFormValidation = (
         ...validateResult,
       }
     }, {})
-  }, [formSchema])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [formSchema, validationRules, validationState])
+
+  useEffect(() => {
+    setValidationState(validationState => {
+      const newState = getValidationState()
+
+      return isEqual(validationState, newState) ? validationState : newState
+    })
+  }, [getValidationState, formSchema, validationState])
 
   const _validateField = (fieldName: string): ValidationState => {
     const fieldValidators = validationRules[fieldName]
@@ -138,7 +131,7 @@ export const useFormValidation = (
         ''
       )
     },
-    [formSchema],
+    [validationState],
   )
 
   const touchField = (fieldPath: string): void => {

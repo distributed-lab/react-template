@@ -18,10 +18,14 @@ export const required: Validator = value => ({
 
 export const minLength: ValidatorFunc = (length: number) => value => ({
   isValid: String(value).length >= length,
-  message: i18n.t('validations.field-error_minLength'),
+  message: i18n.t('validations.field-error_minLength', {
+    minLength: length,
+  }),
 })
 
 export const maxLength: ValidatorFunc = (length: number) => value => ({
   isValid: String(value).length <= length,
-  message: i18n.t('validations.field-error_maxLength'),
+  message: i18n.t('validations.field-error_maxLength', {
+    maxLength: length,
+  }),
 })

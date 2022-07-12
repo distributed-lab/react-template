@@ -1,7 +1,8 @@
 {
   "validations": {
     "field-error_required": "Please fill out this field",
-    "field-error_email": "Field must be a valid email"
+    "field-error_minLength": "This field must contain minimum {{minLength}} symbols",
+    "field-error_maxLength": "This field must contain maximum {{maxLength}} symbols"
   },
   "errors": {
     "default": "Something went wrong"
