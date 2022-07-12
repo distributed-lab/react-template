@@ -11,10 +11,8 @@ import { maxLength, minLength, required } from '@/validators'
 
 const LoginForm = () => {
   const { t } = useTranslation()
-  const [login, setLogin] = useState<string | number>('qwerty')
-  const [password, setPassword] = useState<string | number>(
-    'qwertyqwertyqwertyqwertyqwertyqwertyqwertyqwertyqwertyqwerty',
-  )
+  const [login, setLogin] = useState<string | number>('')
+  const [password, setPassword] = useState<string | number>('')
 
   const { isFormDisabled, disableForm, enableForm } = useForm()
   const { isFormValid, getFieldErrorMessage, touchField } = useFormValidation(

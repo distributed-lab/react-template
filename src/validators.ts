@@ -3,11 +3,6 @@ import { isBoolean, isDate, isEmpty, isNumber } from 'lodash-es'
 import { Validator } from '@/hooks'
 import i18n from '@/localization'
 
-interface ValidationResult {
-  isValid: boolean
-  message: string
-}
-
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type ValidatorFunc = (...params: any[]) => Validator
 
