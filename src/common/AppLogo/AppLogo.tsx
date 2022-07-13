@@ -12,7 +12,7 @@ const AppLogo: FC<HTMLAttributes<HTMLDivElement>> = ({
 }) => {
   return (
     <div className={`app-logo ${className}`} {...rest}>
-      <img src='/branding/logo.png' alt={config.APP_NAME} />
+      <img src='/branding/logo.svg' alt={config.APP_NAME} />
       <Link className='app-logo__link' to={RoutesPaths.buttonsOverview} />
     </div>
   )
