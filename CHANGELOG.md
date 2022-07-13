@@ -42,6 +42,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [Fields](src/fields)
   - [InputField](src/fields/InputField)
   - [CheckboxField](src/fields/CheckboxField)
+  - [SelectField](src/fields/SelectField)
 - [hooks](src/hooks)
   - [useForm](src/hooks/useForm.ts)
   - [useFormValidation](src/hooks/useFormValidation.ts)
