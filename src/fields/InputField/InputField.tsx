@@ -3,7 +3,7 @@ import './styles.scss'
 import {
   Dispatch,
   FC,
-  FormEventHandler,
+  FormEvent,
   HTMLAttributes,
   SetStateAction,
   useRef,
@@ -87,7 +87,7 @@ const InputField: FC<Props> = ({
     ].map(el => `input-field--${el}`),
   ].join(' ')
 
-  const onInput = (event: Event) => {
+  const onInput = (event: FormEvent<HTMLInputElement>) => {
     const eventTarget = event.target as HTMLInputElement
     if (isNumberType) {
       eventTarget.value = normalizeRange(eventTarget.value)
@@ -134,8 +134,7 @@ const InputField: FC<Props> = ({
           id={`input-field__input-${uid}`}
           className='input-field__input'
           value={value}
-          // FIXME
-          onInput={onInput as unknown as FormEventHandler<HTMLInputElement>}
+          onInput={e => onInput(e)}
           placeholder={placeholder}
           tabIndex={isDisabled || isReadonly ? -1 : tabindex}
           type={isPasswordType && isPasswordShown ? 'text' : type}
