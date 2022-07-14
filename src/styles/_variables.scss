@@ -17,18 +17,30 @@
     --success-light: #{$success-light};
     --success-main: #{$success-main};
     --success-dark: #{$success-dark};
+    --success-light-rgb: #{$success-light-rgb};
+    --success-main-rgb: #{$success-main-rgb};
+    --success-dark-rgb: #{$success-dark-rgb};
 
     --error-light: #{$error-light};
     --error-main: #{$error-main};
     --error-dark: #{$error-dark};
+    --error-light-rgb: #{$error-light-rgb};
+    --error-main-rgb: #{$error-main-rgb};
+    --error-dark-rgb: #{$error-dark-rgb};
 
     --warning-light: #{$warning-light};
     --warning-main: #{$warning-main};
     --warning-dark: #{$warning-dark};
+    --warning-light-rgb: #{$warning-light-rgb};
+    --warning-main-rgb: #{$warning-main-rgb};
+    --warning-dark-rgb: #{$warning-dark-rgb};
 
     --info-light: #{$info-light};
     --info-main: #{$info-main};
     --info-dark: #{$info-dark};
+    --info-light-rgb: #{$info-light-rgb};
+    --info-main-rgb: #{$info-main-rgb};
+    --info-dark-rgb: #{$info-dark-rgb};
   }
 
   /* brand colors */
@@ -36,14 +48,23 @@
     --primary-light: #{$primary-light};
     --primary-main: #{$primary-main};
     --primary-dark: #{$primary-dark};
+    --primary-light-rgb: #{$primary-light-rgb};
+    --primary-main-rgb: #{$primary-main-rgb};
+    --primary-dark-rgb: #{$primary-dark-rgb};
 
     --secondary-light: #{$secondary-light};
     --secondary-main: #{$secondary-main};
     --secondary-dark: #{$secondary-dark};
+    --secondary-light-rgb: #{$secondary-light-rgb};
+    --secondary-main-rgb: #{$secondary-main-rgb};
+    --secondary-dark-rgb: #{$secondary-dark-rgb};
 
     --tertiary-light: #{$tertiary-light};
     --tertiary-main: #{$tertiary-main};
     --tertiary-dark: #{$tertiary-dark};
+    --tertiary-light-rgb: #{$tertiary-light-rgb};
+    --tertiary-main-rgb: #{$tertiary-main-rgb};
+    --tertiary-dark-rgb: #{$tertiary-dark-rgb};
   }
 
   /* typography colors */
@@ -51,18 +72,30 @@
     --text-primary-light: #{$text-primary-light};
     --text-primary-main: #{$text-primary-main};
     --text-primary-dark: #{$text-primary-dark};
+    --text-primary-light-rgb: #{$text-primary-light-rgb};
+    --text-primary-main-rgb: #{$text-primary-main-rgb};
+    --text-primary-dark-rgb: #{$text-primary-dark-rgb};
 
     --text-secondary-light: #{$text-secondary-light};
     --text-secondary-main: #{$text-secondary-main};
     --text-secondary-dark: #{$text-secondary-dark};
+    --text-secondary-light-rgb: #{$text-secondary-light-rgb};
+    --text-secondary-main-rgb: #{$text-secondary-main-rgb};
+    --text-secondary-dark-rgb: #{$text-secondary-dark-rgb};
 
     --text-primary-invert-light: #{$text-primary-invert-light};
     --text-primary-invert-main: #{$text-primary-invert-main};
     --text-primary-invert-dark: #{$text-primary-invert-dark};
+    --text-primary-invert-light-rgb: #{$text-primary-invert-light-rgb};
+    --text-primary-invert-main-rgb: #{$text-primary-invert-main-rgb};
+    --text-primary-invert-dark-rgb: #{$text-primary-invert-dark-rgb};
 
     --text-secondary-invert-light: #{$text-secondary-invert-light};
     --text-secondary-invert-main: #{$text-secondary-invert-main};
     --text-secondary-invert-dark: #{$text-secondary-invert-dark};
+    --text-secondary-invert-light-rgb: #{$text-secondary-invert-light-rgb};
+    --text-secondary-invert-main-rgb: #{$text-secondary-invert-main-rgb};
+    --text-secondary-invert-dark-rgb: #{$text-secondary-invert-dark-rgb};
   }
 
   /* border colors */
@@ -70,11 +103,15 @@
     --border-primary-light: #{$border-primary-light};
     --border-primary-main: #{$border-primary-main};
     --border-primary-dark: #{$border-primary-dark};
+    --border-primary-light-rgb: #{$border-primary-light-rgb};
+    --border-primary-main-rgb: #{$border-primary-main-rgb};
+    --border-primary-dark-rgb: #{$border-primary-dark-rgb};
   }
 
   /* App variables */
   & {
     --app-bg: #{$app-bg};
+    --app-bg-rgb: #{$app-bg-rgb};
     --app-txt: #{$text-primary-main};
     --app-font-family: 'Roboto', 'Arial', sans-serif;
     --app-padding-right: #{to-rem(120)};

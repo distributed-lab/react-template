@@ -27,7 +27,6 @@ type ValidationState = Record<keyof FormSchema, ValidationFieldState>
 
 export const useFormValidation = (
   formSchema: FormSchema,
-  // FIXME
   validationRules: Record<keyof FormSchema, Record<string, Validator>>,
 ) => {
   const validationDefaultState = useMemo(() => {
@@ -124,7 +123,6 @@ export const useFormValidation = (
       if (!validationField) throw new Error('Field not found')
       else if (!Object.entries(validationField.errors)[0]) return ''
 
-      // FIXME: on no errors
       return (
         (validationField.isError &&
           Object.entries(validationField.errors)[0][1].message) ||

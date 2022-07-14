@@ -17,14 +17,14 @@ const ButtonsOverview = () => {
             schemes='primary'
             modifications='border-rounded'
             iconName={ICON_NAMES.gift}
-            text="'primary, border-rounded'"
+            text="RouterLink 'primary, border-rounded'"
             routePath={RoutesPaths.inputsOverview}
           />
           <AppButton
             className='buttons-overview__button'
             schemes='primary'
             modifications='border-circle'
-            text="'primary, border-circle'"
+            text="href Link 'primary, border-circle'"
             href='https://www.youtube.com/'
             target='_blank'
           />
@@ -32,7 +32,7 @@ const ButtonsOverview = () => {
             className='buttons-overview__button'
             schemes='primary'
             modifications='icon-first'
-            text="'primary, icon-first'"
+            text="Regular Button 'primary, icon-first'"
             onClick={() => {
               alert('buttons page')
             }}
@@ -53,7 +53,7 @@ const ButtonsOverview = () => {
             className='buttons-overview__button'
             schemes='primary'
             modifications='success'
-            text="'primary, success'"
+            text="Bus 'primary, success'"
             onClick={() => {
               Bus.success(t('yopta'))
             }}
@@ -62,7 +62,7 @@ const ButtonsOverview = () => {
             className='buttons-overview__button'
             schemes='primary'
             modifications='error'
-            text="'primary, error'"
+            text="Bus 'primary, error'"
             onClick={() => {
               Bus.error(t('yopta'))
             }}
@@ -71,7 +71,7 @@ const ButtonsOverview = () => {
             className='buttons-overview__button'
             schemes='primary'
             modifications='warning'
-            text="'primary, warning'"
+            text="Bus 'primary, warning'"
             onClick={() => {
               Bus.warning(t('yopta'))
             }}
@@ -80,7 +80,7 @@ const ButtonsOverview = () => {
             className='buttons-overview__button'
             schemes='primary'
             modifications='info'
-            text="'primary, info'"
+            text="Bus 'primary, info'"
             onClick={() => {
               Bus.info(t('yopta'))
             }}
@@ -91,7 +91,7 @@ const ButtonsOverview = () => {
             className='buttons-overview__button'
             schemes='primary'
             modifications='border-circle success'
-            text="'primary, border-circle, success'"
+            text="ErrorHandler process 'primary, border-circle, success'"
             onClick={() =>
               ErrorHandler.process(new Error('some error by error handler'))
             }
