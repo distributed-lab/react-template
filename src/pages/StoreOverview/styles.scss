@@ -1,0 +1,21 @@
+.store-overview {
+  display: grid;
+  place-items: center;
+  grid-gap: to-rem(50);
+  padding: 0 var(--app-padding-left) to-rem(200) var(--app-padding-right);
+}
+
+.store-overview__list {
+  display: grid;
+  grid-gap: to-rem(48);
+  max-width: to-rem(600);
+}
+
+.store-overview__card {
+  display: grid;
+  grid-gap: to-rem(8);
+}
+
+.store-overview__card-title {
+  font-size: to-rem(36);
+}

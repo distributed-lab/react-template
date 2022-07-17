@@ -37,8 +37,14 @@ const AppNavbar: FC<HTMLAttributes<HTMLDivElement>> = ({
         <AppButton
           className='app-navbar__link'
           schemes='flat'
-          text={t('app-navbar.commons-link')}
+          text={t('app-navbar.commons-overview-link')}
           routePath={RoutesPaths.commonsOverview}
+        />
+        <AppButton
+          className='app-navbar__link'
+          schemes='flat'
+          text={t('app-navbar.store-overview-link')}
+          routePath={RoutesPaths.storeOverview}
         />
       </div>
     </div>
