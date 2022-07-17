@@ -3,4 +3,5 @@ export enum RoutesPaths {
   inputsOverview = '/inputs',
   commonsOverview = '/commons',
   formsOverview = '/forms',
+  storeOverview = '/store',
 }

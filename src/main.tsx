@@ -8,8 +8,11 @@ import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
 import { BrowserRouter } from 'react-router-dom'
 
+import { initApi } from '@/api'
 import { App } from '@/App'
 import { store } from '@/store'
+
+initApi()
 
 ReactDOM.render(
   <React.StrictMode>

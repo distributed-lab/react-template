@@ -11,6 +11,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [prettier](.eslintrc.js)
 - [Vite bundler](vite.config.ts)
 - [react-router-dom](src/routes.tsx)
+- [store](src/store/index.ts)
+- [axios api](src/api/index.ts)
 - CI/CD
   - [gitlab-ci](.gitlab-ci.yml)
   - [werf.yaml](werf.yaml)
