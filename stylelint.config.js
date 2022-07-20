@@ -316,5 +316,6 @@ module.exports = {
     'order/properties-order': null,
     'scss/selector-no-redundant-nesting-selector': null,
     'color-function-notation': null,
+    'selector-not-notation': 'simple',
   },
 }
