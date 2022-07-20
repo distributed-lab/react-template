@@ -38,9 +38,11 @@ const StoreOverview = () => {
           <ErrorMessage message={t('store-overview.loading-error-msg')} />
         ) : posts.length ? (
           <div className='store-overview__list'>
-            {posts.map(el => (
+            {posts.map((el, idx) => (
               <div className='store-overview__card' key={el.id}>
-                <span className='store-overview__card-title'>{el.title}</span>
+                <span className='store-overview__card-title'>
+                  {`${idx + 1}. ${el.title}`}
+                </span>
                 <p className='store-overview__card-body'>{el.body}</p>
               </div>
             ))}
