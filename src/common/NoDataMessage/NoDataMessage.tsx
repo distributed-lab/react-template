@@ -13,7 +13,7 @@ interface Props extends HTMLAttributes<HTMLDivElement> {
 const NoDataMessage: FC<Props> = ({
   message,
   iconName = ICON_NAMES.archive,
-  className,
+  className = '',
   ...rest
 }) => {
   return (

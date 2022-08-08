@@ -31,7 +31,7 @@ const Collapse = forwardRef<CollapseRef, Props>(
       isCloseByClickOutside = true,
       head,
       body,
-      className,
+      className = '',
       ...rest
     },
     ref,

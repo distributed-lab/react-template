@@ -15,7 +15,7 @@ const ErrorMessage: FC<Props> = ({
   title,
   message,
   iconName = ICON_NAMES.exclamationCircle,
-  className,
+  className = '',
   ...rest
 }) => {
   return (

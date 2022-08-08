@@ -6,11 +6,12 @@ import { useTranslation } from 'react-i18next'
 import { ErrorMessage, Loader, NoDataMessage } from '@/common'
 import { ErrorHandler, sleep } from '@/helpers'
 import { getPosts, useAppDispatch, useAppSelector } from '@/store'
+import { Post } from '@/types'
 
 const StoreOverview = () => {
   const [isLoaded, setIsLoaded] = useState(false)
   const [isLoadFailed, setIsLoadFailed] = useState(false)
-  const posts = useAppSelector(state => state.postsSlice.posts)
+  const posts: Post[] = useAppSelector(state => state.postsSlice.posts)
 
   const { t } = useTranslation()
 

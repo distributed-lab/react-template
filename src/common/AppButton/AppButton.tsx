@@ -46,7 +46,7 @@ const AppButton = <R extends string, H extends string>({
   routePath,
   disabled,
   children,
-  className,
+  className = '',
   ...rest
 }: Props<R, H>) => {
   const isDisabled: boolean = ['', 'disabled', true].includes(

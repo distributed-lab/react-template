@@ -12,7 +12,7 @@ interface Props extends HTMLAttributes<HTMLDivElement> {
   scheme?: keyof typeof SCHEMES
 }
 
-const Loader: FC<Props> = ({ scheme, className, ...rest }) => {
+const Loader: FC<Props> = ({ scheme, className = '', ...rest }) => {
   let variant
 
   switch (scheme) {

@@ -7,7 +7,7 @@ import { AppButton, AppLogo } from '@/common'
 import { RoutesPaths } from '@/enums'
 
 const AppNavbar: FC<HTMLAttributes<HTMLDivElement>> = ({
-  className,
+  className = '',
   ...rest
 }) => {
   const { t } = useTranslation()

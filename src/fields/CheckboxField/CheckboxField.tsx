@@ -31,7 +31,7 @@ const CheckboxField: FC<Props> = ({
   disabled,
   readonly,
   tabindex,
-  className,
+  className = '',
   ...rest
 }) => {
   const isDisabled = ['', 'disabled', true].includes(
@@ -44,7 +44,7 @@ const CheckboxField: FC<Props> = ({
 
   const checkboxClasses = [
     'checkbox-field',
-    className,
+    ...(className ? [className] : []),
     ...[
       ...(isDisabled ? ['disabled'] : []),
       ...(isReadonly ? ['readonly'] : []),

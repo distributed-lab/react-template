@@ -5,7 +5,6 @@ import { isEqual } from 'lodash-es'
 import {
   cloneElement,
   Dispatch,
-  FC,
   HTMLAttributes,
   ReactElement,
   RefObject,
@@ -17,10 +16,10 @@ import {
 } from 'react'
 import { CSSTransition } from 'react-transition-group'
 
-interface Props extends HTMLAttributes<HTMLSelectElement> {
+interface Props<T> extends HTMLAttributes<HTMLSelectElement> {
   options: unknown[]
-  value: string | number
-  setValue: Dispatch<SetStateAction<string | number>>
+  value: T
+  setValue: Dispatch<SetStateAction<T>>
   label?: string
   errorMessage?: string
   disabled?: string | boolean
@@ -29,7 +28,7 @@ interface Props extends HTMLAttributes<HTMLSelectElement> {
   children: ReactElement<HTMLAttributes<HTMLElement>>[]
 }
 
-const SelectField: FC<Props> = ({
+function SelectField<T>({
   options,
   value,
   setValue,
@@ -38,11 +37,11 @@ const SelectField: FC<Props> = ({
   disabled,
   readonly,
   tabindex,
-  className,
+  className = '',
   placeholder = ' ',
   children,
   ...rest
-}) => {
+}: Props<T>) {
   const errorMessageRef = useRef<HTMLDivElement>(null)
   const dropdownMenuRef = useRef<HTMLDivElement>(null)
 
@@ -58,7 +57,7 @@ const SelectField: FC<Props> = ({
     items: options,
     selectedItem: value,
     onSelectedItemChange: ({ selectedItem }) => {
-      setValue(selectedItem as string | number)
+      setValue(selectedItem as T)
       closeMenu()
     },
   })
@@ -81,7 +80,7 @@ const SelectField: FC<Props> = ({
 
   const selectClasses = [
     'select-field',
-    className,
+    ...(className ? [className] : []),
     ...[
       ...(isDisabled ? ['disabled'] : []),
       ...(isReadonly ? ['readonly'] : []),
@@ -162,7 +161,7 @@ const SelectField: FC<Props> = ({
                     index: idx,
                     item: el,
                     className: [
-                      el.props.className,
+                      ...(el.props.className ? [el.props.className] : []),
                       'select-field__dropdown-item',
                       ...[
                         selectedItem === el

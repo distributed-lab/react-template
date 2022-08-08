@@ -2,7 +2,6 @@ import './styles.scss'
 
 import {
   Dispatch,
-  FC,
   FormEvent,
   HTMLAttributes,
   SetStateAction,
@@ -26,9 +25,10 @@ enum SCHEMES {
   iconLeft = 'icon-left',
 }
 
-interface Props extends HTMLAttributes<HTMLInputElement> {
-  value: string | number
-  setValue: Dispatch<SetStateAction<string | number>>
+interface Props<V extends string | number>
+  extends HTMLAttributes<HTMLInputElement> {
+  value: V
+  setValue: Dispatch<SetStateAction<V>>
   type?: string
   schemes?: SCHEMES
   label?: string
@@ -42,7 +42,7 @@ interface Props extends HTMLAttributes<HTMLInputElement> {
   tabindex?: number
 }
 
-const InputField: FC<Props> = ({
+function InputField<V extends string | number>({
   value,
   setValue,
   type = INPUT_TYPES.text,
@@ -51,14 +51,15 @@ const InputField: FC<Props> = ({
   placeholder = ' ',
   iconName,
   errorMessage,
-  className,
+  className = '',
   min,
   max,
   disabled,
   readonly,
   tabindex,
+  onInput,
   ...rest
-}) => {
+}: Props<V>) {
   const uid = uuidv4()
   const errorMessageRef = useRef<HTMLDivElement>(null)
 
@@ -77,7 +78,7 @@ const InputField: FC<Props> = ({
 
   const inputClasses = [
     'input-field',
-    className,
+    ...(className ? [className] : []),
     ...[
       ...(schemes ? [schemes.split(' ')] : []),
       ...(isDisabled ? ['disabled'] : []),
@@ -87,14 +88,18 @@ const InputField: FC<Props> = ({
     ].map(el => `input-field--${el}`),
   ].join(' ')
 
-  const onInput = (event: FormEvent<HTMLInputElement>) => {
+  const handleInput = (event: FormEvent<HTMLInputElement>) => {
     const eventTarget = event.target as HTMLInputElement
     if (isNumberType) {
       eventTarget.value = normalizeRange(eventTarget.value)
     }
     if (value === eventTarget.value) return
 
-    setValue(eventTarget.value)
+    setValue(eventTarget.value as V)
+
+    if (onInput) {
+      onInput(event)
+    }
   }
 
   const normalizeRange = (value: string | number): string => {
@@ -134,7 +139,7 @@ const InputField: FC<Props> = ({
           id={`input-field__input-${uid}`}
           className='input-field__input'
           value={value}
-          onInput={e => onInput(e)}
+          onInput={e => handleInput(e)}
           placeholder={placeholder}
           tabIndex={isDisabled || isReadonly ? -1 : tabindex}
           type={isPasswordType && isPasswordShown ? 'text' : type}
