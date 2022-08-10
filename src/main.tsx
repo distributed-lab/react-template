@@ -3,8 +3,8 @@ import '@/localization'
 // eslint-disable-next-line import/no-unresolved
 import 'virtual:svg-icons-register'
 
-import React from 'react'
-import ReactDOM from 'react-dom'
+import { StrictMode } from 'react'
+import { render } from 'react-dom'
 import { Provider } from 'react-redux'
 import { BrowserRouter } from 'react-router-dom'
 
@@ -14,13 +14,13 @@ import { store } from '@/store'
 
 initApi()
 
-ReactDOM.render(
-  <React.StrictMode>
+render(
+  <StrictMode>
     <BrowserRouter>
       <Provider store={store}>
         <App />
       </Provider>
     </BrowserRouter>
-  </React.StrictMode>,
+  </StrictMode>,
   document.getElementById('root'),
 )

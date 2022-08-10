@@ -1,3 +1,6 @@
+/// <reference types="vitest" />
+/// <reference types="vite/client" />
+
 import { NodeGlobalsPolyfillPlugin } from '@esbuild-plugins/node-globals-polyfill'
 import react from '@vitejs/plugin-react'
 import * as fs from 'fs'
@@ -48,15 +51,23 @@ export default defineConfig(({ command, mode }) => {
           ]
         : []),
     ],
+    resolve: {
+      extensions: ['.mjs', '.js', '.ts', '.jsx', '.tsx', '.json'],
+      dedupe: ['react'],
+      alias: {
+        '@': `${root}/`,
+        '@config': `${root}/config.ts`,
+        '@static': `${root}/../static`,
+      },
+    },
     css: {
       preprocessorOptions: {
         scss: {
           additionalData: `
-          @import "src/styles/_mixins.scss";
-          @import "src/styles/_placeholders.scss";
-          @import "src/styles/_functions.scss";
-          @import "src/styles/_media.scss";
-        `,
+            @import "@/styles/_mixins.scss";
+            @import "@/styles/_placeholders.scss";
+            @import "@/styles/_functions.scss";
+          `,
         },
       },
     },
@@ -73,6 +84,8 @@ export default defineConfig(({ command, mode }) => {
       },
     },
     test: {
+      globals: true,
+      environment: 'happy-dom',
       exclude: [...configDefaults.exclude],
     },
   }

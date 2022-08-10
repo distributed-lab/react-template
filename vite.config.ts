@@ -50,14 +50,23 @@ export default defineConfig(({ command, mode }) => {
           ]
         : []),
     ],
+    resolve: {
+      extensions: ['.mjs', '.js', '.ts', '.jsx', '.tsx', '.json'],
+      dedupe: ['react'],
+      alias: {
+        '@': `${root}/`,
+        '@config': `${root}/config.ts`,
+        '@static': `${root}/../static`,
+      },
+    },
     css: {
       preprocessorOptions: {
         scss: {
           additionalData: `
-          @import "src/styles/_mixins.scss";
-          @import "src/styles/_placeholders.scss";
-          @import "src/styles/_functions.scss";
-        `,
+            @import "@/styles/_mixins.scss";
+            @import "@/styles/_placeholders.scss";
+            @import "@/styles/_functions.scss";
+          `,
         },
       },
     },

@@ -1,8 +1,10 @@
 /// <reference types="vite/client" />
 
 interface ImportMetaEnv {
-  VITE_BASE_URL: string
-  VITE_BASE_URL2: string
+  VITE_ENVIRONMENT: string
+  VITE_PORT: string
+  VITE_API_URL: string
+  VITE_APP_NAME: string
 }
 
 interface Document {
