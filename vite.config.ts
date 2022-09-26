@@ -19,6 +19,7 @@ export default defineConfig(({ command, mode }) => {
   const isProduction = env.VITE_APP_ENVIRONMENT === 'production'
   const isDevelopment = env.VITE_APP_ENVIRONMENT === 'development'
   const isAnalyze = env.VITE_APP_ENVIRONMENT === 'analyze'
+  const buildVersion = env.VITE_APP_BUILD_VERSION
 
   return {
     server: {

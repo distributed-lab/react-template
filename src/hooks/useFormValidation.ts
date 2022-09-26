@@ -68,79 +68,94 @@ export const useFormValidation = (
     })
   }, [getValidationState, formSchema, validationState])
 
-  const _validateField = (fieldName: string): ValidationState => {
-    const fieldValidators = validationRules[fieldName]
+  const _validateField = useCallback(
+    (fieldName: string): ValidationState => {
+      const fieldValidators = validationRules[fieldName]
 
-    if (!fieldValidators || isEmpty(fieldValidators))
-      throw new Error('Field has no validators')
+      if (!fieldValidators || isEmpty(fieldValidators))
+        throw new Error(`Field ${fieldName} has no validators`)
 
-    let errors = {} as ValidationErrors
+      let errors = {} as ValidationErrors
 
-    for (const validatorName in fieldValidators) {
-      const validationResult = fieldValidators[validatorName](
-        formSchema[fieldName],
-      )
+      for (const validatorName in fieldValidators) {
+        const validationResult = fieldValidators[validatorName](
+          formSchema[fieldName],
+        )
 
-      if (!validationResult.isValid) {
-        errors = {
-          ...errors,
-          [validatorName]: { message: validationResult.message },
+        if (!validationResult.isValid) {
+          errors = {
+            ...errors,
+            [validatorName]: { message: validationResult.message },
+          }
         }
       }
-    }
 
-    return {
-      [fieldName]: {
-        ...(validationState ? validationState[fieldName] : {}),
-        errors,
-        isInvalid:
-          !isEmpty(validationState && validationState[fieldName].errors) ||
-          false,
-        isError:
-          (validationState &&
-            validationState[fieldName].isDirty &&
-            validationState &&
-            validationState[fieldName].isInvalid) ||
-          false,
-        isDirty:
-          (validationState && validationState[fieldName].isDirty) || false,
-      },
-    }
-  }
+      return {
+        [fieldName]: {
+          ...(validationState ? validationState[fieldName] : {}),
+          errors,
+          isInvalid:
+            !isEmpty(validationState && validationState[fieldName]?.errors) ||
+            false,
+          isError:
+            (validationState &&
+              validationState[fieldName]?.isDirty &&
+              validationState &&
+              validationState[fieldName]?.isInvalid) ||
+            false,
+          isDirty:
+            (validationState && validationState[fieldName]?.isDirty) || false,
+        },
+      }
+    },
+    [formSchema, validationRules, validationState],
+  )
 
-  const isFormValid = (): boolean => {
+  const touchField = useCallback(
+    (fieldPath: string): void => {
+      setValidationState(prevState => ({
+        ...prevState,
+        [fieldPath]: {
+          ...validationState[fieldPath],
+          isDirty: true,
+        },
+      }))
+    },
+    [validationState],
+  )
+
+  const isFormValid = useCallback((): boolean => {
     for (const key in validationState) {
       touchField(key)
       if (validationState[key].isInvalid) return false
     }
     return true
-  }
+  }, [touchField, validationState])
 
   const getFieldErrorMessage = useCallback(
     (fieldPath: string) => {
       const validationField = get(validationState, fieldPath)
 
-      if (!validationField) throw new Error('Field not found')
-      else if (!Object.entries(validationField.errors)[0]) return ''
+      if (
+        Boolean(validationField) &&
+        !Object.keys(formSchema).includes(fieldPath)
+      ) {
+        throw new Error(`Field "${fieldPath}" not found`)
+      } else if (
+        validationField?.errors &&
+        !Object.entries(validationField.errors)[0]
+      ) {
+        return ''
+      }
 
       return (
-        (validationField.isError &&
-          Object.entries(validationField.errors)[0][1].message) ||
+        (validationField?.isError &&
+          Object.entries(validationField?.errors)[0][1]?.message) ||
         ''
       )
     },
-    [validationState],
+    [formSchema, validationState],
   )
-
-  const touchField = (fieldPath: string): void => {
-    setValidationState(prevState => ({
-      ...prevState,
-      [fieldPath]: {
-        ...validationState[fieldPath],
-        isDirty: true,
-      },
-    }))
-  }
 
   return {
     isFormValid,

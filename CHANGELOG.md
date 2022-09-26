@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-[Unreleased]
+## [1.0.0-rc.1] - 2022-09-26
 #### Added
 - Eslint
 - Stylelint
@@ -54,5 +54,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 #### Under the hood changes
 - Initiated and setup project
 
-[Unreleased]: https://gitlab.com/lukachi/react-vite-boilerplate/compare/1.0.0-rc.0...main
-[1.0.0-rc.0]: https://gitlab.com/lukachi/react-vite-boilerplate/tags/1.0.0-rc.0
+[Unreleased]: https://gitlab.com/distributed_lab/frontend/react-template/compare/1.0.0-rc.1...main
+[1.0.0-rc.1]: https://gitlab.com/distributed_lab/frontend/react-template/compare/1.0.0-rc.0...1.0.0-rc.1
+[1.0.0-rc.0]: https://gitlab.com/distributed_lab/frontend/react-template/tags/1.0.0-rc.0

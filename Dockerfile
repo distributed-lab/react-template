@@ -5,7 +5,7 @@ RUN apk --no-cache --update --virtual build-dependencies add \
     g++
 
 ARG BUILD_VERSION
-WORKDIR /dist
+WORKDIR /build
 COPY package*.json ./
 COPY yarn*.lock ./
 RUN true \
@@ -14,7 +14,7 @@ RUN true \
  && yarn install \
  && true
 COPY . .
-RUN yarn lint | tee 1.log | sed -e 's/^/[yarn lint] /' & yarn test | tee 2.log | sed -e 's/^/[yarn test] /' & yarn build --set-build-version "$BUILD_VERSION" | tee 3.log | sed -e 's/^/[yarn build] /'
+RUN yarn lint | tee 1.log | sed -e 's/^/[yarn lint] /' & yarn test | tee 2.log | sed -e 's/^/[yarn test] /' & VITE_APP_BUILD_VERSION="$BUILD_VERSION" yarn build | tee 3.log | sed -e 's/^/[yarn build] /'
 
 FROM nginx:1.20.2-alpine
 COPY nginx.conf /etc/nginx/nginx.conf
