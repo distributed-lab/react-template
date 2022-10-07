@@ -300,7 +300,7 @@ export const useFormValidation = (
       const validationField = get(validationState, fieldPath)
 
       if (!validationField && !Object.keys(formSchema).includes(fieldPath)) {
-        throw new Error(`Field "${fieldPath}" not found`)
+        return
       } else if (
         validationField?.errors &&
         !Object.entries(validationField.errors)[0]
