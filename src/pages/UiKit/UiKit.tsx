@@ -245,12 +245,31 @@ const UiKit: FC = () => {
           setValue={setSimpleInput}
           label={t('ui-kit.some-label')}
           placeholder={t('ui-kit.some-placeholder')}
+          nodeLeft={
+            <Icon className='ui-kit__input-icon' name={ICON_NAMES.phone} />
+          }
+          errorMessage={simpleInput as string}
         />
         <InputField
           value={simpleInput}
           setValue={setSimpleInput}
           label={t('ui-kit.some-label')}
           placeholder={t('ui-kit.some-placeholder')}
+          nodeRight={
+            <Icon className='ui-kit__input-icon' name={ICON_NAMES.gift} />
+          }
+        />
+        <InputField
+          value={simpleInput}
+          setValue={setSimpleInput}
+          label={t('ui-kit.some-label')}
+          placeholder={t('ui-kit.some-placeholder')}
+          nodeLeft={
+            <Icon className='ui-kit__input-icon' name={ICON_NAMES.phone} />
+          }
+          nodeRight={
+            <Icon className='ui-kit__input-icon' name={ICON_NAMES.gift} />
+          }
         />
         <InputField
           value={simpleInput}
@@ -263,21 +282,6 @@ const UiKit: FC = () => {
           value={simpleInput}
           setValue={setSimpleInput}
           label={t('ui-kit.some-label')}
-          error-message={t('ui-kit.some-error-message')}
-          placeholder={t('ui-kit.some-placeholder')}
-        />
-        <InputField
-          value={simpleInput}
-          setValue={setSimpleInput}
-          label={t('ui-kit.some-label')}
-          placeholder={t('ui-kit.some-placeholder')}
-          disabled
-        />
-        <InputField
-          value={simpleInput}
-          setValue={setSimpleInput}
-          label={t('ui-kit.some-label')}
-          error-message={t('ui-kit.some-error-message')}
           placeholder={t('ui-kit.some-placeholder')}
           disabled
         />

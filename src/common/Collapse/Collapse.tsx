@@ -1,96 +1,43 @@
-import './styles.scss'
+import { AnimatePresence, motion, MotionProps } from 'framer-motion'
+import { FC, HTMLAttributes, useMemo } from 'react'
+import { v4 as uuidv4 } from 'uuid'
 
-import {
-  forwardRef,
-  HTMLAttributes,
-  ReactNode,
-  useImperativeHandle,
-  useRef,
-  useState,
-} from 'react'
-import { CSSTransition } from 'react-transition-group'
-import { useClickAway } from 'react-use'
+type Props = {
+  isOpen: boolean
+  duration?: number
+} & HTMLAttributes<HTMLDivElement> &
+  MotionProps
 
-interface Props extends HTMLAttributes<HTMLDivElement> {
-  isOpenedByDefault?: boolean
-  isCloseByClickOutside?: boolean
-  head: ReactNode
-  body: ReactNode
-}
+const Collapse: FC<Props> = ({
+  isOpen,
+  duration = 0.15,
+  children,
+  ...rest
+}) => {
+  const uid = useMemo(() => uuidv4(), [])
 
-export interface CollapseRef {
-  toggleCollapse: () => void
-  closeCollapse: () => void
-  openCollapse: () => void
-}
-
-const Collapse = forwardRef<CollapseRef, Props>(
-  (
-    {
-      isOpenedByDefault = false,
-      isCloseByClickOutside = true,
-      head,
-      body,
-      className = '',
-      ...rest
-    },
-    ref,
-  ) => {
-    const rootRef = useRef<HTMLDivElement>(null)
-    const bodyRef = useRef<HTMLDivElement>(null)
-    const [isCollapseOpen, setIsCollapseOpen] = useState(isOpenedByDefault)
-
-    const toggleCollapse = () => {
-      isCollapseOpen ? closeCollapse() : openCollapse()
-    }
-    const closeCollapse = () => {
-      setIsCollapseOpen(false)
-    }
-    const openCollapse = () => {
-      setIsCollapseOpen(true)
-    }
-
-    useImperativeHandle(
-      ref,
-      (): CollapseRef => ({
-        toggleCollapse,
-        closeCollapse,
-        openCollapse,
-      }),
-    )
-
-    useClickAway(rootRef, () => {
-      if (isCloseByClickOutside) {
-        closeCollapse()
-      }
-    })
-
-    const setHeightCSSVar = () => {
-      bodyRef.current?.style.setProperty(
-        '--collapse-body-height',
-        `${bodyRef.current?.scrollHeight}px`,
-      )
-    }
-
-    return (
-      <div ref={rootRef} className={`collapse ${className}`} {...rest}>
-        <div className='collapse__head'>{head}</div>
-        <CSSTransition
-          nodeRef={bodyRef}
-          in={isCollapseOpen}
-          timeout={250}
-          classNames='collapse__body'
-          unmountOnExit
-          onEnter={setHeightCSSVar}
-          onExited={setHeightCSSVar}
+  return (
+    <AnimatePresence initial={false}>
+      {isOpen ? (
+        <motion.div
+          key={`collapse-${uid}`}
+          initial='collapsed'
+          animate='open'
+          exit='collapsed'
+          variants={{
+            open: { opacity: 1, height: 'auto' },
+            collapsed: { opacity: 0, height: 0 },
+          }}
+          transition={{ duration: duration }}
+          {...rest}
         >
-          <div ref={bodyRef} className='collapse__body'>
-            {body}
-          </div>
-        </CSSTransition>
-      </div>
-    )
-  },
-)
+          {children}
+        </motion.div>
+      ) : (
+        <></>
+      )}
+    </AnimatePresence>
+  )
+}
 
 export default Collapse

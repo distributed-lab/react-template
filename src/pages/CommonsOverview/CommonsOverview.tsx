@@ -6,7 +6,6 @@ import { useTranslation } from 'react-i18next'
 import {
   AppButton,
   Collapse,
-  CollapseRef,
   ErrorMessage,
   Icon,
   Loader,
@@ -19,7 +18,6 @@ import { ICON_NAMES } from '@/enums'
 const CommonsOverview: FC = () => {
   const { t } = useTranslation()
 
-  const collapseRef = useRef<CollapseRef>(null)
   const modalRef = useRef<ModalRef>(null)
   const [isModalShown, setIsModalShown] = useState(false)
 
@@ -38,22 +36,7 @@ const CommonsOverview: FC = () => {
       </div>
       <div className='commons-overview__row'>
         <div className='commons-overview__col'>
-          <Collapse
-            className='commons-overview__collapse'
-            ref={collapseRef}
-            head={
-              <AppButton
-                className='commons-overview__collapse-btn'
-                text={t('commons-overview.collapse-btn')}
-                onClick={() => collapseRef.current?.toggleCollapse()}
-              />
-            }
-            body={
-              <div className='commons-overview__collapse-body'>
-                {t('commons-overview.collapse-text')}
-              </div>
-            }
-          />
+          <Collapse className='commons-overview__collapse' isOpen={true} />
         </div>
         <div className='commons-overview__col'>
           <AppButton
