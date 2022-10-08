@@ -1,0 +1,50 @@
+.ui-kit-page {
+  display: grid;
+  grid-gap: to-rem(50);
+  padding-bottom: to-rem(200);
+}
+
+.ui-kit-page__buttons {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: to-rem(32);
+}
+
+.ui-kit-page__inputs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: to-rem(32);
+}
+
+.ui-kit-page__common {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: to-rem(56);
+}
+
+.ui-kit-page__collapse {
+  width: 100%;
+}
+
+.ui-kit-page__collapse-btn {
+  width: 100%;
+}
+
+.ui-kit-page__collapse-body {
+  font-size: to-rem(24);
+}
+
+.ui-kit-page__icons {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, to-rem(24));
+  grid-gap: to-rem(24);
+
+  & > * {
+    width: to-rem(24);
+    height: to-rem(24);
+}
+}

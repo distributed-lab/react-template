@@ -44,7 +44,6 @@ const CommonsOverview: FC = () => {
             head={
               <AppButton
                 className='commons-overview__collapse-btn'
-                schemes='flat'
                 text={t('commons-overview.collapse-btn')}
                 onClick={() => collapseRef.current?.toggleCollapse()}
               />
@@ -67,7 +66,6 @@ const CommonsOverview: FC = () => {
             setIsShown={setIsModalShown}
           >
             <AppButton
-              iconName={ICON_NAMES.xCircle}
               onClick={() => {
                 modalRef.current?.closeModal()
               }}
