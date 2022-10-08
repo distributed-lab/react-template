@@ -5,7 +5,6 @@ import { Navigate, Route, Routes, useLocation } from 'react-router-dom'
 import { RoutesPaths } from '@/enums'
 
 export const AppRoutes = () => {
-  const InputsOverview = lazy(() => import('@/pages/InputsOverview'))
   const FormsOverview = lazy(() => import('@/pages/FormsOverview'))
   const CommonsOverview = lazy(() => import('@/pages/CommonsOverview'))
   const StoreOverview = lazy(() => import('@/pages/StoreOverview'))
@@ -17,18 +16,6 @@ export const AppRoutes = () => {
     <Suspense fallback={<></>}>
       <AnimatePresence>
         <Routes location={location} key={location.pathname}>
-          <Route
-            path={RoutesPaths.inputsOverview}
-            element={
-              <motion.div
-                initial={{ opacity: 0, height: '200vh' }}
-                animate={{ opacity: 1, height: '100%' }}
-                exit={{ opacity: 0, height: '200vh' }}
-              >
-                <InputsOverview />
-              </motion.div>
-            }
-          />
           <Route
             path={RoutesPaths.formsOverview}
             element={
@@ -79,7 +66,7 @@ export const AppRoutes = () => {
           />
           <Route
             path='*'
-            element={<Navigate replace to={RoutesPaths.buttonsOverview} />}
+            element={<Navigate replace to={RoutesPaths.uiKit} />}
           />
         </Routes>
       </AnimatePresence>

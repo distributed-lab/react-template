@@ -19,7 +19,7 @@ $z-index-dropdown-inner: 1;
   transition: color var(--field-transition-duration);
   background: var(--field-bg);
 
-  @extend %text-ellipsis;
+  @include text-ellipsis;
 
   @include field-label;
 

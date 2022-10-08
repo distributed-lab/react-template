@@ -1,12 +1,49 @@
 import './styles.scss'
 
-import { FC, useCallback } from 'react'
+import { FC, useCallback, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 
-import { AppButton } from '@/common'
+import { AppButton, Icon } from '@/common'
 import { ICON_NAMES, RoutesPaths } from '@/enums'
+import { CheckboxField, InputField, SelectField } from '@/fields'
 import { Bus } from '@/helpers'
 
+const selectOptions: {
+  id: number
+  title: string
+  iconName: ICON_NAMES
+}[] = [
+  {
+    id: 1,
+    title: 'icon 1',
+    iconName: ICON_NAMES.gift,
+  },
+  {
+    id: 2,
+    title: 'icon 2',
+    iconName: ICON_NAMES.eyeOff,
+  },
+  {
+    id: 3,
+    title: 'icon 3',
+    iconName: ICON_NAMES.logout,
+  },
+  {
+    id: 4,
+    title: 'icon 4',
+    iconName: ICON_NAMES.dotsVertical,
+  },
+]
+
 const UiKit: FC = () => {
+  const [simpleInput, setSimpleInput] = useState<string | number>('')
+  const [simpleSelect, setSimpleSelect] = useState<string | number>(
+    selectOptions[3].id,
+  )
+  const [checkboxInput, setCheckboxInput] = useState(false)
+
+  const { t } = useTranslation()
+
   const handleClick = () => {
     alert('some string')
   }
@@ -28,8 +65,8 @@ const UiKit: FC = () => {
   }, [])
 
   return (
-    <>
-      <section className='ui-kit-page__buttons'>
+    <main className='ui-kit'>
+      <section className='ui-kit__buttons'>
         <AppButton
           iconRight={ICON_NAMES.gift}
           text='router, border-rounded, icon'
@@ -196,7 +233,104 @@ const UiKit: FC = () => {
           size='default'
         />
       </section>
-    </>
+      <section className='ui-kit__inputs'>
+        <InputField
+          value={simpleInput}
+          setValue={setSimpleInput}
+          label={t('ui-kit.some-label')}
+          placeholder={t('ui-kit.some-placeholder')}
+        />
+        <InputField
+          value={simpleInput}
+          setValue={setSimpleInput}
+          label={t('ui-kit.some-label')}
+          placeholder={t('ui-kit.some-placeholder')}
+        />
+        <InputField
+          value={simpleInput}
+          setValue={setSimpleInput}
+          label={t('ui-kit.some-label')}
+          placeholder={t('ui-kit.some-placeholder')}
+        />
+        <InputField
+          value={simpleInput}
+          setValue={setSimpleInput}
+          type='password'
+          label={t('ui-kit.some-label')}
+          placeholder={t('ui-kit.some-placeholder')}
+        />
+        <InputField
+          value={simpleInput}
+          setValue={setSimpleInput}
+          label={t('ui-kit.some-label')}
+          error-message={t('ui-kit.some-error-message')}
+          placeholder={t('ui-kit.some-placeholder')}
+        />
+        <InputField
+          value={simpleInput}
+          setValue={setSimpleInput}
+          label={t('ui-kit.some-label')}
+          placeholder={t('ui-kit.some-placeholder')}
+          disabled
+        />
+        <InputField
+          value={simpleInput}
+          setValue={setSimpleInput}
+          label={t('ui-kit.some-label')}
+          error-message={t('ui-kit.some-error-message')}
+          placeholder={t('ui-kit.some-placeholder')}
+          disabled
+        />
+        <SelectField
+          options={selectOptions.map(el => el.id)}
+          value={simpleSelect}
+          setValue={setSimpleSelect}
+          label={t('ui-kit.some-label')}
+          placeholder={t('ui-kit.some-placeholder')}
+        >
+          {selectOptions.map((el, idx) => (
+            <div
+              className='ui-kit__select-option'
+              key={idx}
+              defaultValue={el.id}
+            >
+              <Icon className='ui-kit__select-option-icon' name={el.iconName} />
+              {el.title}
+            </div>
+          ))}
+        </SelectField>
+        <SelectField
+          options={selectOptions.map(el => el.id)}
+          value={simpleSelect}
+          setValue={setSimpleSelect}
+          label={t('ui-kit.some-label')}
+          placeholder={t('ui-kit.some-placeholder')}
+          errorMessage={String(simpleSelect) as string}
+        >
+          {selectOptions.map((el, idx) => (
+            <div
+              className='ui-kit__select-option'
+              key={idx}
+              defaultValue={el.id}
+            >
+              <Icon className='ui-kit__select-option-icon' name={el.iconName} />
+              {el.title}
+            </div>
+          ))}
+        </SelectField>
+        <CheckboxField
+          value={checkboxInput}
+          setValue={setCheckboxInput}
+          label={t('ui-kit.some-label')}
+        />
+        <CheckboxField
+          value={checkboxInput}
+          setValue={setCheckboxInput}
+          label={t('ui-kit.some-label')}
+          disabled
+        />
+      </section>
+    </main>
   )
 }
 

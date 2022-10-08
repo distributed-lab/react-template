@@ -1,23 +1,23 @@
-.ui-kit-page {
+.ui-kit {
   display: grid;
   grid-gap: to-rem(50);
-  padding-bottom: to-rem(200);
+  padding: 0 var(--app-padding-right) to-rem(200) var(--app-padding-left);
 }
 
-.ui-kit-page__buttons {
+.ui-kit__buttons {
   display: flex;
   flex-wrap: wrap;
   align-items: flex-end;
   gap: to-rem(32);
 }
 
-.ui-kit-page__inputs {
+.ui-kit__inputs {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: to-rem(32);
 }
 
-.ui-kit-page__common {
+.ui-kit__common {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
@@ -25,19 +25,19 @@
   gap: to-rem(56);
 }
 
-.ui-kit-page__collapse {
+.ui-kit__collapse {
   width: 100%;
 }
 
-.ui-kit-page__collapse-btn {
+.ui-kit__collapse-btn {
   width: 100%;
 }
 
-.ui-kit-page__collapse-body {
+.ui-kit__collapse-body {
   font-size: to-rem(24);
 }
 
-.ui-kit-page__icons {
+.ui-kit__icons {
   width: 100%;
   display: grid;
   grid-template-columns: repeat(auto-fill, to-rem(24));
@@ -46,5 +46,17 @@
   & > * {
     width: to-rem(24);
     height: to-rem(24);
+  }
 }
+
+.ui-kit__select-option {
+  display: grid;
+  align-items: center;
+  grid-template-columns: to-rem(24) 1fr;
+  grid-gap: to-rem(12);
+}
+
+.ui-kit__select-option-icon {
+  width: to-rem(24);
+  height: to-rem(24);
 }
