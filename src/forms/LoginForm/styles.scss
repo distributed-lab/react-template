@@ -2,3 +2,9 @@
   display: grid;
   grid-gap: to-rem(24);
 }
+
+.login-form__controls {
+  display: flex;
+  flex-direction: column;
+  gap: to-rem(24);
+}

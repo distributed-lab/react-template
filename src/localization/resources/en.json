@@ -43,6 +43,10 @@
     "login-lbl": "Login",
     "password-lbl": "Password",
     "login-success-msg": "Access granted",
-    "submit-btn": "Submit"
+    "submit-btn": "Submit",
+    "primitives-title": "Primitives",
+    "nested-object-title": "Deep dested object",
+    "primitive-array-title": "Primitive array",
+    "object-array-title": "Object array"
   }
 }
