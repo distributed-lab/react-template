@@ -6,7 +6,6 @@ import { RoutesPaths } from '@/enums'
 
 export const AppRoutes = () => {
   const FormsOverview = lazy(() => import('@/pages/FormsOverview'))
-  const CommonsOverview = lazy(() => import('@/pages/CommonsOverview'))
   const StoreOverview = lazy(() => import('@/pages/StoreOverview'))
   const UiKit = lazy(() => import('@/pages/UiKit'))
 
@@ -25,18 +24,6 @@ export const AppRoutes = () => {
                 exit={{ opacity: 0, height: '200vh' }}
               >
                 <FormsOverview />
-              </motion.div>
-            }
-          />
-          <Route
-            path={RoutesPaths.commonsOverview}
-            element={
-              <motion.div
-                initial={{ opacity: 0, height: '200vh' }}
-                animate={{ opacity: 1, height: '100%' }}
-                exit={{ opacity: 0, height: '200vh' }}
-              >
-                <CommonsOverview />
               </motion.div>
             }
           />

@@ -10,31 +10,29 @@ type Props = {
 
 const Collapse: FC<Props> = ({
   isOpen,
-  duration = 0.15,
+  duration = 0.25,
   children,
   ...rest
 }) => {
   const uid = useMemo(() => uuidv4(), [])
 
   return (
-    <AnimatePresence initial={false}>
-      {isOpen ? (
+    <AnimatePresence>
+      {isOpen && (
         <motion.div
           key={`collapse-${uid}`}
           initial='collapsed'
           animate='open'
           exit='collapsed'
           variants={{
-            open: { opacity: 1, height: 'auto' },
-            collapsed: { opacity: 0, height: 0 },
+            open: { opacity: 1, height: 'auto', overflowY: 'hidden' },
+            collapsed: { opacity: 0, height: 0, overflowY: 'hidden' },
           }}
           transition={{ duration: duration }}
           {...rest}
         >
           {children}
         </motion.div>
-      ) : (
-        <></>
       )}
     </AnimatePresence>
   )

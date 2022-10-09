@@ -3,7 +3,15 @@ import './styles.scss'
 import { FC, useCallback, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { AppButton, Icon } from '@/common'
+import {
+  AppButton,
+  Collapse,
+  ErrorMessage,
+  Icon,
+  Loader,
+  Modal,
+  NoDataMessage,
+} from '@/common'
 import { ICON_NAMES, RoutesPaths } from '@/enums'
 import { CheckboxField, InputField, SelectField } from '@/fields'
 import { Bus } from '@/helpers'
@@ -41,6 +49,9 @@ const UiKit: FC = () => {
     selectOptions[3].id,
   )
   const [checkboxInput, setCheckboxInput] = useState(false)
+
+  const [isCollapseShown, setIsCollapseShown] = useState(false)
+  const [isModalShown, setIsModalShown] = useState(false)
 
   const { t } = useTranslation()
 
@@ -333,6 +344,99 @@ const UiKit: FC = () => {
           label={t('ui-kit.some-label')}
           disabled
         />
+      </section>
+      <section className='ui-kit__common'>
+        <ErrorMessage message={t('ui-kit.loading-error-msg')} />
+        <NoDataMessage message={t('ui-kit.no-data-msg')} />
+        <Loader />
+        <div className='ui-kit__collapse-wrp'>
+          <AppButton
+            className='ui-kit__collapse-btn'
+            scheme='flat'
+            text={t('ui-kit.collapse-btn')}
+            onClick={() => setIsCollapseShown(!isCollapseShown)}
+          />
+          <Collapse isOpen={isCollapseShown}>
+            <div className='ui-kit__collapse-body'>
+              {t('ui-kit.collapse-text')}
+            </div>
+          </Collapse>
+        </div>
+        <AppButton
+          text={t('ui-kit.modal-btn')}
+          onClick={() => setIsModalShown(true)}
+        />
+        <Modal isShown={isModalShown} setIsShown={setIsModalShown}>
+          <div className='ui-kit__modal-head'>
+            <h2 className='ui-kit__modal-title'>{t('ui-kit.modal-title')}</h2>
+            <AppButton
+              onClick={() => setIsModalShown(false)}
+              iconRight={ICON_NAMES.x}
+              scheme='default'
+              modification='default'
+              size='default'
+              color='default'
+            />
+          </div>
+          <div className='ui-kit__modal-body'>
+            <span className='ui-kit__modal-text'>{t('ui-kit.modal-body')}</span>
+            <AppButton
+              className='ui-kit__modal-action-btn'
+              scheme='flat'
+              color='error'
+              size='small'
+              text={t('ui-kit.modal-cancel-btn')}
+              onClick={() => setIsModalShown(false)}
+            />
+            <AppButton
+              className='ui-kit__modal-action-btn'
+              color='success'
+              size='small'
+              text={t('ui-kit.modal-accept-btn')}
+              onClick={() => {
+                setIsModalShown(false)
+                Bus.success(t('ui-kit.modal-success-msg'))
+              }}
+            />
+          </div>
+        </Modal>
+        <div className='ui-kit__icons'>
+          <Icon name={ICON_NAMES.academicCap} />
+          <Icon name={ICON_NAMES.adjustments} />
+          <Icon name={ICON_NAMES.annotation} />
+          <Icon name={ICON_NAMES.archive} />
+          <Icon name={ICON_NAMES.arrowCircleDown} />
+          <Icon name={ICON_NAMES.arrowCircleLeft} />
+          <Icon name={ICON_NAMES.arrowCircleRight} />
+          <Icon name={ICON_NAMES.arrowCircleUp} />
+          <Icon name={ICON_NAMES.arrowDown} />
+          <Icon name={ICON_NAMES.arrowLeft} />
+          <Icon name={ICON_NAMES.arrowNarrowDown} />
+          <Icon name={ICON_NAMES.arrowNarrowLeft} />
+          <Icon name={ICON_NAMES.arrowNarrowRight} />
+          <Icon name={ICON_NAMES.arrowNarrowUp} />
+          <Icon name={ICON_NAMES.arrowRight} />
+          <Icon name={ICON_NAMES.arrowSmDown} />
+          <Icon name={ICON_NAMES.arrowSmLeft} />
+          <Icon name={ICON_NAMES.arrowSmRight} />
+          <Icon name={ICON_NAMES.arrowSmUp} />
+          <Icon name={ICON_NAMES.arrowUp} />
+          <Icon name={ICON_NAMES.arrowsExpand} />
+          <Icon name={ICON_NAMES.atSymbol} />
+          <Icon name={ICON_NAMES.backspace} />
+          <Icon name={ICON_NAMES.badgeCheck} />
+          <Icon name={ICON_NAMES.ban} />
+          <Icon name={ICON_NAMES.beaker} />
+          <Icon name={ICON_NAMES.bell} />
+          <Icon name={ICON_NAMES.bookOpen} />
+          <Icon name={ICON_NAMES.bookmarkAlt} />
+          <Icon name={ICON_NAMES.bookmark} />
+          <Icon name={ICON_NAMES.briefcase} />
+          <Icon name={ICON_NAMES.calendar} />
+          <Icon name={ICON_NAMES.camera} />
+          <Icon name={ICON_NAMES.cash} />
+          <Icon name={ICON_NAMES.chartBar} />
+        </div>
       </section>
     </main>
   )

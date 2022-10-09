@@ -13,28 +13,6 @@
 .modal__pane {
   position: relative;
   background: var(--app-bg);
-  padding: to-rem(50) to-rem(100);
+  padding: to-rem(24);
   border-radius: to-rem(10);
-}
-
-.modal-enter {
-  opacity: 0;
-  transform: scale(1.1);
-  transition: 0.25s ease;
-  transition-property: opacity, transform;
-}
-
-.modal-enter-active {
-  opacity: 1;
-  transform: scale(1);
-}
-
-.modal-exit {
-  transition: 0.25s ease;
-  transition-property: opacity, transform;
-}
-
-.modal-exit-active {
-  opacity: 0;
-  transform: scale(1.1);
 }
