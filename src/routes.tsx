@@ -1,4 +1,4 @@
-import { AnimatePresence, motion } from 'framer-motion'
+import { AnimatePresence } from 'framer-motion'
 import { lazy, Suspense } from 'react'
 import { Navigate, Route, Routes, useLocation } from 'react-router-dom'
 
@@ -17,25 +17,39 @@ export const AppRoutes = () => {
           <Route
             path={RoutesPaths.storeOverview}
             element={
-              <motion.div
-                initial={{ opacity: 0, height: '200vh' }}
-                animate={{ opacity: 1, height: '100%' }}
-                exit={{ opacity: 0, height: '200vh' }}
-              >
-                <StoreOverview />
-              </motion.div>
+              <StoreOverview
+                initial='hide'
+                animate='show'
+                exit='hide'
+                variants={{
+                  hide: {
+                    opacity: 0,
+                  },
+                  show: {
+                    opacity: 1,
+                  },
+                }}
+                transition={{ duration: 0.5 }}
+              />
             }
           />
           <Route
             path={RoutesPaths.uiKit}
             element={
-              <motion.div
-                initial={{ opacity: 0, height: '200vh' }}
-                animate={{ opacity: 1, height: '100%' }}
-                exit={{ opacity: 0, height: '200vh' }}
-              >
-                <UiKit />
-              </motion.div>
+              <UiKit
+                initial='hide'
+                animate='show'
+                exit='hide'
+                variants={{
+                  hide: {
+                    opacity: 0,
+                  },
+                  show: {
+                    opacity: 1,
+                  },
+                }}
+                transition={{ duration: 0.5 }}
+              />
             }
           />
           <Route

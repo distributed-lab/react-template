@@ -1,6 +1,7 @@
 import './styles.scss'
 
-import { FC, useCallback, useState } from 'react'
+import { motion, MotionProps } from 'framer-motion'
+import { FC, HTMLAttributes, useCallback, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import {
@@ -44,7 +45,9 @@ const selectOptions: {
   },
 ]
 
-const UiKit: FC = () => {
+type Props = HTMLAttributes<HTMLDivElement> & MotionProps
+
+const UiKit: FC<Props> = ({ ...rest }) => {
   const [simpleInput, setSimpleInput] = useState<string | number>('')
   const [simpleSelect, setSimpleSelect] = useState<string | number>(
     selectOptions[3].id,
@@ -77,12 +80,12 @@ const UiKit: FC = () => {
   }, [])
 
   return (
-    <main className='ui-kit'>
+    <motion.main className='ui-kit' {...rest}>
       <section className='ui-kit__buttons'>
         <AppButton
           iconRight={ICON_NAMES.gift}
           text='router, border-rounded, icon'
-          routePath={RoutesPaths.uiKit}
+          routePath={RoutesPaths.storeOverview}
         />
         <AppButton
           modification='border-circle'
@@ -443,7 +446,7 @@ const UiKit: FC = () => {
           <Icon name={ICON_NAMES.chartBar} />
         </div>
       </section>
-    </main>
+    </motion.main>
   )
 }
 
