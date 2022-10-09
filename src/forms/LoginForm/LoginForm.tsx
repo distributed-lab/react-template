@@ -50,23 +50,23 @@ const LoginForm = () => {
     arrayProperty: ['Yo', 'i', 'am', 'a', 'primitive'],
     objectArrayProperty: [
       {
-        id: 1,
+        id: '1',
         label: 'Yo',
       },
       {
-        id: 2,
+        id: '2',
         label: 'i',
       },
       {
-        id: 3,
+        id: '3',
         label: 'am',
       },
       {
-        id: 4,
+        id: '4',
         label: 'a',
       },
       {
-        id: 5,
+        id: '5',
         label: 'primitive',
       },
     ],
@@ -248,6 +248,73 @@ const LoginForm = () => {
               `someObjectArray[${index}].name`,
             )}
             onBlur={() => touchField(`someObjectArray[${index}].name`)}
+          />
+        </div>
+      ))}
+      <h3>{t('login-form.object-and-array-combine-title')}</h3>
+      {someObjectWithArray.arrayProperty.map((item, index) => (
+        <InputField
+          key={`someObjectWithArray.arrayProperty-${index}`}
+          value={item}
+          onInput={e => {
+            setSomeObjectWithArray(prev => {
+              const next = { ...prev }
+              next.arrayProperty[index] = e.currentTarget?.value || ''
+              return next
+            })
+          }}
+          errorMessage={getFieldErrorMessage(
+            `someObjectWithArray.arrayProperty[${index}]`,
+          )}
+          onBlur={() =>
+            touchField(`someObjectWithArray.arrayProperty[${index}]`)
+          }
+        />
+      ))}
+      {someObjectWithArray.objectArrayProperty.map((item, index) => (
+        <div
+          className='login-form__controls'
+          key={`someObjectWithArray.objectArrayProperty-${index}`}
+        >
+          <InputField
+            value={item.id}
+            onInput={e => {
+              setSomeObjectWithArray(prev => {
+                const next = { ...prev }
+                next.objectArrayProperty[index] = {
+                  ...next.objectArrayProperty[index],
+                  id: e.currentTarget?.value || '',
+                }
+                return next
+              })
+            }}
+            errorMessage={getFieldErrorMessage(
+              `someObjectWithArray.objectArrayProperty[${index}].id`,
+            )}
+            onBlur={() =>
+              touchField(`someObjectWithArray.objectArrayProperty[${index}].id`)
+            }
+          />
+          <InputField
+            value={item.label}
+            onInput={e => {
+              setSomeObjectWithArray(prev => {
+                const next = { ...prev }
+                next.objectArrayProperty[index] = {
+                  ...next.objectArrayProperty[index],
+                  label: e.currentTarget?.value || '',
+                }
+                return next
+              })
+            }}
+            errorMessage={getFieldErrorMessage(
+              `someObjectWithArray.objectArrayProperty[${index}].label`,
+            )}
+            onBlur={() =>
+              touchField(
+                `someObjectWithArray.objectArrayProperty[${index}].label`,
+              )
+            }
           />
         </div>
       ))}

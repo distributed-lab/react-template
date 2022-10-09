@@ -47,6 +47,7 @@
     "primitives-title": "Primitives",
     "nested-object-title": "Deep dested object",
     "primitive-array-title": "Primitive array",
-    "object-array-title": "Object array"
+    "object-array-title": "Object array",
+    "object-and-array-combine-title": "Complex array & Object"
   }
 }
