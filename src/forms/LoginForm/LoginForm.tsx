@@ -46,10 +46,42 @@ const LoginForm = () => {
       name: 'three',
     },
   ])
+  const [someObjectWithArray, setSomeObjectWithArray] = useState({
+    arrayProperty: ['Yo', 'i', 'am', 'a', 'primitive'],
+    objectArrayProperty: [
+      {
+        id: 1,
+        label: 'Yo',
+      },
+      {
+        id: 2,
+        label: 'i',
+      },
+      {
+        id: 3,
+        label: 'am',
+      },
+      {
+        id: 4,
+        label: 'a',
+      },
+      {
+        id: 5,
+        label: 'primitive',
+      },
+    ],
+  })
 
   const { isFormDisabled, disableForm, enableForm } = useForm()
   const { isFormValid, getFieldErrorMessage, touchField } = useFormValidation(
-    { login, password, someComplexObject, somePrimitiveArray, someObjectArray },
+    {
+      login,
+      password,
+      someComplexObject,
+      somePrimitiveArray,
+      someObjectArray,
+      someObjectWithArray,
+    },
     {
       login: { required },
       password: {
@@ -86,6 +118,23 @@ const LoginForm = () => {
         $every: {
           id: { required },
           name: { required, minLength: minLength(10) },
+        },
+      },
+      someObjectWithArray: {
+        required,
+        arrayProperty: {
+          required,
+          $every: {
+            required,
+            minLength: minLength(10),
+          },
+        },
+        objectArrayProperty: {
+          required,
+          $every: {
+            id: { required },
+            label: { required, minLength: minLength(10) },
+          },
         },
       },
     },

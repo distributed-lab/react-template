@@ -158,21 +158,27 @@ export const useFormValidation = (
         return {
           [validatorKey]: Object.entries(validator).reduce(
             (acc, [_validatorKey, _validatorValue]) => {
-              const _cachedResult =
+              const isValidatorValueFunction =
                 typeof _validatorValue === 'function'
+              const isValidatorValueEvery = _validatorKey === '$every'
+
+              const _cachedResult =
+                isValidatorValueFunction || isValidatorValueEvery
                   ? cachedResult
                   : get(cachedResult, _validatorKey)
 
               const _fieldKey =
-                typeof _validatorValue === 'function' ? fieldKey : _validatorKey
+                isValidatorValueFunction || isValidatorValueEvery
+                  ? fieldKey
+                  : _validatorKey
 
               const _fieldValue =
-                typeof _validatorValue === 'function'
+                isValidatorValueFunction || isValidatorValueEvery
                   ? fieldValue
                   : get(fieldValue, _validatorKey)
 
               const _accumulator =
-                typeof _validatorValue === 'function'
+                isValidatorValueFunction || isValidatorValueEvery
                   ? acc
                   : get(acc, _fieldKey)
 
@@ -187,7 +193,8 @@ export const useFormValidation = (
 
               return {
                 ...acc,
-                ...(typeof _validatorValue === 'function' ||
+                ...(isValidatorValueFunction ||
+                isValidatorValueEvery ||
                 _fieldKey === _validatorKey
                   ? { ...validatedNestedField }
                   : { [_fieldKey]: validatedNestedField }),
