@@ -4,14 +4,14 @@ import {
   Dispatch,
   FormEvent,
   HTMLAttributes,
+  ReactNode,
   SetStateAction,
-  useRef,
+  useCallback,
   useState,
 } from 'react'
-import { CSSTransition } from 'react-transition-group'
 import { v4 as uuidv4 } from 'uuid'
 
-import { Icon } from '@/common'
+import { Collapse, Icon } from '@/common'
 import { ICON_NAMES } from '@/enums'
 import { BN } from '@/utils/math.util'
 
@@ -21,47 +21,45 @@ enum INPUT_TYPES {
   number = 'number',
 }
 
-enum SCHEMES {
-  iconLeft = 'icon-left',
-}
-
 interface Props<V extends string | number>
   extends HTMLAttributes<HTMLInputElement> {
   value: V
-  setValue: Dispatch<SetStateAction<V>>
+  setValue?: Dispatch<SetStateAction<V>>
   type?: string
-  schemes?: SCHEMES
   label?: string
+  labelNodeRight?: ReactNode
   placeholder?: string
-  iconName?: ICON_NAMES
   errorMessage?: string
   min?: number
   max?: number
   disabled?: string | boolean
   readonly?: string | boolean
   tabindex?: number
+  nodeLeft?: ReactNode
+  nodeRight?: ReactNode
 }
 
 function InputField<V extends string | number>({
   value,
   setValue,
   type = INPUT_TYPES.text,
-  schemes,
   label,
+  labelNodeRight,
   placeholder = ' ',
-  iconName,
   errorMessage,
-  className = '',
   min,
   max,
   disabled,
   readonly,
   tabindex,
+  nodeLeft,
+  nodeRight,
   onInput,
+  onChange,
+  className = '',
   ...rest
 }: Props<V>) {
   const uid = uuidv4()
-  const errorMessageRef = useRef<HTMLDivElement>(null)
 
   const [isPasswordShown, setIsPasswordShown] = useState(false)
 
@@ -80,47 +78,57 @@ function InputField<V extends string | number>({
     'input-field',
     ...(className ? [className] : []),
     ...[
-      ...(schemes ? [schemes.split(' ')] : []),
+      ...(nodeLeft ? ['node-left'] : []),
+      ...(nodeRight || isPasswordType ? ['node-right'] : []),
       ...(isDisabled ? ['disabled'] : []),
       ...(isReadonly ? ['readonly'] : []),
       ...(errorMessage ? ['error'] : []),
-      ...(iconName || isPasswordType ? ['iconed'] : []),
     ].map(el => `input-field--${el}`),
   ].join(' ')
 
-  const handleInput = (event: FormEvent<HTMLInputElement>) => {
-    const eventTarget = event.target as HTMLInputElement
-    if (isNumberType) {
-      eventTarget.value = normalizeRange(eventTarget.value)
-    }
-    if (value === eventTarget.value) return
+  const normalizeRange = useCallback(
+    (value: string | number): string => {
+      let result = value
 
-    setValue(eventTarget.value as V)
+      if (min && new BN(value).compare(min) < 0) {
+        result = min
+      }
+      if (max && new BN(value).compare(max) > 0) {
+        result = max
+      }
 
-    if (onInput) {
-      onInput(event)
-    }
-  }
+      return result as string
+    },
+    [max, min],
+  )
 
-  const normalizeRange = (value: string | number): string => {
-    let result = value
+  const handleInput = useCallback(
+    (event: FormEvent<HTMLInputElement>) => {
+      const eventTarget = event.target as HTMLInputElement
+      if (isNumberType) {
+        eventTarget.value = normalizeRange(eventTarget.value)
+      }
+      if (value === eventTarget.value) return
 
-    if (min && new BN(value).compare(min) < 0) {
-      result = min
-    }
-    if (max && new BN(value).compare(max) > 0) {
-      result = max
-    }
+      if (setValue) {
+        setValue(eventTarget.value as V)
+      }
 
-    return result as string
-  }
+      if (onInput) {
+        onInput(event)
+      }
+    },
+    [isNumberType, normalizeRange, onInput, setValue, value],
+  )
 
-  const setHeightCSSVar = () => {
-    errorMessageRef.current?.style.setProperty(
-      '--field-error-msg-height',
-      `${errorMessageRef.current?.scrollHeight}px`,
-    )
-  }
+  const handleChange = useCallback(
+    (event: FormEvent<HTMLInputElement>) => {
+      if (onChange) {
+        onChange(event)
+      }
+    },
+    [onChange],
+  )
 
   return (
     <div className={inputClasses}>
@@ -130,6 +138,7 @@ function InputField<V extends string | number>({
           className='input-field__label'
         >
           {label}
+          {labelNodeRight ? labelNodeRight : <></>}
         </label>
       ) : (
         <></>
@@ -140,6 +149,10 @@ function InputField<V extends string | number>({
           className='input-field__input'
           value={value}
           onInput={e => handleInput(e)}
+          onChange={handleChange}
+          onWheel={event => {
+            event.currentTarget.blur()
+          }}
           placeholder={placeholder}
           tabIndex={isDisabled || isReadonly ? -1 : tabindex}
           type={isPasswordType && isPasswordShown ? 'text' : type}
@@ -148,42 +161,34 @@ function InputField<V extends string | number>({
           disabled={isDisabled || isReadonly}
           {...rest}
         />
-        {isPasswordType || iconName ? (
-          <div className='input-field__icon-wrp'>
+        {nodeLeft ? (
+          <div className='input-field__node-left-wrp'>{nodeLeft}</div>
+        ) : (
+          <></>
+        )}
+        {nodeRight || isPasswordType ? (
+          <div className='input-field__node-right-wrp'>
             {isPasswordType ? (
               <button
                 type='button'
                 onClick={() => setIsPasswordShown(!isPasswordShown)}
               >
                 <Icon
-                  className='input-field__icon'
+                  className='input-field__password-icon'
                   name={isPasswordShown ? ICON_NAMES.eye : ICON_NAMES.eyeOff}
                 />
               </button>
             ) : (
-              <Icon
-                className='input-field__icon'
-                name={iconName as ICON_NAMES}
-              />
+              nodeRight
             )}
           </div>
         ) : (
           <></>
         )}
       </div>
-      <CSSTransition
-        nodeRef={errorMessageRef}
-        in={!!errorMessage}
-        timeout={200}
-        classNames='input-field__err-msg-transition'
-        unmountOnExit
-        onEnter={setHeightCSSVar}
-        onExited={setHeightCSSVar}
-      >
-        <span ref={errorMessageRef} className='input-field__err-msg'>
-          {errorMessage}
-        </span>
-      </CSSTransition>
+      <Collapse isOpen={!!errorMessage} duration={0.25}>
+        <span className='input-field__err-msg'>{errorMessage}</span>
+      </Collapse>
     </div>
   )
 }

@@ -77,13 +77,12 @@
     border-color: var(--field-error);
   }
 
-  .input-field--iconed & {
-    padding-right: calc(var(--field-padding-right) * 3);
+  .input-field--node-left & {
+    padding-left: calc(var(--field-padding-left) * 3);
   }
 
-  .input-field--icon-left & {
-    padding-right: var(--field-padding-right);
-    padding-left: calc(var(--field-padding-right) * 3);
+  .input-field--node-right & {
+    padding-right: calc(var(--field-padding-right) * 3);
   }
 
   &:not([disabled]):focus {
@@ -97,45 +96,29 @@
   }
 }
 
-.input-field__icon-wrp {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.input-field__node-left-wrp {
+  overflow: hidden;
   position: absolute;
   top: 50%;
-  right: calc(var(--field-padding-right) * 3 / 2);
-  transform: translate(50%, -50%);
-
-  .input-field--icon-left & {
-    right: 0;
-    left: calc(var(--field-padding-right) * 3 / 2);
-    transform: translate(-50%, -50%);
-  }
+  left: var(--field-padding-left);
+  transform: translateY(-50%);
+  color: inherit;
+  max-height: 100%;
 }
 
-.input-field__icon {
-  width: to-rem(18);
-  height: to-rem(18);
+.input-field__node-right-wrp {
+  position: absolute;
+  top: 50%;
+  right: var(--field-padding-right);
+  transform: translateY(-50%);
+  color: inherit;
+}
+
+.input-field__password-icon {
+  max-width: to-rem(24);
+  max-height: to-rem(24);
 }
 
 .input-field__err-msg {
   @include field-error;
-}
-
-.input-field__err-msg-transition-enter {
-  animation: fade-down var(--field-transition-duration);
-}
-
-.input-field__err-msg-transition-exit {
-  animation: fade-down var(--field-transition-duration) reverse;
-}
-
-@keyframes fade-down {
-  from {
-    height: 0;
-  }
-
-  to {
-    height: var(--field-error-msg-height);
-  }
 }

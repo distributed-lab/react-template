@@ -22,7 +22,6 @@
       "vite/client",
       "@types/lodash-es",
       "vitest/globals",
-      "@types/react-transition-group",
       "@types/uuid"
     ],
     "paths": {

@@ -1,4 +1,3 @@
-import Collapse, { CollapseRef } from './Collapse'
+import Collapse from './Collapse'
 
 export default Collapse
-export type { CollapseRef }

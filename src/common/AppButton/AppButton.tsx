@@ -1,35 +1,36 @@
 import './styles.scss'
 
-import { AnchorHTMLAttributes, HTMLAttributes } from 'react'
+import { AnchorHTMLAttributes, HTMLAttributes, useMemo } from 'react'
 import { LinkProps, NavLink } from 'react-router-dom'
 
 import { Icon } from '@/common'
 import { ICON_NAMES } from '@/enums'
 
-enum SCHEMES {
-  primary = 'primary',
-  flat = 'flat',
-}
+type SCHEMES = 'filled' | 'flat' | 'default'
 
-enum MODIFICATIONS {
-  borderCircle = 'border-circle',
-  borderRounded = 'border-rounded',
-  iconFirst = 'icon-first',
-  big = 'big',
-  small = 'small',
-  success = 'success',
-  error = 'error',
-  warning = 'warning',
-  info = 'info',
-}
+type MODIFICATIONS = 'border-circle' | 'border-rounded' | 'default'
+
+type COLORS =
+  | 'primary'
+  | 'secondary'
+  | 'success'
+  | 'error'
+  | 'warning'
+  | 'info'
+  | 'default'
+
+type SIZES = 'large' | 'medium' | 'small' | 'x-small' | 'default'
 
 type Props<R extends string, H extends string> = {
-  iconName?: ICON_NAMES
   text?: string
-  schemes?: string
-  modifications?: string
+  scheme?: SCHEMES
+  modification?: MODIFICATIONS
+  color?: COLORS
+  size?: SIZES
   href?: H
   routePath?: R
+  iconLeft?: ICON_NAMES
+  iconRight?: ICON_NAMES
   disabled?: boolean
 } & (R extends string
   ? Omit<LinkProps, 'to'>
@@ -38,13 +39,16 @@ type Props<R extends string, H extends string> = {
   : HTMLAttributes<HTMLButtonElement>)
 
 const AppButton = <R extends string, H extends string>({
-  iconName,
   text,
-  schemes = `${SCHEMES.primary}`,
-  modifications = `${MODIFICATIONS.borderRounded}`,
+  scheme = 'filled',
+  modification = 'border-rounded',
+  color = 'primary',
+  size = 'medium',
   href,
   routePath,
-  disabled,
+  iconLeft,
+  iconRight,
+  disabled = false,
   children,
   className = '',
   ...rest
@@ -53,23 +57,42 @@ const AppButton = <R extends string, H extends string>({
     disabled as string | boolean,
   )
 
-  const btnSchemes = schemes
-    ?.split(' ')
-    .filter((el: string) => Boolean(el))
-    .map((el: string) => `app-button--${el}`)
+  const buttonClasses = useMemo(
+    () =>
+      [
+        'app-button',
+        `app-button--${scheme}`,
+        `app-button--${modification}`,
+        `app-button--${color}`,
+        `app-button--${size}`,
+        ...(disabled ? ['app-button--disabled'] : []),
+        ...(className ? [className] : []),
+      ].join(' '),
+    [className, color, disabled, modification, scheme, size],
+  )
 
-  const btnModifications = modifications
-    ?.split(' ')
-    .filter((el: string) => Boolean(el))
-    .map((el: string) => `app-button--${el}`)
-
-  const btnStates = [...(isDisabled ? ['app-button--disabled'] : [])]
-
-  const buttonClasses = ['app-button', className]
-    .concat(btnSchemes)
-    .concat(btnModifications)
-    .concat(btnStates)
-    .join(' ')
+  const buttonContent = useMemo(
+    () => (
+      <>
+        {iconLeft ? (
+          <Icon className='app-button__icon-left' name={iconLeft} />
+        ) : (
+          <></>
+        )}
+        {children || text ? (
+          <span className='app-button__text'>{text}</span>
+        ) : (
+          <></>
+        )}
+        {iconRight ? (
+          <Icon className='app-button__icon-right' name={iconRight} />
+        ) : (
+          <></>
+        )}
+      </>
+    ),
+    [children, iconLeft, iconRight, text],
+  )
 
   if (routePath) {
     return (
@@ -78,16 +101,7 @@ const AppButton = <R extends string, H extends string>({
         to={routePath}
         {...(rest as HTMLAttributes<HTMLAnchorElement>)}
       >
-        {children || text ? (
-          <span className='app-button__text'>{text}</span>
-        ) : (
-          <></>
-        )}
-        {iconName ? (
-          <Icon className='app-button__icon' name={iconName} />
-        ) : (
-          <></>
-        )}
+        {buttonContent}
       </NavLink>
     )
   } else if (href) {
@@ -97,16 +111,7 @@ const AppButton = <R extends string, H extends string>({
         href={href}
         {...(rest as HTMLAttributes<HTMLAnchorElement>)}
       >
-        {children || text ? (
-          <span className='app-button__text'>{text}</span>
-        ) : (
-          <></>
-        )}
-        {iconName ? (
-          <Icon className='app-button__icon' name={iconName} />
-        ) : (
-          <></>
-        )}
+        {buttonContent}
       </a>
     )
   }
@@ -117,12 +122,7 @@ const AppButton = <R extends string, H extends string>({
       disabled={isDisabled}
       {...(rest as HTMLAttributes<HTMLButtonElement>)}
     >
-      {children || text ? (
-        <span className='app-button__text'>{text}</span>
-      ) : (
-        <></>
-      )}
-      {iconName ? <Icon className='app-button__icon' name={iconName} /> : <></>}
+      {buttonContent}
     </button>
   )
 }

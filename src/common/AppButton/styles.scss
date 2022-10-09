@@ -10,14 +10,8 @@
   display: grid;
   width: min-content;
   grid: auto / auto-flow max-content;
-  grid-gap: to-rem(12);
   align-items: center;
   justify-content: center;
-  padding: to-rem(16) to-rem(30);
-  font-size: to-rem(16);
-  line-height: 1.4;
-  font-weight: 600;
-  letter-spacing: 0;
   transition: var(--button-transition-duration) ease-in;
   transition-property: background-color, color;
   text-decoration: none;
@@ -50,20 +44,20 @@
     border: var(--app-button-border-active);
   }
 
-  &--primary {
-    --app-button-primary-bg: var(--primary-main);
-    --app-button-primary-bg-hover: var(--primary-dark);
-    --app-button-primary-bg-active: var(--primary-dark);
+  &--filled {
+    --app-button-filled-bg: var(--primary-main);
+    --app-button-filled-bg-hover: var(--primary-dark);
+    --app-button-filled-bg-active: var(--primary-dark);
 
-    --app-button-primary-text: var(--text-primary-invert-main);
-    --app-button-primary-text-hover: var(--text-primary-invert-main);
+    --app-button-filled-text: var(--text-primary-invert-main);
+    --app-button-filled-text-hover: var(--text-primary-invert-main);
 
-    --app-button-bg: var(--app-button-primary-bg);
-    --app-button-bg-hover: var(--app-button-primary-bg-hover);
-    --app-button-bg-active: var(--app-button-primary-bg-active);
+    --app-button-bg: var(--app-button-filled-bg);
+    --app-button-bg-hover: var(--app-button-filled-bg-hover);
+    --app-button-bg-active: var(--app-button-filled-bg-active);
 
-    --app-button-text: var(--app-button-primary-text);
-    --app-button-text-hover: var(--app-button-primary-text-hover);
+    --app-button-text: var(--app-button-filled-text);
+    --app-button-text-hover: var(--app-button-filled-text-hover);
 
     --app-button-border: 0;
     --app-button-border-hover: 0;
@@ -97,9 +91,9 @@
     --app-button-flat-border-hover: #{to-rem(2)} solid var(--success-dark);
     --app-button-flat-border-active: #{to-rem(2)} solid var(--success-dark);
 
-    --app-button-primary-bg: var(--success-main);
-    --app-button-primary-bg-hover: var(--success-dark);
-    --app-button-primary-bg-active: var(--success-dark);
+    --app-button-filled-bg: var(--success-main);
+    --app-button-filled-bg-hover: var(--success-dark);
+    --app-button-filled-bg-active: var(--success-dark);
   }
 
   &--error {
@@ -109,9 +103,9 @@
     --app-button-flat-border-hover: #{to-rem(2)} solid var(--error-dark);
     --app-button-flat-border-active: #{to-rem(2)} solid var(--error-dark);
 
-    --app-button-primary-bg: var(--error-main);
-    --app-button-primary-bg-hover: var(--error-dark);
-    --app-button-primary-bg-active: var(--error-dark);
+    --app-button-filled-bg: var(--error-main);
+    --app-button-filled-bg-hover: var(--error-dark);
+    --app-button-filled-bg-active: var(--error-dark);
   }
 
   &--warning {
@@ -121,9 +115,9 @@
     --app-button-flat-border-hover: #{to-rem(2)} solid var(--warning-dark);
     --app-button-flat-border-active: #{to-rem(2)} solid var(--warning-dark);
 
-    --app-button-primary-bg: var(--warning-main);
-    --app-button-primary-bg-hover: var(--warning-dark);
-    --app-button-primary-bg-active: var(--warning-dark);
+    --app-button-filled-bg: var(--warning-main);
+    --app-button-filled-bg-hover: var(--warning-dark);
+    --app-button-filled-bg-active: var(--warning-dark);
   }
 
   &--info {
@@ -133,9 +127,9 @@
     --app-button-flat-border-hover: #{to-rem(2)} solid var(--info-dark);
     --app-button-flat-border-active: #{to-rem(2)} solid var(--info-dark);
 
-    --app-button-primary-bg: var(--info-main);
-    --app-button-primary-bg-hover: var(--info-dark);
-    --app-button-primary-bg-active: var(--info-dark);
+    --app-button-filled-bg: var(--info-main);
+    --app-button-filled-bg-hover: var(--info-dark);
+    --app-button-filled-bg-active: var(--info-dark);
   }
 
   &--border-circle {
@@ -146,21 +140,29 @@
     border-radius: to-rem(10);
   }
 
-  &--big {
-    padding: to-rem(20) to-rem(30);
+  &--large {
+    padding: to-rem(24) to-rem(50);
+    grid-gap: to-rem(16);
+  }
+
+  &--medium {
+    padding: to-rem(16) to-rem(30);
+    font-size: to-rem(16);
+    line-height: 1.4;
+    font-weight: 600;
+    grid-gap: to-rem(12);
+    letter-spacing: 0;
   }
 
   &--small {
-    padding: to-rem(8) to-rem(30);
+    padding: to-rem(8) to-rem(15);
+    grid-gap: to-rem(8);
   }
-}
 
-.app-button .app-button__icon {
-  height: 1.2em;
-  width: 1.2em;
-
-  .app-button--icon-first & {
-    grid-column: -1;
+  .app-button__icon-left,
+  .app-button__icon-right {
+    height: 1.2em;
+    width: 1.2em;
   }
 }
 
@@ -171,5 +173,5 @@
   word-break: break-all;
   min-width: 0;
 
-  @extend %text-ellipsis;
+  @include text-ellipsis;
 }

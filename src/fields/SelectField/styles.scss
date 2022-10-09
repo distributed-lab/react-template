@@ -19,7 +19,7 @@ $z-index-dropdown-inner: 1;
   transition: color var(--field-transition-duration);
   background: var(--field-bg);
 
-  @extend %text-ellipsis;
+  @include text-ellipsis;
 
   @include field-label;
 
@@ -95,49 +95,27 @@ $z-index-dropdown-inner: 1;
   flex-direction: column;
   position: absolute;
   outline: none;
-  top: 110%;
+  gap: to-rem(8);
+  top: 125%;
   left: 0;
   width: 100%;
   background: var(--app-bg);
   z-index: $z-index-dropdown-inner;
-  padding: to-rem(8) 0;
   box-shadow: #{to-rem(2) to-rem(4) to-rem(24) 0 rgba(var(--black-rgb), 0.08)};
-  border-radius: to-rem(16);
+  border-radius: to-rem(8);
 
   @include field-text;
 
   border-top: 0;
-  border-top-left-radius: 0;
-  border-top-right-radius: 0;
-}
-
-.select-field__dropdown-enter {
-  animation: fade-dropdown 0.5s;
-}
-
-.select-field__dropdown-exit {
-  animation: fade-dropdown 0.5s reverse;
-}
-
-@keyframes fade-dropdown {
-  from {
-    height: 0;
-  }
-
-  to {
-    height: var(--field-select-dropdown-height);
-  }
 }
 
 .select-field__dropdown-item {
   cursor: pointer;
   text-align: left;
   text-overflow: ellipsis;
-  margin: 0 to-rem(8);
-  border-radius: to-rem(8);
   font-size: to-rem(14);
   line-height: 1.2;
-  padding: to-rem(12) to-rem(16);
+  padding: to-rem(12);
 
   &:not(:last-child) {
     margin-bottom: to-rem(8);
@@ -155,22 +133,4 @@ $z-index-dropdown-inner: 1;
 
 .select-field__err-msg {
   @include field-error;
-}
-
-.select-field__err-msg-enter {
-  animation: fade-down var(--field-transition-duration);
-}
-
-.select-field__err-msg-exit {
-  animation: fade-down var(--field-transition-duration) reverse;
-}
-
-@keyframes fade-down {
-  from {
-    height: 0;
-  }
-
-  to {
-    height: var(--field-error-msg-height);
-  }
 }
