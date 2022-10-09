@@ -123,37 +123,35 @@ function SelectField<T>({
           {toggleBtnContent}
         </button>
 
-        <Collapse
-          isOpen={isOpen}
-          className='select-field__dropdown'
-          {...getMenuProps()}
-        >
-          {children.map((el, idx) => {
-            const newProps = {
-              ...el.props,
-              key: idx,
-              ...getItemProps({
+        <div className='select-field__dropdown-wrp' {...getMenuProps()}>
+          <Collapse isOpen={isOpen} className='select-field__dropdown'>
+            {children.map((el, idx) => {
+              const newProps = {
+                ...el.props,
                 key: idx,
-                index: idx,
-                item: el,
-                className: [
-                  ...(el.props.className ? [el.props.className] : []),
-                  'select-field__dropdown-item',
-                  ...[
-                    selectedItem === el
-                      ? 'select-field__dropdown-item--selected'
-                      : [],
-                  ],
-                ].join(' '),
-                onClick: () => {
-                  setSelectedOptionContent(el)
-                },
-              }),
-            }
+                ...getItemProps({
+                  key: idx,
+                  index: idx,
+                  item: el,
+                  className: [
+                    ...(el.props.className ? [el.props.className] : []),
+                    'select-field__dropdown-item',
+                    ...[
+                      selectedItem === el
+                        ? 'select-field__dropdown-item--selected'
+                        : [],
+                    ],
+                  ].join(' '),
+                  onClick: () => {
+                    setSelectedOptionContent(el)
+                  },
+                }),
+              }
 
-            return el ? cloneElement(el, newProps) : <></>
-          })}
-        </Collapse>
+              return el ? cloneElement(el, newProps) : <></>
+            })}
+          </Collapse>
+        </div>
       </div>
       <Collapse isOpen={!!errorMessage}>
         <span className='select-field__err-msg'>{errorMessage}</span>
