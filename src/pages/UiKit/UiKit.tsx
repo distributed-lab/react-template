@@ -14,6 +14,7 @@ import {
 } from '@/common'
 import { ICON_NAMES, RoutesPaths } from '@/enums'
 import { CheckboxField, InputField, SelectField } from '@/fields'
+import LoginForm from '@/forms/LoginForm'
 import { Bus } from '@/helpers'
 
 const selectOptions: {
@@ -345,6 +346,9 @@ const UiKit: FC = () => {
           label={t('ui-kit.some-label')}
           disabled
         />
+      </section>
+      <section className='ui-kit__form'>
+        <LoginForm />
       </section>
       <section className='ui-kit__common'>
         <ErrorMessage message={t('ui-kit.loading-error-msg')} />
