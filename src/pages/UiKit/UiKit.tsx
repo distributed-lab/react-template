@@ -302,6 +302,7 @@ const UiKit: FC = () => {
           setValue={setSimpleSelect}
           label={t('ui-kit.some-label')}
           placeholder={t('ui-kit.some-placeholder')}
+          errorMessage={simpleInput as string}
         >
           {selectOptions.map((el, idx) => (
             <div

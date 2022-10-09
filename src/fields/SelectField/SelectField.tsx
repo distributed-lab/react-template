@@ -7,14 +7,13 @@ import {
   Dispatch,
   HTMLAttributes,
   ReactElement,
-  RefObject,
   SetStateAction,
   useEffect,
   useMemo,
-  useRef,
   useState,
 } from 'react'
-import { CSSTransition } from 'react-transition-group'
+
+import { Collapse } from '@/common'
 
 interface Props<T> extends HTMLAttributes<HTMLSelectElement> {
   options: unknown[]
@@ -42,9 +41,6 @@ function SelectField<T>({
   children,
   ...rest
 }: Props<T>) {
-  const errorMessageRef = useRef<HTMLDivElement>(null)
-  const dropdownMenuRef = useRef<HTMLDivElement>(null)
-
   const {
     isOpen,
     getLabelProps,
@@ -106,16 +102,6 @@ function SelectField<T>({
     }
   }, [children, value])
 
-  const setHeightCSSVar = (
-    cssVar: string,
-    nodeRef: RefObject<HTMLDivElement>,
-  ) => {
-    nodeRef.current?.style.setProperty(
-      cssVar,
-      `${nodeRef.current?.scrollHeight}px`,
-    )
-  }
-
   return (
     <div className={selectClasses}>
       {label ? (
@@ -137,67 +123,41 @@ function SelectField<T>({
           {toggleBtnContent}
         </button>
 
-        <div className='select-field__dropdown-wrp' {...getMenuProps()}>
-          <CSSTransition
-            nodeRef={dropdownMenuRef}
-            in={isOpen}
-            timeout={500}
-            unmountOnExit
-            classNames='select-field__dropdown'
-            onEnter={() =>
-              setHeightCSSVar('--field-select-dropdown-height', dropdownMenuRef)
+        <Collapse
+          isOpen={isOpen}
+          className='select-field__dropdown'
+          {...getMenuProps()}
+        >
+          {children.map((el, idx) => {
+            const newProps = {
+              ...el.props,
+              key: idx,
+              ...getItemProps({
+                key: idx,
+                index: idx,
+                item: el,
+                className: [
+                  ...(el.props.className ? [el.props.className] : []),
+                  'select-field__dropdown-item',
+                  ...[
+                    selectedItem === el
+                      ? 'select-field__dropdown-item--selected'
+                      : [],
+                  ],
+                ].join(' '),
+                onClick: () => {
+                  setSelectedOptionContent(el)
+                },
+              }),
             }
-            onExited={() =>
-              setHeightCSSVar('--field-select-dropdown-height', dropdownMenuRef)
-            }
-          >
-            <div ref={dropdownMenuRef} className='select-field__dropdown'>
-              {children.map((el, idx) => {
-                const newProps = {
-                  ...el.props,
-                  key: idx,
-                  ...getItemProps({
-                    key: idx,
-                    index: idx,
-                    item: el,
-                    className: [
-                      ...(el.props.className ? [el.props.className] : []),
-                      'select-field__dropdown-item',
-                      ...[
-                        selectedItem === el
-                          ? 'select-field__dropdown-item--selected'
-                          : [],
-                      ],
-                    ].join(' '),
-                    onClick: () => {
-                      setSelectedOptionContent(el)
-                    },
-                  }),
-                }
 
-                return el ? cloneElement(el, newProps) : <></>
-              })}
-            </div>
-          </CSSTransition>
-        </div>
+            return el ? cloneElement(el, newProps) : <></>
+          })}
+        </Collapse>
       </div>
-      <CSSTransition
-        nodeRef={errorMessageRef}
-        in={!!errorMessage}
-        timeout={200}
-        classNames='select-field__err-msg'
-        unmountOnExit
-        onEnter={() =>
-          setHeightCSSVar('--field-error-msg-height', errorMessageRef)
-        }
-        onExited={() =>
-          setHeightCSSVar('--field-error-msg-height', errorMessageRef)
-        }
-      >
-        <span ref={errorMessageRef} className='select-field__err-msg'>
-          {errorMessage}
-        </span>
-      </CSSTransition>
+      <Collapse isOpen={!!errorMessage}>
+        <span className='select-field__err-msg'>{errorMessage}</span>
+      </Collapse>
     </div>
   )
 }
