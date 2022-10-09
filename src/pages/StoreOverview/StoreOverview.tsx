@@ -1,6 +1,7 @@
 import './styles.scss'
 
-import { useCallback, useEffect, useState } from 'react'
+import { motion, MotionProps } from 'framer-motion'
+import { FC, HTMLAttributes, useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { ErrorMessage, Loader, NoDataMessage } from '@/common'
@@ -8,7 +9,9 @@ import { ErrorHandler, sleep } from '@/helpers'
 import { getPosts, useAppDispatch, useAppSelector } from '@/store'
 import { Post } from '@/types'
 
-const StoreOverview = () => {
+type Props = HTMLAttributes<HTMLDivElement> & MotionProps
+
+const StoreOverview: FC<Props> = ({ ...rest }) => {
   const [isLoaded, setIsLoaded] = useState(false)
   const [isLoadFailed, setIsLoadFailed] = useState(false)
   const posts: Post[] = useAppSelector(state => state.postsSlice.posts)
@@ -33,7 +36,7 @@ const StoreOverview = () => {
   }, [init])
 
   return (
-    <div className='store-overview'>
+    <motion.div className='store-overview' {...rest}>
       {isLoaded ? (
         isLoadFailed ? (
           <ErrorMessage message={t('store-overview.loading-error-msg')} />
@@ -54,7 +57,7 @@ const StoreOverview = () => {
       ) : (
         <Loader />
       )}
-    </div>
+    </motion.div>
   )
 }
 

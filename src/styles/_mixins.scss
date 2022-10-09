@@ -104,3 +104,9 @@ $media-breakpoints: (
   transition-property: opacity, color, font-size, transform;
   margin-top: to-rem(4);
 }
+
+@mixin text-ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
