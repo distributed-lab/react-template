@@ -8,3 +8,15 @@
   flex-direction: column;
   gap: to-rem(24);
 }
+
+.login-form__row {
+  display: flex;
+  align-items: flex-start;
+  gap: to-rem(24);
+}
+
+.login-form__col {
+  display: flex;
+  flex-direction: column;
+  gap: to-rem(24);
+}

@@ -1,5 +1,5 @@
 import { cloneDeep, get, isEmpty, isEqual, isObject, set } from 'lodash'
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 
 type FormSchema = Record<string, unknown>
 
@@ -34,14 +34,13 @@ type ValidationRules = Record<keyof FormSchema, ValidatorOptions>
 function _generateDefaultFieldState(
   fieldKey: string | number,
   field: unknown,
-): ValidationState {
-  const defaultFlags = {
+  defaultFlags = {
     isInvalid: false,
     isDirty: false,
     isError: false,
     errors: {},
-  }
-
+  } as ValidationFieldState,
+): ValidationState {
   if (!isObject(field)) {
     return {
       [fieldKey]: defaultFlags,
@@ -53,7 +52,7 @@ function _generateDefaultFieldState(
         ...field.reduce((acc, el, index) => {
           return {
             ...acc,
-            ..._generateDefaultFieldState(index, el),
+            ..._generateDefaultFieldState(index, el, defaultFlags),
           }
         }, {}),
       },
@@ -65,7 +64,7 @@ function _generateDefaultFieldState(
         ...Object.keys(field).reduce((acc, el) => {
           return {
             ...acc,
-            ..._generateDefaultFieldState(el, get(field, el)),
+            ..._generateDefaultFieldState(el, get(field, el), defaultFlags),
           }
         }, {}),
       },
@@ -77,19 +76,36 @@ export const useFormValidation = (
   formSchema: FormSchema,
   validationRules: ValidationRules,
 ) => {
-  const validationDefaultState = useMemo(() => {
-    return Object.keys(validationRules).reduce((acc, fieldName) => {
-      const _validationState = _generateDefaultFieldState(
-        fieldName,
-        formSchema[fieldName],
-      )
+  const [isFieldsValid, setIsFieldsValid] = useState(false)
+  const _getValidationDefaultState = useCallback(
+    (
+      defaultFlags = {
+        isInvalid: false,
+        isDirty: false,
+        isError: false,
+        errors: {},
+      } as ValidationFieldState,
+    ) => {
+      return Object.keys(validationRules).reduce((acc, fieldName) => {
+        const _validationState = _generateDefaultFieldState(
+          fieldName,
+          formSchema[fieldName],
+          defaultFlags,
+        )
 
-      return {
-        ...acc,
-        ..._validationState,
-      }
-    }, {})
-  }, [formSchema, validationRules])
+        return {
+          ...acc,
+          ..._validationState,
+        }
+      }, {})
+    },
+    [formSchema, validationRules],
+  )
+
+  const validationDefaultState = useMemo(
+    () => _getValidationDefaultState(),
+    [_getValidationDefaultState],
+  )
 
   const [validationState, setValidationState] = useState<ValidationState>(
     validationDefaultState,
@@ -120,6 +136,12 @@ export const useFormValidation = (
                   },
                 }),
           }),
+        }
+
+        if (Object.keys(errors).length) {
+          console.log('validatorKey', validatorKey)
+          console.log(fieldKey, fieldValue)
+          setIsFieldsValid(false)
         }
 
         if (isValid && errors[validatorKey]) {
@@ -210,6 +232,7 @@ export const useFormValidation = (
   )
 
   const getValidationState = useCallback((): ValidationState => {
+    setIsFieldsValid(true)
     return Object.keys(validationRules).reduce((acc, fieldName) => {
       const fieldValidators = validationRules[fieldName]
 
@@ -294,20 +317,23 @@ export const useFormValidation = (
     [validationState],
   )
 
-  const isFormValid = useCallback((): boolean => {
-    for (const key in validationState) {
-      touchField(key)
-      if (validationState[key].isInvalid) return false
-    }
-    return true
-  }, [touchField, validationState])
+  const touchForm = useCallback(() => {
+    const _defaultState = _getValidationDefaultState({
+      isInvalid: false,
+      isDirty: true,
+      isError: false,
+      errors: {},
+    })
+
+    setValidationState(_defaultState)
+  }, [_getValidationDefaultState])
 
   const getFieldErrorMessage = useCallback(
     (fieldPath: string) => {
       const validationField = get(validationState, fieldPath)
 
       if (!validationField && !Object.keys(formSchema).includes(fieldPath)) {
-        return
+        return ''
       } else if (
         validationField?.errors &&
         !Object.entries(validationField.errors)[0]
@@ -328,21 +354,17 @@ export const useFormValidation = (
     (fieldPath: string) => {
       const validationField = get(validationState, fieldPath)
 
-      if (!validationField) {
-        if (Object.keys(formSchema).includes(fieldPath)) {
-          return false
-        } else {
-          throw new Error(`Field "${fieldPath}" not found`)
-        }
-      }
+      if (!validationField) throw new Error(`Field "${fieldPath}" not found`)
 
       return !validationField.isInvalid || false
     },
-    [formSchema, validationState],
+    [validationState],
   )
 
   return {
-    isFormValid,
+    isFieldsValid,
+
+    touchForm,
     getFieldErrorMessage,
     touchField,
     isFieldValid,
