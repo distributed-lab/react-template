@@ -1,5 +1,5 @@
 import { cloneDeep, get, isEmpty, isEqual, isObject, set } from 'lodash'
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 
 type FormSchema = Record<string, unknown>
 
@@ -139,8 +139,6 @@ export const useFormValidation = (
         }
 
         if (Object.keys(errors).length) {
-          console.log('validatorKey', validatorKey)
-          console.log(fieldKey, fieldValue)
           setIsFieldsValid(false)
         }
 
