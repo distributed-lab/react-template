@@ -11,6 +11,8 @@ enum EVENTS {
 }
 
 export class EventBus {
+  private handledEvents: Array<EventType> = []
+
   private emitter: Emitter<Record<EventType, unknown>>
 
   constructor() {
@@ -21,16 +23,22 @@ export class EventBus {
     return EVENTS
   }
 
-  public get yopta_emitter() {
-    return this.emitter
-  }
-
   on(eventName: EventType, handlerFn: (payload: unknown) => void): void {
+    if (this.handledEvents.includes(eventName)) return
+
     this.emitter.on(eventName, handlerFn)
+    this.handledEvents.push(eventName)
   }
 
   emit(eventName: EventType, payload?: unknown): void {
     this.emitter.emit(eventName, payload)
+  }
+
+  off(eventName: EventType, handlerFn: (payload: unknown) => void): void {
+    if (!this.handledEvents.includes(eventName)) return
+
+    this.emitter.off(eventName, handlerFn)
+    this.handledEvents = this.handledEvents.filter(event => event !== eventName)
   }
 
   success(payload: string | NotificationObjectPayload): void {

@@ -11,8 +11,8 @@ import { maxLength, minLength, required } from '@/validators'
 
 const LoginForm = () => {
   const { t } = useTranslation()
-  const [login, setLogin] = useState<string | number>('')
-  const [password, setPassword] = useState<string | number>('')
+  const [login, setLogin] = useState('')
+  const [password, setPassword] = useState('')
   const [someComplexObject, setSomeComplexObject] = useState({
     fullName: {
       firstName: 'John',
@@ -171,7 +171,7 @@ const LoginForm = () => {
       <div className='login-form__row'>
         <InputField
           value={login}
-          setValue={setLogin}
+          updateValue={setLogin}
           label={t('login-form.login-lbl')}
           errorMessage={getFieldErrorMessage('login')}
           onBlur={() => touchField('login')}
@@ -180,7 +180,7 @@ const LoginForm = () => {
         <InputField
           type='password'
           value={password}
-          setValue={setPassword}
+          updateValue={setPassword}
           label={t('login-form.password-lbl')}
           errorMessage={getFieldErrorMessage('password')}
           onBlur={() => touchField('password')}

@@ -2,16 +2,17 @@ import 'react-toastify/dist/ReactToastify.css'
 import './styles.scss'
 
 import { isObject } from 'lodash-es'
-import { useEffect } from 'react'
+import { useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 import { toast, ToastContainer, TypeOptions } from 'react-toastify'
+import { useEffectOnce } from 'react-use'
 
 import { Icon } from '@/common'
 import { ICON_NAMES } from '@/enums'
 import { Bus } from '@/helpers'
 import { NotificationObjectPayload } from '@/types'
 
-const TYPE = {
+const NOTIFICATION_TYPE = {
   success: 'success',
   warning: 'warning',
   error: 'error',
@@ -22,77 +23,91 @@ const TYPE = {
 const Notification = () => {
   const { t } = useTranslation()
 
-  useEffect(() => {
-    Bus.on(Bus.eventList.success, payload => showToast(TYPE.success, payload))
-    Bus.on(Bus.eventList.warning, payload => showToast(TYPE.warning, payload))
-    Bus.on(Bus.eventList.error, payload => showToast(TYPE.error, payload))
-    Bus.on(Bus.eventList.info, payload => showToast(TYPE.info, payload))
-    Bus.on(Bus.eventList.default, payload => showToast(TYPE.default, payload))
-  })
+  const showToast = useCallback(
+    (
+      messageType = NOTIFICATION_TYPE.default,
+      payload?: string | NotificationObjectPayload | unknown,
+    ) => {
+      let title = ''
+      let message = ''
+      let iconName: ICON_NAMES | undefined
 
-  const showToast = (
-    messageType = TYPE.default,
-    payload?: string | NotificationObjectPayload | unknown,
-  ): void => {
-    let title = ''
-    let message = ''
-    let iconName: ICON_NAMES | undefined
+      const defaultTitles = {
+        [NOTIFICATION_TYPE.success]: t('notifications.default-title-success'),
+        [NOTIFICATION_TYPE.error]: t('notifications.default-title-error'),
+        [NOTIFICATION_TYPE.warning]: t('notifications.default-title-warning'),
+        [NOTIFICATION_TYPE.info]: t('notifications.default-title-info'),
+        [NOTIFICATION_TYPE.default]: t('notifications.default-title-default'),
+      }
+      const defaultMessages = {
+        [NOTIFICATION_TYPE.default]: t('notifications.default-message-default'),
+        [NOTIFICATION_TYPE.info]: t('notifications.default-message-info'),
+        [NOTIFICATION_TYPE.success]: t('notifications.default-message-success'),
+        [NOTIFICATION_TYPE.error]: t('notifications.default-message-error'),
+        [NOTIFICATION_TYPE.warning]: t('notifications.default-message-warning'),
+      }
+      const defaultIconNames = {
+        [NOTIFICATION_TYPE.default]: ICON_NAMES.informationCircle,
+        [NOTIFICATION_TYPE.info]: ICON_NAMES.informationCircle,
+        [NOTIFICATION_TYPE.success]: ICON_NAMES.checkCircle,
+        [NOTIFICATION_TYPE.error]: ICON_NAMES.exclamationCircle,
+        [NOTIFICATION_TYPE.warning]: ICON_NAMES.exclamation,
+      }
 
-    const defaultTitles = {
-      [TYPE.success]: t('notifications.default-title-success'),
-      [TYPE.error]: t('notifications.default-title-error'),
-      [TYPE.warning]: t('notifications.default-title-warning'),
-      [TYPE.info]: t('notifications.default-title-info'),
-      [TYPE.default]: t('notifications.default-title-default'),
-    }
-    const defaultMessages = {
-      [TYPE.default]: t('notifications.default-message-default'),
-      [TYPE.info]: t('notifications.default-message-info'),
-      [TYPE.success]: t('notifications.default-message-success'),
-      [TYPE.error]: t('notifications.default-message-error'),
-      [TYPE.warning]: t('notifications.default-message-warning'),
-    }
-    const defaultIconNames = {
-      [TYPE.default]: ICON_NAMES.informationCircle,
-      [TYPE.info]: ICON_NAMES.informationCircle,
-      [TYPE.success]: ICON_NAMES.checkCircle,
-      [TYPE.error]: ICON_NAMES.exclamationCircle,
-      [TYPE.warning]: ICON_NAMES.exclamation,
-    }
+      if (isObject(payload)) {
+        const msgPayload = payload as NotificationObjectPayload
 
-    if (isObject(payload)) {
-      const msgPayload = payload as NotificationObjectPayload
+        title = msgPayload.title || ''
+        message = msgPayload.message
+        iconName = msgPayload?.iconName
+      } else if (payload) {
+        message = payload as string
+      } else {
+        message = defaultMessages[messageType]
+      }
 
-      title = msgPayload.title || ''
-      message = msgPayload.message
-      iconName = msgPayload?.iconName
-    } else if (payload) {
-      message = payload as string
-    } else {
-      message = defaultMessages[messageType]
-    }
+      if (!title) {
+        title = defaultTitles[messageType]
+      }
+      if (!iconName) {
+        iconName = defaultIconNames[messageType]
+      }
 
-    if (!title) {
-      title = defaultTitles[messageType]
-    }
-    if (!iconName) {
-      iconName = defaultIconNames[messageType]
-    }
+      toast(
+        <div className='notification'>
+          <Icon className='notification__icon' name={iconName} />
+          <div className='notification__details'>
+            <h4 className='notification__title'>{title}</h4>
+            <p className='notification__message'>{message}</p>
+          </div>
+        </div>,
+        {
+          // toastId: `${messageType}}`,
+          icon: false,
+          type: messageType as TypeOptions,
+        },
+      )
+    },
+    [t],
+  )
 
-    toast(
-      <div className='notification'>
-        <Icon className='notification__icon' name={iconName} />
-        <div className='notification__details'>
-          <h4 className='notification__title'>{title}</h4>
-          <p className='notification__message'>{message}</p>
-        </div>
-      </div>,
-      {
-        icon: false,
-        type: messageType as TypeOptions,
-      },
+  useEffectOnce(() => {
+    Bus.on(Bus.eventList.success, payload =>
+      showToast(NOTIFICATION_TYPE.success, payload),
     )
-  }
+    Bus.on(Bus.eventList.warning, payload =>
+      showToast(NOTIFICATION_TYPE.warning, payload),
+    )
+    Bus.on(Bus.eventList.error, payload =>
+      showToast(NOTIFICATION_TYPE.error, payload),
+    )
+    Bus.on(Bus.eventList.info, payload =>
+      showToast(NOTIFICATION_TYPE.info, payload),
+    )
+    Bus.on(Bus.eventList.default, payload =>
+      showToast(NOTIFICATION_TYPE.default, payload),
+    )
+  })
 
   return <ToastContainer />
 }

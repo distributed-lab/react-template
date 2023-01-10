@@ -4,23 +4,24 @@ import '@/localization'
 import 'virtual:svg-icons-register'
 
 import { StrictMode } from 'react'
-import { render } from 'react-dom'
-import { Provider } from 'react-redux'
-import { BrowserRouter } from 'react-router-dom'
+import { createRoot } from 'react-dom/client'
+import { Provider as StoreProvider } from 'react-redux'
 
 import { initApi } from '@/api'
 import { App } from '@/App'
+import { Notification } from '@/common'
 import { store } from '@/store'
 
 initApi()
 
-render(
+const root = createRoot(document.getElementById('root') as Element)
+
+root.render(
   <StrictMode>
-    <BrowserRouter>
-      <Provider store={store}>
-        <App />
-      </Provider>
-    </BrowserRouter>
+    <StoreProvider store={store}>
+      <App />
+
+      <Notification />
+    </StoreProvider>
   </StrictMode>,
-  document.getElementById('root'),
 )

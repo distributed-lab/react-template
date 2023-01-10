@@ -48,7 +48,7 @@ const selectOptions: {
 type Props = HTMLAttributes<HTMLDivElement> & MotionProps
 
 const UiKit: FC<Props> = ({ ...rest }) => {
-  const [simpleInput, setSimpleInput] = useState<string | number>('')
+  const [simpleInput, setSimpleInput] = useState('')
   const [simpleSelect, setSimpleSelect] = useState<string | number>(
     selectOptions[3].id,
   )
@@ -251,13 +251,13 @@ const UiKit: FC<Props> = ({ ...rest }) => {
       <section className='ui-kit__inputs'>
         <InputField
           value={simpleInput}
-          setValue={setSimpleInput}
+          updateValue={setSimpleInput}
           label={t('ui-kit.some-label')}
           placeholder={t('ui-kit.some-placeholder')}
         />
         <InputField
           value={simpleInput}
-          setValue={setSimpleInput}
+          updateValue={setSimpleInput}
           label={t('ui-kit.some-label')}
           placeholder={t('ui-kit.some-placeholder')}
           nodeLeft={
@@ -267,7 +267,7 @@ const UiKit: FC<Props> = ({ ...rest }) => {
         />
         <InputField
           value={simpleInput}
-          setValue={setSimpleInput}
+          updateValue={setSimpleInput}
           label={t('ui-kit.some-label')}
           placeholder={t('ui-kit.some-placeholder')}
           nodeRight={
@@ -276,7 +276,7 @@ const UiKit: FC<Props> = ({ ...rest }) => {
         />
         <InputField
           value={simpleInput}
-          setValue={setSimpleInput}
+          updateValue={setSimpleInput}
           label={t('ui-kit.some-label')}
           placeholder={t('ui-kit.some-placeholder')}
           nodeLeft={
@@ -288,14 +288,14 @@ const UiKit: FC<Props> = ({ ...rest }) => {
         />
         <InputField
           value={simpleInput}
-          setValue={setSimpleInput}
+          updateValue={setSimpleInput}
           type='password'
           label={t('ui-kit.some-label')}
           placeholder={t('ui-kit.some-placeholder')}
         />
         <InputField
           value={simpleInput}
-          setValue={setSimpleInput}
+          updateValue={setSimpleInput}
           label={t('ui-kit.some-label')}
           placeholder={t('ui-kit.some-placeholder')}
           disabled

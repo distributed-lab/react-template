@@ -1,4 +1,3 @@
-import NodeGlobalsPolyfillPlugin from '@esbuild-plugins/node-globals-polyfill'
 import react from '@vitejs/plugin-react'
 import * as fs from 'fs'
 import * as path from 'path'
@@ -13,7 +12,7 @@ const resolveApp = (relative: string) => path.resolve(appDirectory, relative)
 const root = path.resolve(__dirname, resolveApp('src'))
 
 // https://vitejs.dev/config/
-export default defineConfig(({ command, mode }) => {
+export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '')
 
   const isProduction = env.VITE_APP_ENVIRONMENT === 'production'
@@ -69,18 +68,6 @@ export default defineConfig(({ command, mode }) => {
             @import "@/styles/_functions.scss";
           `,
         },
-      },
-    },
-    optimizeDeps: {
-      esbuildOptions: {
-        define: {
-          global: 'globalThis',
-        },
-        plugins: [
-          NodeGlobalsPolyfillPlugin({
-            buffer: true,
-          }),
-        ],
       },
     },
   }

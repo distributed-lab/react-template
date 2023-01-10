@@ -21,10 +21,9 @@ enum INPUT_TYPES {
   number = 'number',
 }
 
-interface Props<V extends string | number>
-  extends HTMLAttributes<HTMLInputElement> {
+interface Props<V extends string> extends HTMLAttributes<HTMLInputElement> {
   value: V
-  setValue?: Dispatch<SetStateAction<V>>
+  updateValue?: Dispatch<SetStateAction<V>>
   type?: string
   label?: string
   labelNodeRight?: ReactNode
@@ -39,9 +38,9 @@ interface Props<V extends string | number>
   nodeRight?: ReactNode
 }
 
-function InputField<V extends string | number>({
+function InputField<V extends string>({
   value,
-  setValue,
+  updateValue,
   type = INPUT_TYPES.text,
   label,
   labelNodeRight,
@@ -86,6 +85,11 @@ function InputField<V extends string | number>({
     ].map(el => `input-field--${el}`),
   ].join(' ')
 
+  const normalizeNumber = useCallback(
+    (_value: string) => (isNaN(Number(_value)) ? value : _value),
+    [value],
+  )
+
   const normalizeRange = useCallback(
     (value: string | number): string => {
       let result = value
@@ -106,19 +110,26 @@ function InputField<V extends string | number>({
     (event: FormEvent<HTMLInputElement>) => {
       const eventTarget = event.target as HTMLInputElement
       if (isNumberType) {
-        eventTarget.value = normalizeRange(eventTarget.value)
+        eventTarget.value = normalizeRange(normalizeNumber(eventTarget.value))
       }
       if (value === eventTarget.value) return
 
-      if (setValue) {
-        setValue(eventTarget.value as V)
+      if (updateValue) {
+        updateValue(eventTarget.value as V)
       }
 
       if (onInput) {
         onInput(event)
       }
     },
-    [isNumberType, normalizeRange, onInput, setValue, value],
+    [
+      isNumberType,
+      normalizeNumber,
+      normalizeRange,
+      onInput,
+      updateValue,
+      value,
+    ],
   )
 
   const handleChange = useCallback(

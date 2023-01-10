@@ -24,13 +24,13 @@ export const postsSlice = createSlice({
   name: 'posts-slice',
   initialState,
   reducers: {},
-  extraReducers: {
-    [getPosts.fulfilled.type]: (state, action) => {
+  extraReducers: builder => {
+    builder.addCase(getPosts.fulfilled, (state, action) => {
       state.posts = action.payload || []
-    },
-    [getPosts.rejected.type]: (state, action) => {
-      throw new Error(action.payload)
-    },
+    })
+    builder.addCase(getPosts.rejected, (state, action) => {
+      throw new Error(action.error.message)
+    })
   },
 })
 
