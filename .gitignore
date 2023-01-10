@@ -17,12 +17,16 @@ selenium-debug.log
 package-lock.json
 OLD/
 test/unit/coverage
+.env
 
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
 .idea
+.vscode
+.fleet
 .DS_Store
+OLD
 *.suo
 *.ntvs*
 *.njsproj
