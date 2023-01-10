@@ -40,7 +40,7 @@ const StoreOverview: FC<Props> = ({ ...rest }) => {
       {isLoaded ? (
         isLoadFailed ? (
           <ErrorMessage message={t('store-overview.loading-error-msg')} />
-        ) : posts.length ? (
+        ) : posts && Array.isArray(posts) && posts.length ? (
           <div className='store-overview__list'>
             {posts.map((el, idx) => (
               <div className='store-overview__card' key={el.id}>
