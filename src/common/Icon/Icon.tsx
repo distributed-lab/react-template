@@ -11,7 +11,7 @@ interface IconProps extends HTMLAttributes<HTMLOrSVGElement> {
 const Icon: FC<IconProps> = ({ name, className = '', ...rest }) => {
   return (
     <svg className={`icon ${className}`} aria-hidden='true'>
-      <use xlinkHref={`#${name}-icon`} {...rest} />
+      <use href={`#${name}-icon`} {...rest} />
     </svg>
   )
 }
