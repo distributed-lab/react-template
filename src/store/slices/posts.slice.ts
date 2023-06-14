@@ -1,6 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 
-import { api } from '@/api'
 import { Post } from '@/types'
 
 interface PostsState {
@@ -13,8 +12,10 @@ const initialState: PostsState = {
 
 export const getPosts = createAsyncThunk('posts/list', async (_, thunkAPI) => {
   try {
-    const { data } = await api.get<Post[]>('/posts')
-    return data
+    // const { data } = await api.get<Post[]>('/posts')
+    // return data
+
+    return []
   } catch (error) {
     return thunkAPI.rejectWithValue(error)
   }

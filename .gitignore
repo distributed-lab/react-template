@@ -18,6 +18,9 @@ package-lock.json
 OLD/
 test/unit/coverage
 .env
+.env.local
+.env.production
+.env.analyze
 
 # Editor directories and files
 .vscode/*

@@ -1,3 +1,4 @@
+import { viteCommonjs } from '@originjs/vite-plugin-commonjs'
 import react from '@vitejs/plugin-react'
 import * as fs from 'fs'
 import * as path from 'path'
@@ -21,12 +22,17 @@ export default defineConfig(({ mode }) => {
   const buildVersion = env.VITE_APP_BUILD_VERSION
 
   return {
-    server: {
-      port: Number(env.VITE_PORT),
-    },
+    ...(env.VITE_PORT
+      ? {
+          server: {
+            port: Number(env.VITE_PORT),
+          },
+        }
+      : {}),
     publicDir: 'static',
     plugins: [
       react(),
+      viteCommonjs(),
       tsconfigPaths(),
       createSvgIconsPlugin({
         iconDirs: [path.resolve(process.cwd(), 'src/assets/icons')],
@@ -50,6 +56,16 @@ export default defineConfig(({ mode }) => {
           ]
         : []),
     ],
+    css: {
+      preprocessorOptions: {
+        scss: {
+          additionalData: [
+            '@import "@/styles/_mixins.scss";',
+            '@import "@/styles/_functions.scss";',
+          ].join(' '),
+        },
+      },
+    },
     resolve: {
       extensions: ['.mjs', '.js', '.ts', '.jsx', '.tsx', '.json'],
       dedupe: ['react'],
@@ -59,15 +75,13 @@ export default defineConfig(({ mode }) => {
         '@static': `${root}/../static`,
       },
     },
-    css: {
-      preprocessorOptions: {
-        scss: {
-          additionalData: `
-            @import "@/styles/_mixins.scss";
-            @import "@/styles/_placeholders.scss";
-            @import "@/styles/_functions.scss";
-          `,
-        },
+    optimizeDeps: {
+      disabled: false,
+    },
+    build: {
+      target: 'esnext',
+      commonjsOptions: {
+        include: [],
       },
     },
   }

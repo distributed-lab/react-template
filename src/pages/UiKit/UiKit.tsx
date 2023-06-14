@@ -6,353 +6,472 @@ import { useTranslation } from 'react-i18next'
 
 import {
   AppButton,
+  BasicModal,
   Collapse,
   ErrorMessage,
   Icon,
   Loader,
-  Modal,
   NoDataMessage,
 } from '@/common'
-import { ICON_NAMES, RoutesPaths } from '@/enums'
-import { CheckboxField, InputField, SelectField } from '@/fields'
-import LoginForm from '@/forms/LoginForm'
-import { Bus } from '@/helpers'
-
-const selectOptions: {
-  id: number
-  title: string
-  iconName: ICON_NAMES
-}[] = [
-  {
-    id: 1,
-    title: 'icon 1',
-    iconName: ICON_NAMES.gift,
-  },
-  {
-    id: 2,
-    title: 'icon 2',
-    iconName: ICON_NAMES.eyeOff,
-  },
-  {
-    id: 3,
-    title: 'icon 3',
-    iconName: ICON_NAMES.logout,
-  },
-  {
-    id: 4,
-    title: 'icon 4',
-    iconName: ICON_NAMES.dotsVertical,
-  },
-]
+import { ICON_NAMES } from '@/enums'
+import {
+  BasicSelectField,
+  CheckboxField,
+  InputField,
+  SelectField,
+  SwitchField,
+  TextareaField,
+} from '@/fields'
+import { Bus, ErrorHandler } from '@/helpers'
 
 type Props = HTMLAttributes<HTMLDivElement> & MotionProps
 
+const SELECT_OPTIONS = ['1', '2', '3', '4', '5']
+
 const UiKit: FC<Props> = ({ ...rest }) => {
-  const [simpleInput, setSimpleInput] = useState('')
-  const [simpleSelect, setSimpleSelect] = useState<string | number>(
-    selectOptions[3].id,
-  )
-  const [checkboxInput, setCheckboxInput] = useState(false)
+  const [input, setInput] = useState('')
+  const [select, setSelect] = useState('')
+  const [textarea, setTextarea] = useState('')
+  const [checkbox, setCheckbox] = useState(false)
+  const [switchValue, setSwitchValue] = useState(false)
 
   const [isCollapseShown, setIsCollapseShown] = useState(false)
   const [isModalShown, setIsModalShown] = useState(false)
 
   const { t } = useTranslation()
 
-  const handleClick = () => {
-    alert('some string')
-  }
-
-  const throwBusSuccess = useCallback(() => {
-    Bus.success('Success')
-  }, [])
-
-  const throwBusError = useCallback(() => {
-    Bus.error('Error')
-  }, [])
-
-  const throwBusWarning = useCallback(() => {
-    Bus.warning('Warning')
-  }, [])
-
-  const throwBusInfo = useCallback(() => {
-    Bus.info('Info')
+  const handleProcessError = useCallback(() => {
+    ErrorHandler.process(new Error('some error message'))
   }, [])
 
   return (
     <motion.main className='ui-kit' {...rest}>
-      <section className='ui-kit__buttons'>
+      <div className='ui-kit__buttons'>
+        <AppButton size='small' text='button' />
+        <AppButton size='small' text='button' scheme='flat' />
+        <AppButton size='small' text='button' scheme='none' />
+
+        <AppButton size='small' text='button' color='success' />
+        <AppButton size='small' text='button' scheme='flat' color='success' />
+        <AppButton size='small' text='button' scheme='none' color='success' />
+
+        <AppButton size='small' text='button' color='error' />
+        <AppButton size='small' text='button' scheme='flat' color='error' />
+        <AppButton size='small' text='button' scheme='none' color='error' />
+
+        <AppButton size='small' text='button' color='warning' />
+        <AppButton size='small' text='button' scheme='flat' color='warning' />
+        <AppButton size='small' text='button' scheme='none' color='warning' />
+
+        <AppButton size='small' text='button' color='warning' />
+        <AppButton size='small' text='button' scheme='flat' color='warning' />
+        <AppButton size='small' text='button' scheme='none' color='warning' />
+
+        <AppButton size='small' text='button' color='info' />
+        <AppButton size='small' text='button' scheme='flat' color='info' />
+        <AppButton size='small' text='button' scheme='none' color='info' />
+      </div>
+      <div className='ui-kit__buttons'>
+        <AppButton text='button' />
+        <AppButton text='button' scheme='flat' />
+        <AppButton text='button' scheme='none' />
+
+        <AppButton text='button' modification='border-circle' />
+        <AppButton text='button' scheme='flat' modification='border-circle' />
+        <AppButton text='button' scheme='none' modification='border-circle' />
+
+        <AppButton text='button' modification='border-rounded' />
+        <AppButton text='button' scheme='flat' modification='border-rounded' />
+        <AppButton text='button' scheme='none' modification='border-rounded' />
+
+        <AppButton text='button' modification='none' />
+        <AppButton text='button' scheme='flat' modification='none' />
+        <AppButton text='button' scheme='none' modification='none' />
+      </div>
+      <div className='ui-kit__buttons'>
+        <AppButton size='large' text='button' />
+        <AppButton size='large' text='button' scheme='flat' />
+        <AppButton size='large' text='button' scheme='none' />
+      </div>
+      <div className='ui-kit__buttons'>
+        <AppButton size='small' iconRight={ICON_NAMES.plus} />
+        <AppButton size='small' iconRight={ICON_NAMES.plus} scheme='flat' />
+        <AppButton size='small' iconRight={ICON_NAMES.plus} scheme='none' />
+
+        <AppButton size='small' iconRight={ICON_NAMES.plus} color='success' />
         <AppButton
-          iconRight={ICON_NAMES.gift}
-          text='router, border-rounded, icon'
-          routePath={RoutesPaths.storeOverview}
-        />
-        <AppButton
-          modification='border-circle'
-          text='href, border-circle'
-          href='https://www.youtube.com/'
-          target='_blank'
-        />
-        <AppButton
-          text='Alert, icon-first'
-          iconLeft={ICON_NAMES.exclamationCircle}
-          onClick={handleClick}
-        />
-        <AppButton size='large' text='large' />
-        <AppButton size='small' text='small' />
-        <AppButton
-          color='success'
-          text='Bus.success, success'
-          onClick={throwBusSuccess}
-        />
-        <AppButton
-          color='error'
-          text='Bus.error, error'
-          onClick={throwBusError}
-        />
-        <AppButton
-          color='warning'
-          text='Bus.warning, warning'
-          onClick={throwBusWarning}
-        />
-        <AppButton color='info' text='Bus.info, info' onClick={throwBusInfo} />
-        <AppButton
-          modification='border-circle'
-          color='success'
-          text='border-circle, success'
-        />
-        <AppButton
-          modification='border-rounded'
-          color='error'
-          text='border-rounded, error'
-        />
-        <AppButton color='warning' size='large' text='large, warning' />
-        <AppButton color='info' size='small' text='small, info' />
-        <AppButton scheme='flat' text='flat' />
-        <AppButton
-          scheme='flat'
-          modification='border-circle'
-          text='flat, border-circle'
-        />
-        <AppButton
-          scheme='flat'
-          iconLeft={ICON_NAMES.switchHorizontal}
-          text='flat'
-        />
-        <AppButton
-          scheme='flat'
-          size='large'
-          text='flat, large'
-          iconRight={ICON_NAMES.phone}
-        />
-        <AppButton scheme='flat' size='small' text='flat, small' />
-        <AppButton scheme='flat' color='success' text='flat, success' />
-        <AppButton scheme='flat' color='error' text='flat, error' />
-        <AppButton scheme='flat' color='warning' text='flat, warning' />
-        <AppButton scheme='flat' color='info' text='flat, info' />
-        <AppButton
-          scheme='flat'
-          modification='border-circle'
-          color='success'
-          text='flat, border-circle, success'
-        />
-        <AppButton
-          scheme='flat'
-          modification='border-circle'
-          color='error'
-          text='flat, border-circle, error'
-        />
-        <AppButton
-          scheme='flat'
-          modification='border-circle'
-          iconLeft={ICON_NAMES.gift}
-          text='flat'
-        />
-        <AppButton
-          scheme='flat'
-          modification='border-circle'
-          color='warning'
-          size='large'
-          text='flat, border-circle, large, warning'
-        />
-        <AppButton
-          scheme='flat'
-          modification='border-circle'
           size='small'
-          color='info'
-          text='flat, border-circle, small, info'
-        />
-        <AppButton
-          scheme='default'
-          modification='default'
-          size='default'
-          color='default'
-          text='default'
-        />
-        <AppButton iconRight={ICON_NAMES.switchHorizontal} />
-        <AppButton
-          iconRight={ICON_NAMES.switchHorizontal}
-          modification='border-circle'
-        />
-        <AppButton iconRight={ICON_NAMES.switchHorizontal} size='large' />
-        <AppButton iconRight={ICON_NAMES.switchHorizontal} size='small' />
-        <AppButton iconRight={ICON_NAMES.switchHorizontal} color='success' />
-        <AppButton iconRight={ICON_NAMES.switchHorizontal} color='error' />
-        <AppButton iconRight={ICON_NAMES.switchHorizontal} color='warning' />
-        <AppButton iconRight={ICON_NAMES.switchHorizontal} color='info' />
-        <AppButton scheme='flat' iconRight={ICON_NAMES.switchHorizontal} />
-        <AppButton
+          iconRight={ICON_NAMES.plus}
           scheme='flat'
-          iconRight={ICON_NAMES.switchHorizontal}
-          modification='border-circle'
-        />
-        <AppButton
-          scheme='flat'
-          iconRight={ICON_NAMES.switchHorizontal}
-          size='large'
-        />
-        <AppButton
-          scheme='flat'
-          iconRight={ICON_NAMES.switchHorizontal}
-          size='small'
-        />
-        <AppButton
-          scheme='flat'
-          iconRight={ICON_NAMES.switchHorizontal}
           color='success'
         />
         <AppButton
+          size='small'
+          iconRight={ICON_NAMES.plus}
+          scheme='none'
+          color='success'
+        />
+
+        <AppButton size='small' iconRight={ICON_NAMES.plus} color='error' />
+        <AppButton
+          size='small'
+          iconRight={ICON_NAMES.plus}
           scheme='flat'
-          iconRight={ICON_NAMES.switchHorizontal}
           color='error'
         />
         <AppButton
+          size='small'
+          iconRight={ICON_NAMES.plus}
+          scheme='none'
+          color='error'
+        />
+
+        <AppButton size='small' iconRight={ICON_NAMES.plus} color='warning' />
+        <AppButton
+          size='small'
+          iconRight={ICON_NAMES.plus}
           scheme='flat'
-          iconRight={ICON_NAMES.switchHorizontal}
           color='warning'
         />
         <AppButton
+          size='small'
+          iconRight={ICON_NAMES.plus}
+          scheme='none'
+          color='warning'
+        />
+
+        <AppButton size='small' iconRight={ICON_NAMES.plus} color='warning' />
+        <AppButton
+          size='small'
+          iconRight={ICON_NAMES.plus}
           scheme='flat'
-          iconRight={ICON_NAMES.switchHorizontal}
+          color='warning'
+        />
+        <AppButton
+          size='small'
+          iconRight={ICON_NAMES.plus}
+          scheme='none'
+          color='warning'
+        />
+
+        <AppButton size='small' iconRight={ICON_NAMES.plus} color='info' />
+        <AppButton
+          size='small'
+          iconRight={ICON_NAMES.plus}
+          scheme='flat'
           color='info'
         />
         <AppButton
-          scheme='default'
-          iconRight={ICON_NAMES.switchHorizontal}
-          color='default'
+          size='small'
+          iconRight={ICON_NAMES.plus}
+          scheme='none'
+          color='info'
+        />
+      </div>
+      <div className='ui-kit__buttons'>
+        <AppButton
+          size='small'
+          modification='border-circle'
+          iconRight={ICON_NAMES.plus}
         />
         <AppButton
-          scheme='default'
-          iconRight={ICON_NAMES.switchHorizontal}
-          color='default'
-          size='default'
+          size='small'
+          modification='border-circle'
+          iconRight={ICON_NAMES.plus}
+          scheme='flat'
         />
-      </section>
-      <section className='ui-kit__inputs'>
+        <AppButton
+          size='small'
+          modification='border-circle'
+          iconRight={ICON_NAMES.plus}
+          scheme='none'
+        />
+
+        <AppButton
+          size='small'
+          modification='border-circle'
+          iconRight={ICON_NAMES.plus}
+          color='success'
+        />
+        <AppButton
+          size='small'
+          modification='border-circle'
+          iconRight={ICON_NAMES.plus}
+          scheme='flat'
+          color='success'
+        />
+        <AppButton
+          size='small'
+          modification='border-circle'
+          iconRight={ICON_NAMES.plus}
+          scheme='none'
+          color='success'
+        />
+
+        <AppButton
+          size='small'
+          modification='border-circle'
+          iconRight={ICON_NAMES.plus}
+          color='error'
+        />
+        <AppButton
+          size='small'
+          modification='border-circle'
+          iconRight={ICON_NAMES.plus}
+          scheme='flat'
+          color='error'
+        />
+        <AppButton
+          size='small'
+          modification='border-circle'
+          iconRight={ICON_NAMES.plus}
+          scheme='none'
+          color='error'
+        />
+
+        <AppButton
+          size='small'
+          modification='border-circle'
+          iconRight={ICON_NAMES.plus}
+          color='warning'
+        />
+        <AppButton
+          size='small'
+          modification='border-circle'
+          iconRight={ICON_NAMES.plus}
+          scheme='flat'
+          color='warning'
+        />
+        <AppButton
+          size='small'
+          modification='border-circle'
+          iconRight={ICON_NAMES.plus}
+          scheme='none'
+          color='warning'
+        />
+
+        <AppButton
+          size='small'
+          modification='border-circle'
+          iconRight={ICON_NAMES.plus}
+          color='warning'
+        />
+        <AppButton
+          size='small'
+          modification='border-circle'
+          iconRight={ICON_NAMES.plus}
+          scheme='flat'
+          color='warning'
+        />
+        <AppButton
+          size='small'
+          modification='border-circle'
+          iconRight={ICON_NAMES.plus}
+          scheme='none'
+          color='warning'
+        />
+
+        <AppButton
+          size='small'
+          modification='border-circle'
+          iconRight={ICON_NAMES.plus}
+          color='info'
+        />
+        <AppButton
+          size='small'
+          modification='border-circle'
+          iconRight={ICON_NAMES.plus}
+          scheme='flat'
+          color='info'
+        />
+        <AppButton
+          size='small'
+          modification='border-circle'
+          iconRight={ICON_NAMES.plus}
+          scheme='none'
+          color='info'
+        />
+      </div>
+
+      <div className='ui-kit__buttons'>
+        <AppButton
+          size='small'
+          text="'Bus.success'"
+          color='success'
+          onClick={() => Bus.success('Some success message')}
+        />
+        <AppButton
+          size='small'
+          text="'Bus.error'"
+          color='error'
+          onClick={() => Bus.error('Some error message')}
+        />
+        <AppButton
+          size='small'
+          text="'Bus.warning'"
+          color='warning'
+          onClick={() => Bus.warning('Some warning message')}
+        />
+        <AppButton
+          size='small'
+          text="'Bus.info'"
+          color='info'
+          onClick={() => Bus.info('Some info message')}
+        />
+
+        <AppButton
+          size='small'
+          text="'ErrorHandler.process'"
+          color='error'
+          onClick={handleProcessError}
+        />
+      </div>
+
+      <div className='ui-kit__inputs'>
+        <InputField value={input} updateValue={setInput} />
+        <InputField value={input} updateValue={setInput} label='label' />
         <InputField
-          value={simpleInput}
-          updateValue={setSimpleInput}
-          label={t('ui-kit.some-label')}
-          placeholder={t('ui-kit.some-placeholder')}
+          value={input}
+          updateValue={setInput}
+          label='label'
+          placeholder='placeholder'
         />
         <InputField
-          value={simpleInput}
-          updateValue={setSimpleInput}
-          label={t('ui-kit.some-label')}
-          placeholder={t('ui-kit.some-placeholder')}
-          nodeLeft={
-            <Icon className='ui-kit__input-icon' name={ICON_NAMES.phone} />
-          }
-          errorMessage={simpleInput as string}
+          value={input}
+          updateValue={setInput}
+          label='label'
+          placeholder='placeholder'
+          errorMessage='error message'
         />
         <InputField
-          value={simpleInput}
-          updateValue={setSimpleInput}
-          label={t('ui-kit.some-label')}
-          placeholder={t('ui-kit.some-placeholder')}
-          nodeRight={
-            <Icon className='ui-kit__input-icon' name={ICON_NAMES.gift} />
-          }
+          value={input}
+          updateValue={setInput}
+          label='label'
+          placeholder='placeholder'
+          nodeLeft={<Icon className='input__icon' name={ICON_NAMES.search} />}
         />
         <InputField
-          value={simpleInput}
-          updateValue={setSimpleInput}
-          label={t('ui-kit.some-label')}
-          placeholder={t('ui-kit.some-placeholder')}
-          nodeLeft={
-            <Icon className='ui-kit__input-icon' name={ICON_NAMES.phone} />
-          }
-          nodeRight={
-            <Icon className='ui-kit__input-icon' name={ICON_NAMES.gift} />
-          }
+          value={input}
+          updateValue={setInput}
+          label='label'
+          placeholder='placeholder'
+          nodeLeft={<Icon className='input__icon' name={ICON_NAMES.search} />}
+          nodeRight={<Icon className='input__icon' name={ICON_NAMES.plus} />}
         />
         <InputField
-          value={simpleInput}
-          updateValue={setSimpleInput}
-          type='password'
-          label={t('ui-kit.some-label')}
-          placeholder={t('ui-kit.some-placeholder')}
+          value={input}
+          updateValue={setInput}
+          label='label'
+          placeholder='placeholder'
+          note='lorem ipsum dolor sit amet concestetur!'
+          nodeLeft={<Icon className='input__icon' name={ICON_NAMES.search} />}
+          nodeRight={<Icon className='input__icon' name={ICON_NAMES.plus} />}
         />
         <InputField
-          value={simpleInput}
-          updateValue={setSimpleInput}
-          label={t('ui-kit.some-label')}
-          placeholder={t('ui-kit.some-placeholder')}
-          disabled
+          value={input}
+          updateValue={setInput}
+          label='label'
+          placeholder='placeholder'
+          note='lorem ipsum dolor sit amet concestetur!'
+          isDisabled={true}
+          nodeLeft={<Icon className='input__icon' name={ICON_NAMES.search} />}
+          nodeRight={<Icon className='input__icon' name={ICON_NAMES.plus} />}
+        />
+      </div>
+
+      <div className='ui-kit__select-fields'>
+        <SelectField
+          value={select}
+          updateValue={setSelect}
+          valueOptions={SELECT_OPTIONS}
         />
         <SelectField
-          options={selectOptions.map(el => el.id)}
-          value={simpleSelect}
-          setValue={setSimpleSelect}
-          label={t('ui-kit.some-label')}
-          placeholder={t('ui-kit.some-placeholder')}
-          errorMessage={simpleInput as string}
-        >
-          {selectOptions.map((el, idx) => (
-            <div
-              className='ui-kit__select-option'
-              key={idx}
-              defaultValue={el.id}
-            >
-              <Icon className='ui-kit__select-option-icon' name={el.iconName} />
-              {el.title}
-            </div>
-          ))}
-        </SelectField>
+          value={select}
+          updateValue={setSelect}
+          valueOptions={SELECT_OPTIONS}
+          label='Label'
+        />
         <SelectField
-          options={selectOptions.map(el => el.id)}
-          value={simpleSelect}
-          setValue={setSimpleSelect}
-          label={t('ui-kit.some-label')}
-          placeholder={t('ui-kit.some-placeholder')}
-          errorMessage={String(simpleSelect) as string}
-        >
-          {selectOptions.map((el, idx) => (
-            <div
-              className='ui-kit__select-option'
-              key={idx}
-              defaultValue={el.id}
-            >
-              <Icon className='ui-kit__select-option-icon' name={el.iconName} />
-              {el.title}
-            </div>
-          ))}
-        </SelectField>
-        <CheckboxField
-          value={checkboxInput}
-          setValue={setCheckboxInput}
-          label={t('ui-kit.some-label')}
+          value={select}
+          updateValue={setSelect}
+          valueOptions={SELECT_OPTIONS}
+          label='Label'
+          errorMessage='error message'
         />
-        <CheckboxField
-          value={checkboxInput}
-          setValue={setCheckboxInput}
-          label={t('ui-kit.some-label')}
-          disabled
+        <SelectField
+          value={select}
+          updateValue={setSelect}
+          valueOptions={SELECT_OPTIONS}
+          label='Label'
+          note='Note message'
         />
-      </section>
-      <section className='ui-kit__form'>
-        <LoginForm />
-      </section>
+        {/*<BasicSelectField*/}
+        {/*  value={select}*/}
+        {/*  updateValue={setSelect}*/}
+        {/*  valueOptions={SELECT_OPTIONS.map(el => ({*/}
+        {/*    title: String(el).concat('++'),*/}
+        {/*    value: el,*/}
+        {/*  }))}*/}
+        {/*/>*/}
+        <SelectField
+          value={select}
+          updateValue={setSelect}
+          valueOptions={SELECT_OPTIONS}
+          label='Label'
+          isDisabled={true}
+        />
+        {/*<BasicSelectField*/}
+        {/*  value={select}*/}
+        {/*  updateValue={setSelect}*/}
+        {/*  label='Label'*/}
+        {/*  valueOptions={SELECT_OPTIONS.map(el => ({*/}
+        {/*    title: String(el).concat('++'),*/}
+        {/*    value: el,*/}
+        {/*  }))}*/}
+        {/*  isDisabled={true}*/}
+        {/*/>*/}
+
+        {/*<TextareaField value={textarea} updateValue={setTextarea} />*/}
+        {/*<TextareaField*/}
+        {/*  value={textarea}*/}
+        {/*  updateValue={setTextarea}*/}
+        {/*  label='Label'*/}
+        {/*/>*/}
+        {/*<TextareaField*/}
+        {/*  value={textarea}*/}
+        {/*  updateValue={setTextarea}*/}
+        {/*  label='Label'*/}
+        {/*  errorMessage='Error message'*/}
+        {/*/>*/}
+
+        {/*<CheckboxField value={checkbox} updateValue={setCheckbox} />*/}
+        {/*<CheckboxField*/}
+        {/*  value={checkbox}*/}
+        {/*  updateValue={setCheckbox}*/}
+        {/*  label='Label'*/}
+        {/*/>*/}
+        {/*<CheckboxField*/}
+        {/*  value={checkbox}*/}
+        {/*  updateValue={setCheckbox}*/}
+        {/*  label='Label'*/}
+        {/*  isDisabled={true}*/}
+        {/*/>*/}
+
+        {/*<SwitchField value={switchValue} updateValue={setSwitchValue} />*/}
+        {/*<SwitchField*/}
+        {/*  value={switchValue}*/}
+        {/*  updateValue={setSwitchValue}*/}
+        {/*  modelValue={String(switchValue)}*/}
+        {/*  label='Label'*/}
+        {/*/>*/}
+        {/*<SwitchField*/}
+        {/*  value={switchValue}*/}
+        {/*  updateValue={setSwitchValue}*/}
+        {/*  modelValue={String(switchValue)}*/}
+        {/*  isDisabled={true}*/}
+        {/*/>*/}
+      </div>
+
       <section className='ui-kit__common'>
         <ErrorMessage message={t('ui-kit.loading-error-msg')} />
         <NoDataMessage message={t('ui-kit.no-data-msg')} />
@@ -370,44 +489,21 @@ const UiKit: FC<Props> = ({ ...rest }) => {
             </div>
           </Collapse>
         </div>
+
         <AppButton
           text={t('ui-kit.modal-btn')}
           onClick={() => setIsModalShown(true)}
         />
-        <Modal isShown={isModalShown} setIsShown={setIsModalShown}>
-          <div className='ui-kit__modal-head'>
-            <h2 className='ui-kit__modal-title'>{t('ui-kit.modal-title')}</h2>
-            <AppButton
-              onClick={() => setIsModalShown(false)}
-              iconRight={ICON_NAMES.x}
-              scheme='default'
-              modification='default'
-              size='default'
-              color='default'
-            />
-          </div>
-          <div className='ui-kit__modal-body'>
-            <span className='ui-kit__modal-text'>{t('ui-kit.modal-body')}</span>
-            <AppButton
-              className='ui-kit__modal-action-btn'
-              scheme='flat'
-              color='error'
-              size='small'
-              text={t('ui-kit.modal-cancel-btn')}
-              onClick={() => setIsModalShown(false)}
-            />
-            <AppButton
-              className='ui-kit__modal-action-btn'
-              color='success'
-              size='small'
-              text={t('ui-kit.modal-accept-btn')}
-              onClick={() => {
-                setIsModalShown(false)
-                Bus.success(t('ui-kit.modal-success-msg'))
-              }}
-            />
-          </div>
-        </Modal>
+        <BasicModal
+          className='ui-kit__basic-modal'
+          isShown={isModalShown}
+          updateIsShown={setIsModalShown}
+          title={`Modal Title`}
+          subtitle={`Lorem ipsum dolor sit amet, consectetur adipisicing elit.`}
+        >
+          <div className='ui-kit__modal-body'>{t('ui-kit.collapse-text')}</div>
+        </BasicModal>
+
         <div className='ui-kit__icons'>
           <Icon name={ICON_NAMES.academicCap} />
           <Icon name={ICON_NAMES.adjustments} />
@@ -419,31 +515,6 @@ const UiKit: FC<Props> = ({ ...rest }) => {
           <Icon name={ICON_NAMES.arrowCircleUp} />
           <Icon name={ICON_NAMES.arrowDown} />
           <Icon name={ICON_NAMES.arrowLeft} />
-          <Icon name={ICON_NAMES.arrowNarrowDown} />
-          <Icon name={ICON_NAMES.arrowNarrowLeft} />
-          <Icon name={ICON_NAMES.arrowNarrowRight} />
-          <Icon name={ICON_NAMES.arrowNarrowUp} />
-          <Icon name={ICON_NAMES.arrowRight} />
-          <Icon name={ICON_NAMES.arrowSmDown} />
-          <Icon name={ICON_NAMES.arrowSmLeft} />
-          <Icon name={ICON_NAMES.arrowSmRight} />
-          <Icon name={ICON_NAMES.arrowSmUp} />
-          <Icon name={ICON_NAMES.arrowUp} />
-          <Icon name={ICON_NAMES.arrowsExpand} />
-          <Icon name={ICON_NAMES.atSymbol} />
-          <Icon name={ICON_NAMES.backspace} />
-          <Icon name={ICON_NAMES.badgeCheck} />
-          <Icon name={ICON_NAMES.ban} />
-          <Icon name={ICON_NAMES.beaker} />
-          <Icon name={ICON_NAMES.bell} />
-          <Icon name={ICON_NAMES.bookOpen} />
-          <Icon name={ICON_NAMES.bookmarkAlt} />
-          <Icon name={ICON_NAMES.bookmark} />
-          <Icon name={ICON_NAMES.briefcase} />
-          <Icon name={ICON_NAMES.calendar} />
-          <Icon name={ICON_NAMES.camera} />
-          <Icon name={ICON_NAMES.cash} />
-          <Icon name={ICON_NAMES.chartBar} />
         </div>
       </section>
     </motion.main>

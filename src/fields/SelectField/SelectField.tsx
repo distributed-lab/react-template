@@ -1,160 +1,240 @@
 import './styles.scss'
 
 import { useSelect } from 'downshift'
-import { isEqual } from 'lodash-es'
 import {
   cloneElement,
-  Dispatch,
   HTMLAttributes,
   ReactElement,
-  SetStateAction,
+  ReactNode,
+  useCallback,
   useEffect,
   useMemo,
+  useRef,
   useState,
 } from 'react'
+import { useClickAway } from 'react-use'
+import { v4 as uuidv4 } from 'uuid'
 
-import { Collapse } from '@/common'
+import { Collapse, Icon } from '@/common'
+import { ICON_NAMES } from '@/enums'
 
 interface Props<T> extends HTMLAttributes<HTMLSelectElement> {
-  options: unknown[]
+  scheme?: 'primary'
+  valueOptions: T[]
   value: T
-  setValue: Dispatch<SetStateAction<T>>
+  updateValue: (value: T) => void
   label?: string
+  placeholder?: string
   errorMessage?: string
-  disabled?: string | boolean
-  readonly?: string | boolean
+  note?: string
+  isDisabled?: string | boolean
+  isReadonly?: string | boolean
   tabindex?: number
-  children: ReactElement<HTMLAttributes<HTMLElement>>[]
+  children?: ReactElement<HTMLAttributes<HTMLElement>>
+  headerNode?: ReactNode
 }
 
 function SelectField<T>({
-  options,
+  scheme = 'primary',
+  valueOptions,
   value,
-  setValue,
+  updateValue,
   label,
   errorMessage,
-  disabled,
-  readonly,
+  note,
+  isDisabled,
+  isReadonly,
   tabindex,
   className = '',
   placeholder = ' ',
   children,
+  headerNode,
   ...rest
 }: Props<T>) {
+  const uid = uuidv4()
+
+  const selectElement = useRef<HTMLDivElement>(null)
+
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false)
+
   const {
-    isOpen,
     getLabelProps,
     getToggleButtonProps,
     getMenuProps,
     closeMenu,
     getItemProps,
     selectedItem,
-  } = useSelect({
-    items: options,
+  } = useSelect<T>({
+    items: valueOptions,
     selectedItem: value,
     onSelectedItemChange: ({ selectedItem }) => {
-      setValue(selectedItem as T)
+      updateValue(selectedItem as T)
       closeMenu()
     },
   })
 
-  const [selectedOptionContent, setSelectedOptionContent] = useState<
-    ReactElement | undefined
-  >()
-
-  const toggleBtnContent = useMemo(() => {
-    return selectedOptionContent || placeholder
-  }, [placeholder, selectedOptionContent])
-
-  const isDisabled = ['', 'disabled', true].includes(
-    disabled as string | boolean,
+  const isLabelActive = useMemo(
+    () => isDropdownOpen || !!value,
+    [isDropdownOpen, value],
   )
 
-  const isReadonly = ['', 'readonly', true].includes(
-    readonly as string | boolean,
+  const selectFieldClasses = useMemo(
+    () =>
+      [
+        'select-field',
+        `select-field--${scheme}`,
+        ...(className ? [className] : []),
+        ...(errorMessage ? ['select-field--error'] : []),
+        ...(isDropdownOpen ? ['select-field--open'] : []),
+        ...(isDisabled ? ['select-field--disabled'] : []),
+        ...(isReadonly ? ['select-field--readonly'] : []),
+        ...(isLabelActive ? ['select-field--label-active'] : []),
+      ].join(' '),
+    [
+      className,
+      errorMessage,
+      isDisabled,
+      isDropdownOpen,
+      isLabelActive,
+      isReadonly,
+      scheme,
+    ],
   )
 
-  const selectClasses = [
-    'select-field',
-    ...(className ? [className] : []),
-    ...[
-      ...(isDisabled ? ['disabled'] : []),
-      ...(isReadonly ? ['readonly'] : []),
-      ...(errorMessage ? ['error'] : []),
-      ...(value ? ['has-value'] : []),
-      ...(isOpen ? ['opened'] : []),
-    ].map(el => `select-field--${el}`),
-  ].join(' ')
+  useClickAway(selectElement, () => {
+    setIsDropdownOpen(false)
+  })
+
+  const openDropdown = useCallback(() => {
+    if (isDisabled || isReadonly) return
+
+    setIsDropdownOpen(true)
+  }, [isDisabled, isReadonly])
+
+  const closeDropdown = useCallback(() => {
+    setIsDropdownOpen(false)
+  }, [])
+
+  const toggleDropdown = useCallback(() => {
+    isDropdownOpen ? closeDropdown() : openDropdown()
+  }, [closeDropdown, isDropdownOpen, openDropdown])
+
+  const select = useCallback(
+    (value: T) => {
+      if (isDisabled || isReadonly) return
+
+      updateValue(value as T)
+      closeDropdown()
+    },
+    [closeDropdown, isDisabled, isReadonly, updateValue],
+  )
 
   useEffect(() => {
-    if (value) {
-      const optionContent = children.find(el =>
-        isEqual(el.props.defaultValue, value),
-      )
-
-      if (optionContent) {
-        setSelectedOptionContent(state =>
-          isEqual(state?.props.defaultValue, optionContent.props.defaultValue)
-            ? state
-            : optionContent,
-        )
-      }
-    }
-  }, [children, value])
+    closeDropdown()
+  }, [closeDropdown, value])
 
   return (
-    <div className={selectClasses}>
-      {label ? (
-        <label className='select-field__label' {...getLabelProps()}>
-          {label}
-        </label>
-      ) : (
-        <></>
-      )}
-      <div className='select-field__select-wrp'>
-        <button
-          type='button'
-          className='select-field__toggle-btn'
-          aria-label={'toggle menu'}
-          tabIndex={isDisabled || isReadonly ? -1 : tabindex}
-          {...getToggleButtonProps()}
-          {...rest}
-        >
-          {toggleBtnContent}
-        </button>
+    <div className={selectFieldClasses} {...rest}>
+      <div ref={selectElement} className='select-field__select-wrp'>
+        <div className='select-field__select-head-wrp'>
+          <button
+            type='button'
+            className='select-field__select-head'
+            aria-label={'toggle menu'}
+            tabIndex={isDisabled || isReadonly ? -1 : tabindex}
+            {...getToggleButtonProps()}
+            onClick={toggleDropdown}
+          >
+            {headerNode && !value
+              ? headerNode
+              : value ||
+                (!label && !!placeholder && (
+                  <span className='select-field__placeholder'>
+                    {placeholder}
+                  </span>
+                )) || <></>}
+            <Icon
+              className={[
+                'select-field__select-head-indicator',
+                ...(isDropdownOpen
+                  ? ['select-field__select-head-indicator--open']
+                  : []),
+              ].join(' ')}
+              name={ICON_NAMES.chevronDown}
+            />
+          </button>
 
-        <div className='select-field__dropdown-wrp' {...getMenuProps()}>
-          <Collapse isOpen={isOpen} className='select-field__dropdown'>
-            {children.map((el, idx) => {
-              const newProps = {
-                ...el.props,
-                key: idx,
-                ...getItemProps({
-                  key: idx,
-                  index: idx,
-                  item: el,
-                  className: [
-                    ...(el.props.className ? [el.props.className] : []),
-                    'select-field__dropdown-item',
-                    ...[
-                      selectedItem === el
-                        ? 'select-field__dropdown-item--selected'
-                        : [],
-                    ],
-                  ].join(' '),
-                  onClick: () => {
-                    setSelectedOptionContent(el)
-                  },
-                }),
-              }
+          {label && (
+            <label
+              className='select-field__label'
+              {...getLabelProps()}
+              htmlFor={`select-field--${uid}`}
+            >
+              {label}
+            </label>
+          )}
+        </div>
 
-              return el ? cloneElement(el, newProps) : <></>
-            })}
+        <div className='select-field__select-dropdown-wrp' {...getMenuProps()}>
+          <Collapse
+            isOpen={isDropdownOpen}
+            className='select-field__select-dropdown'
+          >
+            {children
+              ? valueOptions.map((el, idx) => {
+                  const newProps = {
+                    ...children.props,
+                    key: idx,
+                    ...getItemProps({
+                      key: idx,
+                      index: idx,
+                      item: el,
+                      className: [
+                        ...(children.props.className
+                          ? [children.props.className]
+                          : []),
+                        'select-field__dropdown-item',
+                        ...[
+                          selectedItem === el
+                            ? 'select-field__dropdown-item--selected'
+                            : [],
+                        ],
+                      ].join(' '),
+                      // onClick: () => {
+                      //   setSelectedOptionContent(el)
+                      // },
+                    }),
+                  }
+
+                  return el ? cloneElement(children, newProps) : <></>
+                })
+              : valueOptions.map((el, idx) => (
+                  <button
+                    type='button'
+                    className={[
+                      'select-field__select-dropdown-item',
+                      ...(value === el
+                        ? ['select-field__select-dropdown-item--active']
+                        : []),
+                    ].join(' ')}
+                    key={idx}
+                    onClick={() => select(el)}
+                  >
+                    {String(el)}
+                  </button>
+                ))}
           </Collapse>
         </div>
       </div>
-      <Collapse isOpen={!!errorMessage}>
-        <span className='select-field__err-msg'>{errorMessage}</span>
+
+      <Collapse isOpen={!!errorMessage || !!note}>
+        {errorMessage ? (
+          <span className='select-field__err-msg'>{errorMessage}</span>
+        ) : note ? (
+          <span className='select-field__note'>{note}</span>
+        ) : (
+          <></>
+        )}
       </Collapse>
     </div>
   )

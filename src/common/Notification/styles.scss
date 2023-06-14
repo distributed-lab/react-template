@@ -20,17 +20,17 @@
   display: grid;
   place-items: center;
   grid-template-columns: max-content 1fr;
-  grid-gap: to-rem(16);
+  grid-gap: toRem(16);
 }
 
 .notification .notification__icon {
-  max-width: to-rem(48);
-  max-height: to-rem(48);
+  max-width: toRem(48);
+  max-height: toRem(48);
 }
 
 .notification__details {
   display: grid;
-  grid-gap: to-rem(4);
+  grid-gap: toRem(4);
   width: 100%;
 }
 

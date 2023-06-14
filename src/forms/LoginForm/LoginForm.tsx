@@ -5,9 +5,15 @@ import { useTranslation } from 'react-i18next'
 
 import { AppButton } from '@/common'
 import { InputField } from '@/fields'
-import { Bus, ErrorHandler, sleep } from '@/helpers'
+import {
+  Bus,
+  ErrorHandler,
+  maxLength,
+  minLength,
+  required,
+  sleep,
+} from '@/helpers'
 import { useForm, useFormValidation } from '@/hooks'
-import { maxLength, minLength, required } from '@/validators'
 
 const LoginForm = () => {
   const { t } = useTranslation()
@@ -365,7 +371,7 @@ const LoginForm = () => {
       <div className='login-form__actions'>
         <AppButton
           text={t('login-form.submit-btn')}
-          disabled={isFormDisabled}
+          isDisabled={isFormDisabled}
         />
       </div>
     </form>

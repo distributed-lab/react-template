@@ -1,99 +1,72 @@
 $white: #ffffff;
-$white-rgb: hex-to-rgb($white);
+$white-rgb: hexToRGB($white);
 $black: #000000;
-$black-rgb: hex-to-rgb($black);
+$black-rgb: hexToRGB($black);
 
-$app-bg: #ffffff;
-$app-bg-rgb: hex-to-rgb($app-bg);
+$background-primary-light: #ffffff;
+$background-primary-main: #fbfcff;
+$background-primary-dark: #f5f6ff;
+
+$background-secondary-light: #eff2ff;
+$background-secondary-main: #dfe5f8;
+$background-secondary-dark: #cad4f5;
 
 /* status colors */
 
-$success-light: #5efc82;
-$success-main: #00c853;
-$success-dark: #009624;
-$success-light-rgb: hex-to-rgb($success-light);
-$success-main-rgb: hex-to-rgb($success-main);
-$success-dark-rgb: hex-to-rgb($success-dark);
+$success-light: #edfff2;
+$success-main: #5cc56e;
+$success-dark: #278337;
 
-$error-light: #ff6434;
-$error-main: #dd2c00;
-$error-dark: #a30000;
-$error-light-rgb: hex-to-rgb($error-light);
-$error-main-rgb: hex-to-rgb($error-main);
-$error-dark-rgb: hex-to-rgb($error-dark);
+$error-light: #fff2f2;
+$error-main: #e46962;
+$error-dark: #b3261e;
 
-$warning-light: #f16709;
-$warning-main: #ff6d00;
-$warning-dark: #c43c00;
-$warning-light-rgb: hex-to-rgb($warning-light);
-$warning-main-rgb: hex-to-rgb($warning-main);
-$warning-dark-rgb: hex-to-rgb($warning-dark);
+$warning-light: #fff9e9;
+$warning-main: #f6851b;
+$warning-dark: #e6661f;
 
-$info-light: #82f7ff;
+$info-light: #eff2ff;
 $info-main: #40c4ff;
 $info-dark: #0094cc;
-$info-light-rgb: hex-to-rgb($info-light);
-$info-main-rgb: hex-to-rgb($info-main);
-$info-dark-rgb: hex-to-rgb($info-dark);
 
 /* brand colors */
 
-$primary-light: #768fff;
-$primary-main: #2962ff;
-$primary-dark: #0039cb;
-$primary-light-rgb: hex-to-rgb($primary-light);
-$primary-main-rgb: hex-to-rgb($primary-main);
-$primary-dark-rgb: hex-to-rgb($primary-dark);
+$primary-light: #e2ecfc;
+$primary-main: #01579b;
+$primary-dark: #054679;
 
-$secondary-light: #8e8e8e;
-$secondary-main: #616161;
-$secondary-dark: #373737;
-$secondary-light-rgb: hex-to-rgb($secondary-light);
-$secondary-main-rgb: hex-to-rgb($secondary-main);
-$secondary-dark-rgb: hex-to-rgb($secondary-dark);
+$primary-light-rgb: hexToRGB($primary-light);
+$primary-main-rgb: hexToRGB($primary-main);
+$primary-dark-rgb: hexToRGB($primary-dark);
 
-$tertiary-light: #ffff6b;
-$tertiary-main: #fdd835;
-$tertiary-dark: #c6a700;
-$tertiary-light-rgb: hex-to-rgb($tertiary-light);
-$tertiary-main-rgb: hex-to-rgb($tertiary-main);
-$tertiary-dark-rgb: hex-to-rgb($tertiary-dark);
+$secondary-light: #c2c9dc;
+$secondary-main: #8d91a5;
+$secondary-dark: #5b6271;
 
 /* typography colors */
 
-$text-primary-light: #484848;
-$text-primary-main: #212121;
-$text-primary-dark: #000000;
-$text-primary-light-rgb: hex-to-rgb($text-primary-light);
-$text-primary-main-rgb: hex-to-rgb($text-primary-main);
-$text-primary-dark-rgb: hex-to-rgb($text-primary-dark);
+$text-primary-light: #575761;
+$text-primary-main: #2d3441;
+$text-primary-dark: #222834;
 
-$text-secondary-light: #4f5b62;
-$text-secondary-main: #263238;
-$text-secondary-dark: #000a12;
-$text-secondary-light-rgb: hex-to-rgb($text-secondary-light);
-$text-secondary-main-rgb: hex-to-rgb($text-secondary-main);
-$text-secondary-dark-rgb: hex-to-rgb($text-secondary-dark);
+$text-secondary-light: #c2c6dc;
+$text-secondary-main: #8d8ea5;
+$text-secondary-dark: #444b58;
 
-$text-primary-invert-light: #ffffff;
-$text-primary-invert-main: #ffffff;
-$text-primary-invert-dark: #ffffff;
-$text-primary-invert-light-rgb: hex-to-rgb($text-primary-invert-light);
-$text-primary-invert-main-rgb: hex-to-rgb($text-primary-invert-main);
-$text-primary-invert-dark-rgb: hex-to-rgb($text-primary-invert-dark);
+$text-primary-invert-light: #fbfcff;
+$text-primary-invert-main: #fbfcff;
+$text-primary-invert-dark: #fbfbff;
 
-$text-secondary-invert-light: #ffffff;
-$text-secondary-invert-main: #ffffff;
-$text-secondary-invert-dark: #ffffff;
-$text-secondary-invert-light-rgb: hex-to-rgb($text-secondary-invert-light);
-$text-secondary-invert-main-rgb: hex-to-rgb($text-secondary-invert-main);
-$text-secondary-invert-dark-rgb: hex-to-rgb($text-secondary-invert-dark);
+$text-secondary-invert-light: rgba(#fffbfe, 0.5);
+$text-secondary-invert-main: rgba(#fffbfe, 0.5);
+$text-secondary-invert-dark: rgba(#fffbfe, 0.5);
 
 /* border colors */
 
-$border-primary-light: #cfcfcf;
-$border-primary-main: #9e9e9e;
-$border-primary-dark: #707070;
-$border-primary-light-rgb: hex-to-rgb($border-primary-light);
-$border-primary-main-rgb: hex-to-rgb($border-primary-main);
-$border-primary-dark-rgb: hex-to-rgb($border-primary-dark);
+$border-primary-light: #a9abb4;
+$border-primary-main: #74767e;
+$border-primary-dark: #45484f;
+
+$border-secondary-light: #e0e0ec;
+$border-secondary-main: #c4c4d0;
+$border-secondary-dark: #a9abb4;

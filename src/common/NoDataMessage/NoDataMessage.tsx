@@ -18,7 +18,7 @@ const NoDataMessage: FC<Props> = ({
 }) => {
   return (
     <div className={`no-data-message ${className}`} {...rest}>
-      <Icon className='no-data-message__icon' name={iconName} />
+      <Icon className='no-data-message__img' name={iconName} />
       <span className='no-data-message__message'>{message}</span>
     </div>
   )

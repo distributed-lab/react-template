@@ -13,6 +13,7 @@ import { RoutesPaths } from '@/enums'
 export const AppRoutes = () => {
   const StoreOverview = lazy(() => import('@/pages/StoreOverview'))
   const UiKit = lazy(() => import('@/pages/UiKit'))
+  const ComplexForm = lazy(() => import('@/pages/ComplexForm'))
 
   const pageAnimationOpts = {
     initial: 'hide',
@@ -45,6 +46,10 @@ export const AppRoutes = () => {
           index: true,
           path: RoutesPaths.uiKit,
           element: <UiKit {...pageAnimationOpts} />,
+        },
+        {
+          path: RoutesPaths.complexForm,
+          element: <ComplexForm {...pageAnimationOpts} />,
         },
         {
           path: RoutesPaths.storeOverview,

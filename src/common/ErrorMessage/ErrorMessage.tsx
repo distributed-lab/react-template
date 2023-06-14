@@ -20,7 +20,7 @@ const ErrorMessage: FC<Props> = ({
 }) => {
   return (
     <div className={`error-message ${className}`} {...rest}>
-      <Icon className='error-message__icon' name={iconName} />
+      <Icon className='error-message__img' name={iconName} />
       {title ? <h3 className='error-message__title'>{title}</h3> : <></>}
       <p className='error-message__message'>{message}</p>
     </div>

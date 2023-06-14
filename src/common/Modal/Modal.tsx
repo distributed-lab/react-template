@@ -1,13 +1,13 @@
 import './styles.scss'
 
 import { AnimatePresence, motion, MotionProps } from 'framer-motion'
-import { Dispatch, FC, HTMLAttributes, SetStateAction, useRef } from 'react'
+import { FC, HTMLAttributes, useRef } from 'react'
 import { createPortal } from 'react-dom'
 import { useClickAway } from 'react-use'
 
 type Props = {
   isShown: boolean
-  setIsShown: Dispatch<SetStateAction<boolean>>
+  updateIsShown: (isShown: boolean) => void
   isCloseByClickOutside?: boolean
 } & HTMLAttributes<HTMLDivElement> &
   MotionProps
@@ -16,7 +16,7 @@ const modalRoot = document.getElementById('modal') as HTMLElement
 
 const Modal: FC<Props> = ({
   isShown,
-  setIsShown,
+  updateIsShown,
   isCloseByClickOutside = true,
   children,
   className,
@@ -26,29 +26,27 @@ const Modal: FC<Props> = ({
 
   useClickAway(modalPaneRef, () => {
     if (isCloseByClickOutside) {
-      setIsShown(false)
+      updateIsShown(false)
     }
   })
 
   return createPortal(
-    <>
-      <AnimatePresence initial={false}>
-        {isShown && (
-          <motion.div
-            className={`modal ${className || ''}`}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.25 }}
-            {...rest}
-          >
-            <div ref={modalPaneRef} className='modal__pane'>
-              {children}
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </>,
+    <AnimatePresence initial={false}>
+      {isShown && (
+        <motion.div
+          className={`modal ${className || ''}`}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.25 }}
+          {...rest}
+        >
+          <div ref={modalPaneRef} className='modal__pane'>
+            {children}
+          </div>
+        </motion.div>
+      )}
+    </AnimatePresence>,
     modalRoot,
   )
 }

@@ -72,9 +72,8 @@ Lint and Test:
   services:
     - docker:18-dind
   image:
-    name: "registry.gitlab.com/tokend/devops/docker-containers:front14-a7d73669fd1fa97a461226c292357bc33d478070"
+    name: "registry.gitlab.com/tokend/devops/docker-containers:front16-914ecbd7e2465bc9570bf60322f3951eee7989c9"
     entrypoint: [""]
-  <<: *before_script_templ
   script:
     - yarn install
     - yarn test

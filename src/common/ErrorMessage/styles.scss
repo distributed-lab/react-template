@@ -1,20 +1,19 @@
 .error-message {
   display: grid;
   place-items: center;
-  grid-gap: to-rem(12);
+  text-align: center;
+  grid-gap: toRem(12);
 }
 
-.error-message__icon {
-  color: var(--error-main);
-  font-size: to-rem(48);
+.error-message__img {
+  width: 100%;
+  height: auto;
 }
 
 .error-message__title {
-  color: var(--error-main);
-  font-size: to-rem(24);
+  font-size: toRem(24);
 }
 
 .error-message__message {
-  color: var(--error-main);
-  font-size: to-rem(18);
+  font-size: toRem(18);
 }

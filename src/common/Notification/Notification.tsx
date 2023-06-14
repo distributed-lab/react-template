@@ -1,7 +1,7 @@
 import 'react-toastify/dist/ReactToastify.css'
 import './styles.scss'
 
-import { isObject } from 'lodash-es'
+import isObject from 'lodash/isObject'
 import { useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 import { toast, ToastContainer, TypeOptions } from 'react-toastify'
@@ -103,9 +103,6 @@ const Notification = () => {
     )
     Bus.on(Bus.eventList.info, payload =>
       showToast(NOTIFICATION_TYPE.info, payload),
-    )
-    Bus.on(Bus.eventList.default, payload =>
-      showToast(NOTIFICATION_TYPE.default, payload),
     )
   })
 
