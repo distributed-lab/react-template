@@ -84,6 +84,7 @@ function InputField<V extends string>({
         `input-field--${scheme}`,
       ].join(' '),
     [
+      className,
       errorMessage,
       isDisabled,
       isPasswordType,

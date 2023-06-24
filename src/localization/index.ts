@@ -3,6 +3,12 @@ import { initReactI18next } from 'react-i18next'
 
 import resources from '@/localization/resources'
 
+declare module 'i18next' {
+  interface CustomTypeOptions {
+    returnNull: false
+  }
+}
+
 const STORAGE_KEY = 'react-template'
 const DEFAULT_LOCALE = 'en'
 
