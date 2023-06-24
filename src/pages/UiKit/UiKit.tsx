@@ -28,9 +28,28 @@ type Props = HTMLAttributes<HTMLDivElement> & MotionProps
 
 const SELECT_OPTIONS = ['1', '2', '3', '4', '5']
 
+const BASIC_SELECT_OPTIONS = [
+  {
+    title: 'Option 1',
+    value: '1',
+    iconName: ICON_NAMES.check,
+  },
+  {
+    title: 'Option 2',
+    value: '2',
+    iconName: ICON_NAMES.truck,
+  },
+  {
+    title: 'Option 3',
+    value: '3',
+    iconName: ICON_NAMES.exclamation,
+  },
+]
+
 const UiKit: FC<Props> = ({ ...rest }) => {
   const [input, setInput] = useState('')
   const [select, setSelect] = useState('')
+  const [basicSelect, setBasicSelect] = useState('')
   const [textarea, setTextarea] = useState('')
   const [checkbox, setCheckbox] = useState(false)
   const [switchValue, setSwitchValue] = useState(false)
@@ -329,40 +348,40 @@ const UiKit: FC<Props> = ({ ...rest }) => {
 
       <div className='ui-kit__inputs'>
         <InputField value={input} updateValue={setInput} />
-        <InputField value={input} updateValue={setInput} label='label' />
+        <InputField value={input} updateValue={setInput} label={`label`} />
         <InputField
           value={input}
           updateValue={setInput}
-          label='label'
-          placeholder='placeholder'
+          label={`label`}
+          placeholder={`placeholder`}
         />
         <InputField
           value={input}
           updateValue={setInput}
-          label='label'
-          placeholder='placeholder'
+          label={`label`}
+          placeholder={`placeholder`}
           errorMessage='error message'
         />
         <InputField
           value={input}
           updateValue={setInput}
-          label='label'
-          placeholder='placeholder'
+          label={`label`}
+          placeholder={`placeholder`}
           nodeLeft={<Icon className='input__icon' name={ICON_NAMES.search} />}
         />
         <InputField
           value={input}
           updateValue={setInput}
-          label='label'
-          placeholder='placeholder'
+          label={`label`}
+          placeholder={`placeholder`}
           nodeLeft={<Icon className='input__icon' name={ICON_NAMES.search} />}
           nodeRight={<Icon className='input__icon' name={ICON_NAMES.plus} />}
         />
         <InputField
           value={input}
           updateValue={setInput}
-          label='label'
-          placeholder='placeholder'
+          label={`label`}
+          placeholder={`placeholder`}
           note='lorem ipsum dolor sit amet concestetur!'
           nodeLeft={<Icon className='input__icon' name={ICON_NAMES.search} />}
           nodeRight={<Icon className='input__icon' name={ICON_NAMES.plus} />}
@@ -370,8 +389,8 @@ const UiKit: FC<Props> = ({ ...rest }) => {
         <InputField
           value={input}
           updateValue={setInput}
-          label='label'
-          placeholder='placeholder'
+          label={`label`}
+          placeholder={`placeholder`}
           note='lorem ipsum dolor sit amet concestetur!'
           isDisabled={true}
           nodeLeft={<Icon className='input__icon' name={ICON_NAMES.search} />}
@@ -389,47 +408,111 @@ const UiKit: FC<Props> = ({ ...rest }) => {
           value={select}
           updateValue={setSelect}
           valueOptions={SELECT_OPTIONS}
-          label='Label'
+          label={`Label`}
         />
         <SelectField
           value={select}
           updateValue={setSelect}
           valueOptions={SELECT_OPTIONS}
-          label='Label'
+          label={`Label`}
           errorMessage='error message'
         />
         <SelectField
           value={select}
           updateValue={setSelect}
           valueOptions={SELECT_OPTIONS}
-          label='Label'
+          label={`Label`}
           note='Note message'
         />
-        {/*<BasicSelectField*/}
-        {/*  value={select}*/}
-        {/*  updateValue={setSelect}*/}
-        {/*  valueOptions={SELECT_OPTIONS.map(el => ({*/}
-        {/*    title: String(el).concat('++'),*/}
-        {/*    value: el,*/}
-        {/*  }))}*/}
-        {/*/>*/}
         <SelectField
           value={select}
           updateValue={setSelect}
           valueOptions={SELECT_OPTIONS}
-          label='Label'
+          label={`Label`}
           isDisabled={true}
         />
-        {/*<BasicSelectField*/}
-        {/*  value={select}*/}
-        {/*  updateValue={setSelect}*/}
-        {/*  label='Label'*/}
-        {/*  valueOptions={SELECT_OPTIONS.map(el => ({*/}
-        {/*    title: String(el).concat('++'),*/}
-        {/*    value: el,*/}
-        {/*  }))}*/}
-        {/*  isDisabled={true}*/}
-        {/*/>*/}
+
+        <BasicSelectField
+          value={basicSelect}
+          updateValue={value => setBasicSelect(value as string)}
+          valueOptions={BASIC_SELECT_OPTIONS}
+        />
+        <BasicSelectField
+          value={basicSelect}
+          updateValue={value => setBasicSelect(value as string)}
+          valueOptions={BASIC_SELECT_OPTIONS}
+          label={`Label`}
+        />
+        <BasicSelectField
+          value={basicSelect}
+          updateValue={value => setBasicSelect(value as string)}
+          valueOptions={BASIC_SELECT_OPTIONS}
+          placeholder={`placeholder`}
+        />
+
+        <BasicSelectField
+          value={basicSelect}
+          updateValue={value => setBasicSelect(value as string)}
+          valueOptions={BASIC_SELECT_OPTIONS}
+          errorMessage={`error message`}
+        />
+        <BasicSelectField
+          value={basicSelect}
+          updateValue={value => setBasicSelect(value as string)}
+          valueOptions={BASIC_SELECT_OPTIONS}
+          label={`Label`}
+          errorMessage={`error message`}
+        />
+        <BasicSelectField
+          value={basicSelect}
+          updateValue={value => setBasicSelect(value as string)}
+          valueOptions={BASIC_SELECT_OPTIONS}
+          placeholder={`placeholder`}
+          errorMessage={`error message`}
+        />
+
+        <BasicSelectField
+          value={basicSelect}
+          updateValue={value => setBasicSelect(value as string)}
+          valueOptions={BASIC_SELECT_OPTIONS}
+          note={`lorem ipsum dolor sit amet`}
+        />
+        <BasicSelectField
+          value={basicSelect}
+          updateValue={value => setBasicSelect(value as string)}
+          valueOptions={BASIC_SELECT_OPTIONS}
+          label={`Label`}
+          note={`lorem ipsum dolor sit amet`}
+          errorMessage={basicSelect}
+        />
+        <BasicSelectField
+          value={basicSelect}
+          updateValue={value => setBasicSelect(value as string)}
+          valueOptions={BASIC_SELECT_OPTIONS}
+          placeholder={`placeholder`}
+          note={`lorem ipsum dolor sit amet`}
+        />
+
+        <BasicSelectField
+          value={basicSelect}
+          updateValue={value => setBasicSelect(value as string)}
+          valueOptions={BASIC_SELECT_OPTIONS}
+          isDisabled={true}
+        />
+        <BasicSelectField
+          value={basicSelect}
+          updateValue={value => setBasicSelect(value as string)}
+          valueOptions={BASIC_SELECT_OPTIONS}
+          label={`Label`}
+          isDisabled={true}
+        />
+        <BasicSelectField
+          value={basicSelect}
+          updateValue={value => setBasicSelect(value as string)}
+          valueOptions={BASIC_SELECT_OPTIONS}
+          placeholder={`placeholder`}
+          isDisabled={true}
+        />
 
         {/*<TextareaField value={textarea} updateValue={setTextarea} />*/}
         {/*<TextareaField*/}

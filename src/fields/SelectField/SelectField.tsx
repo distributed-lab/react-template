@@ -30,7 +30,7 @@ interface Props<T> extends HTMLAttributes<HTMLSelectElement> {
   isDisabled?: string | boolean
   isReadonly?: string | boolean
   tabindex?: number
-  children?: ReactElement<HTMLAttributes<HTMLElement>>
+  children?: ReactElement<HTMLAttributes<HTMLElement>>[]
   headerNode?: ReactNode
 }
 
@@ -49,7 +49,6 @@ function SelectField<T>({
   placeholder = ' ',
   children,
   headerNode,
-  ...rest
 }: Props<T>) {
   const uid = uuidv4()
 
@@ -63,7 +62,6 @@ function SelectField<T>({
     getMenuProps,
     closeMenu,
     getItemProps,
-    selectedItem,
   } = useSelect<T>({
     items: valueOptions,
     selectedItem: value,
@@ -134,7 +132,7 @@ function SelectField<T>({
   }, [closeDropdown, value])
 
   return (
-    <div className={selectFieldClasses} {...rest}>
+    <div className={selectFieldClasses}>
       <div ref={selectElement} className='select-field__select-wrp'>
         <div className='select-field__select-head-wrp'>
           <button
@@ -145,14 +143,15 @@ function SelectField<T>({
             {...getToggleButtonProps()}
             onClick={toggleDropdown}
           >
-            {headerNode && !value
-              ? headerNode
-              : value ||
-                (!label && !!placeholder && (
-                  <span className='select-field__placeholder'>
-                    {placeholder}
-                  </span>
-                )) || <></>}
+            {!label && !!placeholder && !value ? (
+              <span className='select-field__placeholder'>{placeholder}</span>
+            ) : headerNode ? (
+              headerNode
+            ) : value ? (
+              value
+            ) : (
+              <></>
+            )}
             <Icon
               className={[
                 'select-field__select-head-indicator',
@@ -181,32 +180,21 @@ function SelectField<T>({
             className='select-field__select-dropdown'
           >
             {children
-              ? valueOptions.map((el, idx) => {
+              ? children.map((el, idx) => {
                   const newProps = {
-                    ...children.props,
+                    ...el.props,
                     key: idx,
                     ...getItemProps({
                       key: idx,
                       index: idx,
-                      item: el,
-                      className: [
-                        ...(children.props.className
-                          ? [children.props.className]
-                          : []),
-                        'select-field__dropdown-item',
-                        ...[
-                          selectedItem === el
-                            ? 'select-field__dropdown-item--selected'
-                            : [],
-                        ],
-                      ].join(' '),
-                      // onClick: () => {
-                      //   setSelectedOptionContent(el)
-                      // },
+                      item: valueOptions[idx],
+                      onClick: () => {
+                        select(valueOptions[idx])
+                      },
                     }),
                   }
 
-                  return el ? cloneElement(children, newProps) : <></>
+                  return el ? cloneElement(el, newProps) : <></>
                 })
               : valueOptions.map((el, idx) => (
                   <button
