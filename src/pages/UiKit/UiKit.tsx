@@ -514,18 +514,31 @@ const UiKit: FC<Props> = ({ ...rest }) => {
           isDisabled={true}
         />
 
-        {/*<TextareaField value={textarea} updateValue={setTextarea} />*/}
-        {/*<TextareaField*/}
-        {/*  value={textarea}*/}
-        {/*  updateValue={setTextarea}*/}
-        {/*  label='Label'*/}
-        {/*/>*/}
-        {/*<TextareaField*/}
-        {/*  value={textarea}*/}
-        {/*  updateValue={setTextarea}*/}
-        {/*  label='Label'*/}
-        {/*  errorMessage='Error message'*/}
-        {/*/>*/}
+        <TextareaField value={textarea} updateValue={setTextarea} />
+        <TextareaField
+          value={textarea}
+          updateValue={setTextarea}
+          label={`Label`}
+        />
+        <TextareaField
+          value={textarea}
+          updateValue={setTextarea}
+          label={`Label`}
+          errorMessage='Error message'
+        />
+        <TextareaField
+          value={textarea}
+          updateValue={setTextarea}
+          label={`Label`}
+          isDisabled={true}
+        />
+        <TextareaField
+          value={textarea}
+          updateValue={setTextarea}
+          label={`Label`}
+          errorMessage='Error message'
+          isDisabled={true}
+        />
 
         {/*<CheckboxField value={checkbox} updateValue={setCheckbox} />*/}
         {/*<CheckboxField*/}
