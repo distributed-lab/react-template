@@ -553,19 +553,19 @@ const UiKit: FC<Props> = ({ ...rest }) => {
           isDisabled={true}
         />
 
-        {/*<SwitchField value={switchValue} updateValue={setSwitchValue} />*/}
-        {/*<SwitchField*/}
-        {/*  value={switchValue}*/}
-        {/*  updateValue={setSwitchValue}*/}
-        {/*  modelValue={String(switchValue)}*/}
-        {/*  label='Label'*/}
-        {/*/>*/}
-        {/*<SwitchField*/}
-        {/*  value={switchValue}*/}
-        {/*  updateValue={setSwitchValue}*/}
-        {/*  modelValue={String(switchValue)}*/}
-        {/*  isDisabled={true}*/}
-        {/*/>*/}
+        <SwitchField value={switchValue} updateValue={setSwitchValue} />
+        <SwitchField
+          value={switchValue}
+          updateValue={setSwitchValue}
+          model={String(switchValue)}
+          label='Label'
+        />
+        <SwitchField
+          value={switchValue}
+          updateValue={setSwitchValue}
+          model={String(switchValue)}
+          isDisabled={true}
+        />
       </div>
 
       <section className='ui-kit__common'>

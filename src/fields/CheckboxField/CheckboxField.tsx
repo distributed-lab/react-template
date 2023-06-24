@@ -17,7 +17,6 @@ interface Props extends HTMLAttributes<HTMLInputElement> {
   value: boolean
   updateValue: Dispatch<SetStateAction<boolean>>
   label?: string
-  errorMessage?: string
   isDisabled?: boolean
   isReadonly?: boolean
   tabindex?: number
@@ -29,7 +28,6 @@ const CheckboxField: FC<Props> = ({
   value,
   updateValue,
   label,
-  errorMessage,
   tabindex,
   isDisabled,
   isReadonly,
@@ -41,7 +39,6 @@ const CheckboxField: FC<Props> = ({
     ...[
       ...(isDisabled ? ['checkbox-field--disabled'] : []),
       ...(isReadonly ? ['checkbox-field--readonly'] : []),
-      ...(errorMessage ? ['checkbox-field--error'] : []),
       ...(value ? ['checkbox-field--checked'] : []),
     ],
   ].join(' ')
