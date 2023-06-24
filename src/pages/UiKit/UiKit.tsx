@@ -22,7 +22,7 @@ import {
   SwitchField,
   TextareaField,
 } from '@/fields'
-import { Bus, ErrorHandler } from '@/helpers'
+import { bus, BUS_EVENTS, ErrorHandler } from '@/helpers'
 
 type Props = HTMLAttributes<HTMLDivElement> & MotionProps
 
@@ -296,27 +296,27 @@ const UiKit: FC<Props> = ({ ...rest }) => {
       <div className='ui-kit__buttons'>
         <AppButton
           size='small'
-          text="'Bus.success'"
+          text="'bus.success'"
           color='success'
-          onClick={() => Bus.success('Some success message')}
+          onClick={() => bus.emit(BUS_EVENTS.success, 'Some success message')}
         />
         <AppButton
           size='small'
-          text="'Bus.error'"
+          text="'bus.error'"
           color='error'
-          onClick={() => Bus.error('Some error message')}
+          onClick={() => bus.emit(BUS_EVENTS.error, 'Some error message')}
         />
         <AppButton
           size='small'
-          text="'Bus.warning'"
+          text="'bus.warning'"
           color='warning'
-          onClick={() => Bus.warning('Some warning message')}
+          onClick={() => bus.emit(BUS_EVENTS.warning, 'Some warning message')}
         />
         <AppButton
           size='small'
-          text="'Bus.info'"
+          text="'bus.info'"
           color='info'
-          onClick={() => Bus.info('Some info message')}
+          onClick={() => bus.emit(BUS_EVENTS.info, 'Some info message')}
         />
 
         <AppButton

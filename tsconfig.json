@@ -17,7 +17,8 @@
     "types": [
       "node",
       "vite/client",
-      "@types/lodash"
+      "@types/lodash",
+      "@types/uuid"
     ],
     "paths": {
       "@/*": ["src/*"],

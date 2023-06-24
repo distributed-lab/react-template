@@ -6,7 +6,8 @@ import { useTranslation } from 'react-i18next'
 import { AppButton } from '@/common'
 import { InputField } from '@/fields'
 import {
-  Bus,
+  bus,
+  BUS_EVENTS,
   ErrorHandler,
   maxLength,
   minLength,
@@ -156,15 +157,15 @@ const LoginForm = () => {
     e.preventDefault()
     touchForm()
     if (!isFieldsValid) {
-      Bus.error('form invalid')
+      bus.emit(BUS_EVENTS.error, 'form invalid')
       return
     }
 
     disableForm()
     try {
       await sleep(3000)
-      Bus.success(t('login-form.login-success-msg'))
-      Bus.success(`${login}, ${password}`)
+      bus.emit(BUS_EVENTS.success, t('login-form.login-success-msg'))
+      bus.emit(BUS_EVENTS.success, `${login}, ${password}`)
     } catch (error) {
       ErrorHandler.process(error)
     }
@@ -222,7 +223,8 @@ const LoginForm = () => {
           text={'isFieldValid'}
           size='small'
           onClick={() => {
-            Bus.info(
+            bus.emit(
+              BUS_EVENTS.info,
               String(isFieldValid('someComplexObject.fullName.firstName')),
             )
           }}

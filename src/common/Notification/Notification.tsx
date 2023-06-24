@@ -9,7 +9,7 @@ import { useEffectOnce } from 'react-use'
 
 import { Icon } from '@/common'
 import { ICON_NAMES } from '@/enums'
-import { Bus } from '@/helpers'
+import { bus, BUS_EVENTS } from '@/helpers'
 import { NotificationObjectPayload } from '@/types'
 
 const NOTIFICATION_TYPE = {
@@ -92,16 +92,16 @@ const Notification = () => {
   )
 
   useEffectOnce(() => {
-    Bus.on(Bus.eventList.success, payload =>
+    bus.on(BUS_EVENTS.success, payload =>
       showToast(NOTIFICATION_TYPE.success, payload),
     )
-    Bus.on(Bus.eventList.warning, payload =>
+    bus.on(BUS_EVENTS.warning, payload =>
       showToast(NOTIFICATION_TYPE.warning, payload),
     )
-    Bus.on(Bus.eventList.error, payload =>
+    bus.on(BUS_EVENTS.error, payload =>
       showToast(NOTIFICATION_TYPE.error, payload),
     )
-    Bus.on(Bus.eventList.info, payload =>
+    bus.on(BUS_EVENTS.info, payload =>
       showToast(NOTIFICATION_TYPE.info, payload),
     )
   })

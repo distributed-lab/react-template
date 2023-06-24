@@ -1,5 +1,11 @@
-import { viteCommonjs } from '@originjs/vite-plugin-commonjs'
 import react from '@vitejs/plugin-react'
+/**
+ * @description Enable import if you need polyfills
+ *
+ * import { nodePolyfills } from 'vite-plugin-node-polyfills'
+ * import { NodeGlobalsPolyfillPlugin } from '@esbuild-plugins/node-globals-polyfill'
+ * import { NodeModulesPolyfillPlugin } from '@esbuild-plugins/node-modules-polyfill'
+ */
 import * as fs from 'fs'
 import * as path from 'path'
 import { visualizer } from 'rollup-plugin-visualizer'
@@ -32,7 +38,7 @@ export default defineConfig(({ mode }) => {
     publicDir: 'static',
     plugins: [
       react(),
-      viteCommonjs(),
+
       tsconfigPaths(),
       createSvgIconsPlugin({
         iconDirs: [path.resolve(process.cwd(), 'src/assets/icons')],
@@ -60,29 +66,49 @@ export default defineConfig(({ mode }) => {
       preprocessorOptions: {
         scss: {
           additionalData: [
-            '@import "@/styles/_mixins.scss";',
             '@import "@/styles/_functions.scss";',
-          ].join(' '),
+            '@import "@/styles/_mixins.scss";',
+          ].join(''),
         },
       },
     },
     resolve: {
-      extensions: ['.mjs', '.js', '.ts', '.jsx', '.tsx', '.json'],
-      dedupe: ['react'],
+      extensions: ['.mjs', '.js', '.ts', '.jsx', '.tsx', '.json', '.vue'],
+      dedupe: ['react', 'lodash'],
       alias: {
         '@': `${root}/`,
         '@config': `${root}/config.ts`,
         '@static': `${root}/../static`,
       },
     },
-    optimizeDeps: {
-      disabled: false,
-    },
-    build: {
-      target: 'esnext',
-      commonjsOptions: {
-        include: [],
-      },
-    },
+    /**
+     * @description Enable configuration for polyfills
+     *
+     * optimizeDeps: {
+     *       esbuildOptions: {
+     *         define: {
+     *           global: 'globalThis',
+     *         },
+     *       },
+     *       // Enable esbuild polyfill plugins
+     *       plugins: [
+     *         NodeGlobalsPolyfillPlugin({
+     *           process: true,
+     *           buffer: true,
+     *         }),
+     *         NodeModulesPolyfillPlugin(),
+     *       ],
+     *     },
+     *     build: {
+     *       target: 'esnext',
+     *       rollupOptions: {
+     *         plugins: [
+     *           // Enable rollup polyfills plugin
+     *           // used during production bundling
+     *           nodePolyfills(),
+     *         ],
+     *       },
+     *     },
+     */
   }
 })
