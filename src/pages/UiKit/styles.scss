@@ -87,10 +87,8 @@
 
 .ui-kit__modal-body {
   display: grid;
-  grid-template-columns: 1fr 1fr;
   gap: toRem(24);
   max-width: toRem(500);
-  padding: toRem(24) 0 0;
 }
 
 .ui-kit__modal-text {
