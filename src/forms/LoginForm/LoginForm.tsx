@@ -182,7 +182,7 @@ const LoginForm = () => {
           label={t('login-form.login-lbl')}
           errorMessage={getFieldErrorMessage('login')}
           onBlur={() => touchField('login')}
-          disabled={isFormDisabled}
+          isDisabled={isFormDisabled}
         />
         <InputField
           type='password'
@@ -191,7 +191,7 @@ const LoginForm = () => {
           label={t('login-form.password-lbl')}
           errorMessage={getFieldErrorMessage('password')}
           onBlur={() => touchField('password')}
-          disabled={isFormDisabled}
+          isDisabled={isFormDisabled}
         />
       </div>
       <h3>{t('login-form.nested-object-title')}</h3>

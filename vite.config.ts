@@ -73,7 +73,7 @@ export default defineConfig(({ mode }) => {
       },
     },
     resolve: {
-      extensions: ['.mjs', '.js', '.ts', '.jsx', '.tsx', '.json', '.vue'],
+      extensions: ['.mjs', '.js', '.ts', '.jsx', '.tsx', '.json'],
       dedupe: ['react', 'lodash'],
       alias: {
         '@': `${root}/`,
