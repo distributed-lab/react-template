@@ -1,9 +1,10 @@
 .checkbox-field {
   cursor: pointer;
   display: grid;
-  align-items: start;
+  align-items: center;
   grid-template-columns: toRem(18) 1fr;
   grid-gap: toRem(12);
+  position: relative;
 
   &--disabled {
     cursor: not-allowed;
@@ -32,11 +33,7 @@
   transition: var(--field-transition-duration) ease-in;
   transition-property: border-color, box-shadow, background-color;
   border-radius: toRem(3);
-  box-shadow: inset 0 0 0 toRem(2) var(--text-secondary-main);
-
-  .checkbox-field__input:focus ~ & {
-    box-shadow: inset 0 0 0 toRem(2) var(--primary-main);
-  }
+  box-shadow: inset 0 0 0 toRem(2) var(--field-border);
 }
 
 .checkbox-field__frame {
@@ -45,7 +42,7 @@
   align-items: center;
   width: 100%;
   height: 100%;
-  color: var(--text-primary-invert-main);
+  color: var(--field-bg-primary);
 
   .checkbox-field--checked & {
     background-color: var(--primary-main);

@@ -540,18 +540,18 @@ const UiKit: FC<Props> = ({ ...rest }) => {
           isDisabled={true}
         />
 
-        {/*<CheckboxField value={checkbox} updateValue={setCheckbox} />*/}
-        {/*<CheckboxField*/}
-        {/*  value={checkbox}*/}
-        {/*  updateValue={setCheckbox}*/}
-        {/*  label='Label'*/}
-        {/*/>*/}
-        {/*<CheckboxField*/}
-        {/*  value={checkbox}*/}
-        {/*  updateValue={setCheckbox}*/}
-        {/*  label='Label'*/}
-        {/*  isDisabled={true}*/}
-        {/*/>*/}
+        <CheckboxField value={checkbox} updateValue={setCheckbox} />
+        <CheckboxField
+          value={checkbox}
+          updateValue={setCheckbox}
+          label={`Label`}
+        />
+        <CheckboxField
+          value={checkbox}
+          updateValue={setCheckbox}
+          label={`Label`}
+          isDisabled={true}
+        />
 
         {/*<SwitchField value={switchValue} updateValue={setSwitchValue} />*/}
         {/*<SwitchField*/}
