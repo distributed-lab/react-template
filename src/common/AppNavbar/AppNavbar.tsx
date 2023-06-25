@@ -16,6 +16,13 @@ const AppNavbar: FC<HTMLAttributes<HTMLDivElement>> = ({
       <AppButton
         className='app-navbar__link'
         scheme='flat'
+        text={RoutesPaths.storeOverview}
+        routePath={RoutesPaths.storeOverview}
+      />
+
+      <AppButton
+        className='app-navbar__link'
+        scheme='flat'
         text={RoutesPaths.uiKit}
         routePath={RoutesPaths.uiKit}
       />
