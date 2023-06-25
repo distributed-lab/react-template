@@ -6,30 +6,26 @@ import { useTranslation } from 'react-i18next'
 
 import { ErrorMessage, Loader, NoDataMessage } from '@/common'
 import { ErrorHandler, sleep } from '@/helpers'
-import { getPosts, useAppDispatch, useAppSelector } from '@/store'
-import { Post } from '@/types'
+import { postsStore } from '@/store'
 
 type Props = HTMLAttributes<HTMLDivElement> & MotionProps
 
 const StoreOverview: FC<Props> = ({ ...rest }) => {
   const [isLoaded, setIsLoaded] = useState(false)
   const [isLoadFailed, setIsLoadFailed] = useState(false)
-  const posts: Post[] = useAppSelector(state => state.postsSlice.posts)
 
   const { t } = useTranslation()
-
-  const dispatch = useAppDispatch()
 
   const init = useCallback(async () => {
     try {
       await sleep(1000)
-      await dispatch(getPosts())
+      await postsStore.loadPosts()
     } catch (error) {
       ErrorHandler.processWithoutFeedback(error)
       setIsLoadFailed(true)
     }
     setIsLoaded(true)
-  }, [dispatch])
+  }, [])
 
   useEffect(() => {
     init()
@@ -40,9 +36,11 @@ const StoreOverview: FC<Props> = ({ ...rest }) => {
       {isLoaded ? (
         isLoadFailed ? (
           <ErrorMessage message={t('store-overview.loading-error-msg')} />
-        ) : posts && Array.isArray(posts) && posts.length ? (
+        ) : postsStore.posts &&
+          Array.isArray(postsStore.posts) &&
+          postsStore.posts.length ? (
           <div className='store-overview__list'>
-            {posts.map((el, idx) => (
+            {postsStore.posts.map((el, idx) => (
               <div className='store-overview__card' key={el.id}>
                 <span className='store-overview__card-title'>
                   {`${idx + 1}. ${el.title}`}

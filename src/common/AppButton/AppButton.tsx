@@ -6,32 +6,17 @@ import { LinkProps, NavLink } from 'react-router-dom'
 import { Icon } from '@/common'
 import { ICON_NAMES } from '@/enums'
 
-type SCHEMES = 'filled' | 'flat' | 'default'
-
-type MODIFICATIONS = 'border-circle' | 'border-rounded' | 'default'
-
-type COLORS =
-  | 'primary'
-  | 'secondary'
-  | 'success'
-  | 'error'
-  | 'warning'
-  | 'info'
-  | 'default'
-
-type SIZES = 'large' | 'medium' | 'small' | 'x-small' | 'default'
-
 type Props<R extends string, H extends string> = {
   text?: string
-  scheme?: SCHEMES
-  modification?: MODIFICATIONS
-  color?: COLORS
-  size?: SIZES
+  scheme?: 'filled' | 'flat' | 'none'
+  modification?: 'border-circle' | 'border-rounded' | 'none'
+  color?: 'primary' | 'success' | 'error' | 'warning' | 'info' | 'none'
+  size?: 'large' | 'medium' | 'small' | 'x-small' | 'none'
   href?: H
   routePath?: R
   iconLeft?: ICON_NAMES
   iconRight?: ICON_NAMES
-  disabled?: boolean
+  isDisabled?: boolean
 } & (R extends string
   ? Omit<LinkProps, 'to'>
   : H extends string
@@ -48,27 +33,37 @@ const AppButton = <R extends string, H extends string>({
   routePath,
   iconLeft,
   iconRight,
-  disabled = false,
+  isDisabled = false,
   children,
   className = '',
   ...rest
 }: Props<R, H>) => {
-  const isDisabled: boolean = ['', 'disabled', true].includes(
-    disabled as string | boolean,
-  )
-
   const buttonClasses = useMemo(
     () =>
       [
         'app-button',
-        `app-button--${scheme}`,
+        `app-button--scheme-${scheme}`,
         `app-button--${modification}`,
         `app-button--${color}`,
         `app-button--${size}`,
-        ...(disabled ? ['app-button--disabled'] : []),
+        ...(isDisabled ? ['app-button--disabled'] : []),
         ...(className ? [className] : []),
+        ...((iconLeft || iconRight) && !text && !children
+          ? ['app-button--icon-only']
+          : []),
       ].join(' '),
-    [className, color, disabled, modification, scheme, size],
+    [
+      children,
+      className,
+      color,
+      iconLeft,
+      iconRight,
+      isDisabled,
+      modification,
+      scheme,
+      size,
+      text,
+    ],
   )
 
   const buttonContent = useMemo(

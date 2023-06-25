@@ -1,9 +1,9 @@
 import './styles.scss'
 
 import {
+  ChangeEvent,
   Dispatch,
   FC,
-  FormEventHandler,
   HTMLAttributes,
   SetStateAction,
 } from 'react'
@@ -12,51 +12,41 @@ import { Icon } from '@/common'
 import { ICON_NAMES } from '@/enums'
 
 interface Props extends HTMLAttributes<HTMLInputElement> {
+  name?: string
   model?: string | number
   value: boolean
-  setValue: Dispatch<SetStateAction<boolean>>
+  updateValue: Dispatch<SetStateAction<boolean>>
   label?: string
-  errorMessage?: string
-  disabled?: string | boolean
-  readonly?: string | boolean
+  isDisabled?: boolean
+  isReadonly?: boolean
   tabindex?: number
 }
 
 const CheckboxField: FC<Props> = ({
+  name,
   model,
   value,
-  setValue,
+  updateValue,
   label,
-  errorMessage,
-  disabled,
-  readonly,
   tabindex,
+  isDisabled,
+  isReadonly,
   className = '',
-  ...rest
 }) => {
-  const isDisabled = ['', 'disabled', true].includes(
-    disabled as string | boolean,
-  )
-
-  const isReadonly = ['', 'readonly', true].includes(
-    readonly as string | boolean,
-  )
-
   const checkboxClasses = [
     'checkbox-field',
     ...(className ? [className] : []),
     ...[
-      ...(isDisabled ? ['disabled'] : []),
-      ...(isReadonly ? ['readonly'] : []),
-      ...(errorMessage ? ['error'] : []),
-      ...(value ? ['checked'] : []),
-    ].map(el => `checkbox-field--${el}`),
+      ...(isDisabled ? ['checkbox-field--disabled'] : []),
+      ...(isReadonly ? ['checkbox-field--readonly'] : []),
+      ...(value ? ['checkbox-field--checked'] : []),
+    ],
   ].join(' ')
 
-  const onChange = (event: Event) => {
+  const onChange = (event: ChangeEvent<HTMLInputElement>) => {
     const target = event.target as HTMLInputElement
 
-    setValue(target.checked)
+    updateValue(target.checked)
   }
 
   return (
@@ -65,22 +55,24 @@ const CheckboxField: FC<Props> = ({
         className='checkbox-field__input'
         type='checkbox'
         checked={value}
+        name={name}
         value={model}
-        disabled={!!disabled}
-        tabIndex={isDisabled || isReadonly ? -1 : tabindex}
-        onChange={onChange as unknown as FormEventHandler<HTMLInputElement>}
-        {...rest}
+        tabIndex={isDisabled || isReadonly ? -1 : (tabindex as number)}
+        disabled={isDisabled}
+        onChange={onChange}
       />
+
       <span className='checkbox-field__frame-wrp' aria-hidden='true'>
         <span
-          className={`checkbox-field__frame ${
-            value ? 'checkbox-field__frame--checked' : ''
-          }`}
+          className={[
+            'checkbox-field__frame',
+            ...(value ? ['checkbox-field__frame--checked'] : []),
+          ].join(' ')}
         >
           {value ? (
             <Icon
-              name={ICON_NAMES.check}
               className='checkbox-field__frame-icon'
+              name={ICON_NAMES.check}
             />
           ) : (
             <></>
@@ -88,7 +80,7 @@ const CheckboxField: FC<Props> = ({
         </span>
       </span>
 
-      <span className='checkbox-field__label'>{label}</span>
+      {label ? <span className='checkbox-field__label'>{label}</span> : <></>}
     </label>
   )
 }

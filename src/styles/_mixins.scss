@@ -12,56 +12,26 @@ $media-breakpoints: (
   xlarge4k: 4096px,
 );
 
-@mixin respond-above($media) {
-  $breakpoint: map.get($media-breakpoints, $media);
-
-  @if $breakpoint {
-    @media (min-width: ($breakpoint)) {
-      @content;
-    }
-  } @else {
-    @media (min-width: ($media)) {
-      @content;
-    }
-  }
-}
-
-@mixin respond-to($media) {
+@mixin respond-to ($media) {
   $breakpoint: map.get($media-breakpoints, $media);
 
   @if $breakpoint {
     @media (max-width: ($breakpoint - 1)) {
       @content;
     }
-  } @else {
+  }
+
+  @else {
     @media (max-width: ($media - 1)) {
       @content;
     }
   }
 }
 
-@mixin clearfix() {
-  &:after {
-    clear: both;
-    content: '';
-    display: block;
-  }
-}
-
-@mixin aspect-ratio($ratio) {
-  @include clearfix;
-
-  display: block;
-  position: relative;
-
-  &:before {
-    content: '';
-    float: left;
-    height: 0;
-    margin-left: to-rem(-1);
-    padding-block-start: calc(100% / #{$ratio});
-    width: to-rem(1);
-  }
+@mixin text-ellipsis {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 @mixin field-text {
@@ -70,19 +40,20 @@ $media-breakpoints: (
   -webkit-text-fill-color: var(--field-text-font-size);
   color: var(--field-text-font-size);
   transition: color var(--field-transition-duration) ease;
+  font-weight: 400;
 }
 
 @mixin field-label {
   font-size: var(--field-label-font-size);
   line-height: var(--field-label-line-height);
   color: var(--field-label);
-  transition: color var(--field-transition-duration) ease;
-  margin-bottom: to-rem(8);
+  transition: var(--field-transition-duration) ease;
+  margin-bottom: toRem(8);
 }
 
 @mixin field-border {
-  border: to-rem(1) solid var(--border-primary-main);
-  border-radius: to-rem(10);
+  border: toRem(1) solid var(--field-border);
+  border-radius: toRem(14);
 }
 
 @mixin field-placeholder {
@@ -98,15 +69,34 @@ $media-breakpoints: (
 @mixin field-error {
   overflow: hidden;
   color: var(--field-error);
-  font-size: to-rem(10);
-  line-height: 1.4;
+  font-size: toRem(12);
+  letter-spacing: toRem(0.4);
+  line-height: 1.3;
   transition: var(--field-transition-duration) ease;
   transition-property: opacity, color, font-size, transform;
-  margin-top: to-rem(4);
+  margin-top: toRem(4);
+  padding-left: var(--field-padding-left);
 }
 
-@mixin text-ellipsis {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+@mixin scrollbar {
+  &::-webkit-scrollbar {
+    width: toRem(12);
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: var(--secondary-main);
+    border: toRem(4) solid rgba(var(--black-rgb), 0);
+    background-clip: padding-box;
+    border-radius: toRem(100);
+  }
+}
+
+@mixin page-msg {
+  max-width: toRem(420);
+  width: 100%;
+  margin: auto;
 }

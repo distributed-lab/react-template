@@ -1,4 +1,9 @@
-import { cloneDeep, get, isEmpty, isEqual, isObject, set } from 'lodash'
+import cloneDeep from 'lodash/cloneDeep'
+import get from 'lodash/get'
+import isEmpty from 'lodash/isEmpty'
+import isEqual from 'lodash/isEqual'
+import isObject from 'lodash/isObject'
+import set from 'lodash/set'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 
 type FormSchema = Record<string, unknown>

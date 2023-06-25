@@ -1,5 +1,6 @@
 import './styles.scss'
 
+import { BN, DECIMALS } from '@distributedlab/tools'
 import {
   Dispatch,
   FormEvent,
@@ -7,83 +8,92 @@ import {
   ReactNode,
   SetStateAction,
   useCallback,
+  useEffect,
+  useMemo,
+  useRef,
   useState,
 } from 'react'
 import { v4 as uuidv4 } from 'uuid'
 
 import { Collapse, Icon } from '@/common'
 import { ICON_NAMES } from '@/enums'
-import { BN } from '@/utils/math.util'
-
-enum INPUT_TYPES {
-  text = 'text',
-  password = 'password',
-  number = 'number',
-}
 
 interface Props<V extends string> extends HTMLAttributes<HTMLInputElement> {
+  scheme?: 'primary'
   value: V
   updateValue?: Dispatch<SetStateAction<V>>
-  type?: string
+  type?: 'text' | 'number' | 'password'
   label?: string
-  labelNodeRight?: ReactNode
+  labelNode?: ReactNode
   placeholder?: string
   errorMessage?: string
+  note?: string
   min?: number
   max?: number
-  disabled?: string | boolean
-  readonly?: string | boolean
+  isDisabled?: string | boolean
+  isReadonly?: string | boolean
   tabindex?: number
   nodeLeft?: ReactNode
   nodeRight?: ReactNode
 }
 
 function InputField<V extends string>({
+  scheme = 'primary',
   value,
   updateValue,
-  type = INPUT_TYPES.text,
+  type = 'text',
   label,
-  labelNodeRight,
+  labelNode,
   placeholder = ' ',
   errorMessage,
+  note,
   min,
   max,
-  disabled,
-  readonly,
+  isDisabled,
+  isReadonly,
   tabindex,
   nodeLeft,
   nodeRight,
   onInput,
   onChange,
-  className = '',
+  className,
   ...rest
 }: Props<V>) {
   const uid = uuidv4()
 
+  const inputEl = useRef<HTMLInputElement>(null)
+  const nodeLeftWrp = useRef<HTMLDivElement>(null)
+  const nodeRightWrp = useRef<HTMLDivElement>(null)
+
   const [isPasswordShown, setIsPasswordShown] = useState(false)
 
-  const isNumberType = type === INPUT_TYPES.number
-  const isPasswordType = type === INPUT_TYPES.password
+  const isNumberType = useMemo(() => type === 'number', [type])
+  const isPasswordType = useMemo(() => type === 'password', [type])
 
-  const isDisabled = ['', 'disabled', true].includes(
-    disabled as string | boolean,
+  const inputClasses = useMemo(
+    () =>
+      [
+        ...(className ? [className] : []),
+        ...(nodeLeft ? ['input-field--node-left'] : []),
+        ...(nodeRight || isPasswordType || errorMessage
+          ? ['input-field--node-right']
+          : []),
+        ...(isDisabled ? ['input-field--disabled'] : []),
+        ...(isReadonly ? ['input-field--readonly'] : []),
+        ...(errorMessage ? ['input-field--error'] : []),
+        `input-field--${scheme}`,
+      ].join(' '),
+    [
+      className,
+      errorMessage,
+      isDisabled,
+      isPasswordType,
+      isReadonly,
+      nodeLeft,
+      nodeRight,
+      scheme,
+    ],
   )
-
-  const isReadonly = ['', 'readonly', true].includes(
-    readonly as string | boolean,
-  )
-
-  const inputClasses = [
-    'input-field',
-    ...(className ? [className] : []),
-    ...[
-      ...(nodeLeft ? ['node-left'] : []),
-      ...(nodeRight || isPasswordType ? ['node-right'] : []),
-      ...(isDisabled ? ['disabled'] : []),
-      ...(isReadonly ? ['readonly'] : []),
-      ...(errorMessage ? ['error'] : []),
-    ].map(el => `input-field--${el}`),
-  ].join(' ')
 
   const normalizeNumber = useCallback(
     (_value: string) => (isNaN(Number(_value)) ? value : _value),
@@ -94,11 +104,20 @@ function InputField<V extends string>({
     (value: string | number): string => {
       let result = value
 
-      if (min && new BN(value).compare(min) < 0) {
-        result = min
-      }
-      if (max && new BN(value).compare(max) > 0) {
-        result = max
+      if (
+        String(min) &&
+        BN.fromRaw(value, DECIMALS.WEI).isLessThan(
+          BN.fromRaw(min ?? 0, DECIMALS.WEI),
+        )
+      ) {
+        result = Number(min)
+      } else if (
+        String(max) &&
+        BN.fromRaw(value, DECIMALS.WEI).isGreaterThan(
+          BN.fromRaw(max ?? 0, DECIMALS.WEI),
+        )
+      ) {
+        result = Number(max)
       }
 
       return result as string
@@ -109,6 +128,7 @@ function InputField<V extends string>({
   const handleInput = useCallback(
     (event: FormEvent<HTMLInputElement>) => {
       const eventTarget = event.target as HTMLInputElement
+
       if (isNumberType) {
         eventTarget.value = normalizeRange(normalizeNumber(eventTarget.value))
       }
@@ -141,64 +161,94 @@ function InputField<V extends string>({
     [onChange],
   )
 
+  useEffect(() => {
+    if (inputEl.current && nodeLeftWrp.current) {
+      inputEl.current.style.setProperty(
+        'padding-left',
+        `calc(${
+          nodeLeftWrp.current.offsetWidth || 0
+        }px + var(--field-padding-left) * 2)`,
+      )
+    }
+
+    if (nodeRight && nodeRightWrp.current && inputEl.current) {
+      inputEl.current.style.setProperty(
+        'padding-right',
+        `calc(${
+          nodeRightWrp.current.offsetWidth || 0
+        }px + var(--field-padding-right) * 2)`,
+      )
+    }
+  })
+
   return (
-    <div className={inputClasses}>
-      {label ? (
-        <label
-          htmlFor={`input-field__input-${uid}`}
-          className='input-field__label'
-        >
-          {label}
-          {labelNodeRight ? labelNodeRight : <></>}
-        </label>
-      ) : (
-        <></>
-      )}
+    <div className={`input-field ${inputClasses}`}>
       <div className='input-field__input-wrp'>
+        {nodeLeft && (
+          <div ref={nodeLeftWrp} className='input-field__node-left-wrp'>
+            {nodeLeft}
+          </div>
+        )}
+
         <input
-          id={`input-field__input-${uid}`}
+          ref={inputEl}
           className='input-field__input'
+          id={`input-field--${uid}`}
           value={value}
-          onInput={e => handleInput(e)}
-          onChange={handleChange}
-          onWheel={event => {
-            event.currentTarget.blur()
-          }}
-          placeholder={placeholder}
-          tabIndex={isDisabled || isReadonly ? -1 : tabindex}
-          type={isPasswordType && isPasswordShown ? 'text' : type}
+          placeholder={!label ? placeholder : ' '}
+          tabIndex={isDisabled || isReadonly ? -1 : (tabindex as number)}
+          type={type}
           min={min}
           max={max}
-          disabled={isDisabled || isReadonly}
+          disabled={Boolean(isDisabled || isReadonly)}
+          onInput={handleInput}
+          onChange={handleChange}
           {...rest}
         />
-        {nodeLeft ? (
-          <div className='input-field__node-left-wrp'>{nodeLeft}</div>
-        ) : (
-          <></>
-        )}
-        {nodeRight || isPasswordType ? (
-          <div className='input-field__node-right-wrp'>
-            {isPasswordType ? (
-              <button
-                type='button'
-                onClick={() => setIsPasswordShown(!isPasswordShown)}
-              >
+        {labelNode ||
+          (label && (
+            <label
+              className='input-field__label'
+              htmlFor={`input-field--${uid}`}
+            >
+              {label}
+            </label>
+          ))}
+        {nodeRight ? (
+          <div className='input-field__node-right-wrp'>{nodeRight}</div>
+        ) : isPasswordType || errorMessage ? (
+          <div ref={nodeRightWrp} className='input-field__node-right-wrp'>
+            {nodeRight ||
+              (isPasswordType && (
+                <button
+                  type='button'
+                  onClick={() => setIsPasswordShown(!isPasswordShown)}
+                >
+                  <Icon
+                    className='input-field__password-icon'
+                    name={isPasswordShown ? ICON_NAMES.eye : ICON_NAMES.eyeOff}
+                  />
+                </button>
+              )) ||
+              (errorMessage && (
                 <Icon
-                  className='input-field__password-icon'
-                  name={isPasswordShown ? ICON_NAMES.eye : ICON_NAMES.eyeOff}
+                  className='input-field__error-icon'
+                  name={ICON_NAMES.exclamationCircle}
                 />
-              </button>
-            ) : (
-              nodeRight
-            )}
+              ))}
           </div>
         ) : (
           <></>
         )}
       </div>
-      <Collapse isOpen={!!errorMessage} duration={0.25}>
-        <span className='input-field__err-msg'>{errorMessage}</span>
+      <Collapse isOpen={!!errorMessage || !!note}>
+        {errorMessage ? (
+          <span className='input-field__err-msg'>{errorMessage}</span>
+        ) : note ? (
+          <span className='input-field__note-msg'>{note}</span>
+        ) : (
+          <></>
+        )}
       </Collapse>
     </div>
   )

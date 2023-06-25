@@ -30,5 +30,5 @@ yarn rsc %release-version%
 
 ### Build docker image with version
 ```
- docker build --no-cache --progress=plain --build-arg BUILD_VERSION=1.0.0-rc.0 -t vue-template .
+ docker build --no-cache --progress=plain --build-arg BUILD_VERSION=1.0.0-rc.0 -t react-template .
 ```

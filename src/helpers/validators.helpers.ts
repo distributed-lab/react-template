@@ -1,4 +1,7 @@
-import { isBoolean, isDate, isEmpty, isNumber } from 'lodash-es'
+import isBoolean from 'lodash/isBoolean'
+import isDate from 'lodash/isDate'
+import isEmpty from 'lodash/isEmpty'
+import isNumber from 'lodash/isNumber'
 
 import { Validator } from '@/hooks'
 import i18n from '@/localization'

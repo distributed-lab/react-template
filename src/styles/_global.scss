@@ -1,33 +1,33 @@
 /* stylelint-disable declaration-no-important */
 /* stylelint-disable unit-disallowed-list */
-
 html {
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
   font-family: var(--app-font-family);
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-font-smoothing: antialiased;
-  min-height: vh(100);
   overflow: auto !important;
   -webkit-overflow-scrolling: touch !important;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  box-sizing: border-box;
+  min-height: vh(100);
+  display: flex;
+  flex-direction: column;
 }
 
-body, #root {
-  background-color: var(--app-bg);
-  color: var(--text-primary-main);
+/* stylelint-disable-next-line */
+body, #app {
   display: flex;
-  flex: 1;
   flex-direction: column;
+  flex: 1;
+  background: var(--background-primary-main);
+  color: var(--text-primary-main);
 }
 
 input,
 select,
 textarea {
-  background: var(--app-bg);
+  background: var(--background-primary-main);
   color: var(--text-primary-main);
   font-family: var(--app-font-family);
-  font-size: to-rem(16);
+  font-size: toRem(16);
   font-weight: 400;
 
   &:focus {
@@ -39,7 +39,7 @@ body,
 span,
 p,
 a {
-  font-size: to-rem(16);
+  font-size: toRem(16);
 }
 
 button {
@@ -72,12 +72,12 @@ button {
   }
 }
 
-ul,
-li,
 body,
-p {
-  color: var(--text-primary-main);
+p,
+li,
+ul {
   list-style-type: none;
+  color: var(--text-primary-main);
 }
 
 p {
@@ -93,37 +93,36 @@ h4,
 h5 {
   color: var(--text-primary-main);
   font-family: var(--app-font-family);
-  font-weight: 600;
   line-height: 1;
 }
 
 h1 {
-  font-size: to-rem(24);
+  font-size: toRem(24);
 }
 
 h2 {
-  font-size: to-rem(20);
+  font-size: toRem(24);
 }
 
 h3 {
-  font-size: to-rem(18);
+  font-size: toRem(18);
 }
 
 h4 {
-  font-size: to-rem(16);
+  font-size: toRem(16);
 }
 
 h5 {
-  font-size: to-rem(14);
+  font-size: toRem(14);
 }
 
 a {
-  color: var(--primary-main);
-  font-size: to-rem(16);
-  font-weight: 600;
+  font-size: toRem(16);
   line-height: 1.25;
-  outline: none;
+  font-weight: 600;
+  color: var(--primary-main);
   text-decoration: none;
+  outline: none;
 
   &:hover,
   &:focus,
@@ -132,10 +131,20 @@ a {
   }
 }
 
-.app {
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-  width: 100%;
-  height: 100%;
+.fade-enter-active {
+  animation: fade-in 0.25s;
+}
+
+.fade-leave-active {
+  animation: fade-in 0.25s reverse;
+}
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
 }

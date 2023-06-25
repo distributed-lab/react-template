@@ -5,9 +5,16 @@ import { useTranslation } from 'react-i18next'
 
 import { AppButton } from '@/common'
 import { InputField } from '@/fields'
-import { Bus, ErrorHandler, sleep } from '@/helpers'
+import {
+  bus,
+  BUS_EVENTS,
+  ErrorHandler,
+  maxLength,
+  minLength,
+  required,
+  sleep,
+} from '@/helpers'
 import { useForm, useFormValidation } from '@/hooks'
-import { maxLength, minLength, required } from '@/validators'
 
 const LoginForm = () => {
   const { t } = useTranslation()
@@ -150,15 +157,15 @@ const LoginForm = () => {
     e.preventDefault()
     touchForm()
     if (!isFieldsValid) {
-      Bus.error('form invalid')
+      bus.emit(BUS_EVENTS.error, 'form invalid')
       return
     }
 
     disableForm()
     try {
       await sleep(3000)
-      Bus.success(t('login-form.login-success-msg'))
-      Bus.success(`${login}, ${password}`)
+      bus.emit(BUS_EVENTS.success, t('login-form.login-success-msg'))
+      bus.emit(BUS_EVENTS.success, `${login}, ${password}`)
     } catch (error) {
       ErrorHandler.process(error)
     }
@@ -175,7 +182,7 @@ const LoginForm = () => {
           label={t('login-form.login-lbl')}
           errorMessage={getFieldErrorMessage('login')}
           onBlur={() => touchField('login')}
-          disabled={isFormDisabled}
+          isDisabled={isFormDisabled}
         />
         <InputField
           type='password'
@@ -184,7 +191,7 @@ const LoginForm = () => {
           label={t('login-form.password-lbl')}
           errorMessage={getFieldErrorMessage('password')}
           onBlur={() => touchField('password')}
-          disabled={isFormDisabled}
+          isDisabled={isFormDisabled}
         />
       </div>
       <h3>{t('login-form.nested-object-title')}</h3>
@@ -216,7 +223,8 @@ const LoginForm = () => {
           text={'isFieldValid'}
           size='small'
           onClick={() => {
-            Bus.info(
+            bus.emit(
+              BUS_EVENTS.info,
               String(isFieldValid('someComplexObject.fullName.firstName')),
             )
           }}
@@ -365,7 +373,7 @@ const LoginForm = () => {
       <div className='login-form__actions'>
         <AppButton
           text={t('login-form.submit-btn')}
-          disabled={isFormDisabled}
+          isDisabled={isFormDisabled}
         />
       </div>
     </form>
