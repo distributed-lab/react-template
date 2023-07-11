@@ -6,12 +6,12 @@ import 'virtual:svg-icons-register'
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 
-import { App } from '@/App'
+import { AppRoutes } from '@/routes'
 
 const root = createRoot(document.getElementById('root') as Element)
 
 root.render(
   <StrictMode>
-    <App />
+    <AppRoutes />
   </StrictMode>,
 )

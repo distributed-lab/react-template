@@ -1,12 +1,13 @@
+import { FC, HTMLAttributes } from 'react'
 import { ToastContainer } from 'react-toastify'
 import { useEffectOnce } from 'react-use'
 
+import { AppNavbar } from '@/common'
 import { bus, BUS_EVENTS } from '@/helpers'
 import { useNotification, useViewportSizes } from '@/hooks'
-import { AppRoutes } from '@/routes'
 import { NotificationPayload } from '@/types'
 
-export const App = () => {
+export const App: FC<HTMLAttributes<HTMLDivElement>> = ({ children }) => {
   useViewportSizes()
 
   const { showToast } = useNotification()
@@ -28,7 +29,8 @@ export const App = () => {
 
   return (
     <div className='app'>
-      <AppRoutes />
+      <AppNavbar className='app__navbar' />
+      {children}
 
       <ToastContainer />
     </div>

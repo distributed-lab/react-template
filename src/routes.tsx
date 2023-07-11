@@ -7,7 +7,7 @@ import {
   RouterProvider,
 } from 'react-router-dom'
 
-import { AppNavbar } from '@/common'
+import { App } from '@/App'
 import { RoutesPaths } from '@/enums'
 
 export const AppRoutes = () => {
@@ -35,10 +35,11 @@ export const AppRoutes = () => {
       path: '/',
       element: (
         <Suspense fallback={<></>}>
-          <AppNavbar className='app__navbar' />
-          <AnimatePresence>
-            <Outlet />
-          </AnimatePresence>
+          <App>
+            <AnimatePresence>
+              <Outlet />
+            </AnimatePresence>
+          </App>
         </Suspense>
       ),
       children: [
