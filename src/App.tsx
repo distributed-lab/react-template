@@ -1,31 +1,33 @@
-import { FC, HTMLAttributes } from 'react'
+import { FC, HTMLAttributes, useEffect } from 'react'
 import { ToastContainer } from 'react-toastify'
-import { useEffectOnce } from 'react-use'
 
 import { AppNavbar } from '@/common'
 import { bus, BUS_EVENTS } from '@/helpers'
 import { useNotification, useViewportSizes } from '@/hooks'
-import { NotificationPayload } from '@/types'
 
 export const App: FC<HTMLAttributes<HTMLDivElement>> = ({ children }) => {
   useViewportSizes()
 
   const { showToast } = useNotification()
 
-  useEffectOnce(() => {
-    bus.on(BUS_EVENTS.success, payload =>
-      showToast('success', payload as NotificationPayload),
-    )
-    bus.on(BUS_EVENTS.warning, payload =>
-      showToast('warning', payload as NotificationPayload),
-    )
-    bus.on(BUS_EVENTS.error, payload =>
-      showToast('error', payload as NotificationPayload),
-    )
-    bus.on(BUS_EVENTS.info, payload =>
-      showToast('info', payload as NotificationPayload),
-    )
-  })
+  useEffect(() => {
+    const showSuccessToast = (payload: unknown) => showToast('success', payload)
+    const showWarningToast = (payload: unknown) => showToast('warning', payload)
+    const showErrorToast = (payload: unknown) => showToast('error', payload)
+    const showInfoToast = (payload: unknown) => showToast('info', payload)
+
+    bus.on(BUS_EVENTS.success, showSuccessToast)
+    bus.on(BUS_EVENTS.warning, showWarningToast)
+    bus.on(BUS_EVENTS.error, showErrorToast)
+    bus.on(BUS_EVENTS.info, showInfoToast)
+
+    return () => {
+      bus.off(BUS_EVENTS.success, showSuccessToast)
+      bus.off(BUS_EVENTS.warning, showWarningToast)
+      bus.off(BUS_EVENTS.error, showErrorToast)
+      bus.off(BUS_EVENTS.info, showInfoToast)
+    }
+  }, [showToast])
 
   return (
     <div className='app'>

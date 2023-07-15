@@ -100,3 +100,12 @@ $media-breakpoints: (
   width: 100%;
   margin: auto;
 }
+
+@mixin static-icon-size ($size) {
+  min-width: $size;
+  min-height: $size;
+  max-width: $size;
+  max-height: $size;
+  width: $size;
+  height: $size;
+}
