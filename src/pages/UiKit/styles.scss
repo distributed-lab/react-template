@@ -50,6 +50,10 @@
   font-size: toRem(24);
 }
 
+.ui-kit__drawer-body {
+  max-width: toRem(500);
+}
+
 .ui-kit__icons {
   width: 100%;
   display: grid;
