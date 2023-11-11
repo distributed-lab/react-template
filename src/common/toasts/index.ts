@@ -1,1 +1,1 @@
-export { DefaultToast } from './DefaultToast'
+export { default as DefaultToast } from './DefaultToast'

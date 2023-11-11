@@ -1,9 +1,9 @@
-import type { ICON_NAMES } from '@/enums'
+import type { IconNames } from '@/enums'
 
 export type NotificationObjectPayload = {
   title?: string
   message: string
-  iconName?: ICON_NAMES // FIXME
+  iconName?: IconNames
 }
 
 export type NotificationPayload = string | NotificationObjectPayload

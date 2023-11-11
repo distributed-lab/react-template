@@ -53,11 +53,12 @@
   min-width: clamp(#{toRem(16)}, #{toRem(16)}, #{toRem(16)});
   min-height: clamp(#{toRem(16)}, #{toRem(16)}, #{toRem(16)});
   border-radius: 50%;
-  background: var(--primary-light);
-  transition: left var(--field-transition-duration) ease-in-out;
+  background: var(--primary-main);
+  transition: all var(--field-transition-duration) ease-in-out;
 
   .switch-field--checked & {
     left: calc(100% - #{toRem(16 + calc((24 - 16) / 2))});
+    background: var(--background-primary-main);
   }
 }
 

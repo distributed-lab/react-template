@@ -5,8 +5,10 @@ import i18n from '@/localization'
 
 export class ErrorHandler {
   static process(error: Error | unknown, errorMessage = ''): void {
-    const msgTranslation = errorMessage || ErrorHandler._getErrorMessage(error)
-    bus.emit(BUS_EVENTS.error, msgTranslation)
+    const { msgTranslation, msgType } = ErrorHandler._getErrorMessage(error)
+    if (msgTranslation) {
+      bus.emit(msgType as BUS_EVENTS, msgTranslation || errorMessage)
+    }
 
     ErrorHandler.processWithoutFeedback(error)
   }
@@ -15,17 +17,25 @@ export class ErrorHandler {
     log.error(error)
   }
 
-  static _getErrorMessage(error: Error | unknown): string {
+  static _getErrorMessage(error: Error | unknown): {
+    msgTranslation: string
+    msgType: 'error' | 'warning'
+  } {
     let errorMessage = ''
+    let msgType: 'error' | 'warning' = 'error'
 
     if (error instanceof Error) {
       switch (error.constructor) {
         default: {
           errorMessage = i18n.t('errors.default')
+          msgType = 'error'
         }
       }
     }
 
-    return errorMessage
+    return {
+      msgTranslation: errorMessage,
+      msgType: msgType || 'error',
+    }
   }
 }

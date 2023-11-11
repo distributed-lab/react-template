@@ -1,11 +1,14 @@
+import 'react-toastify/dist/ReactToastify.css'
+import '@/common/toasts/styles.scss'
+
 import isObject from 'lodash/isObject'
 import { useCallback, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
-import { toast, TypeOptions } from 'react-toastify'
+import { type Id, toast, TypeOptions } from 'react-toastify'
 import { v4 as uuidv4 } from 'uuid'
 
 import { DefaultToast } from '@/common'
-import { ICON_NAMES } from '@/enums'
+import { IconNames } from '@/enums'
 import { NotificationObjectPayload } from '@/types'
 
 const NOTIFICATION_TYPE = {
@@ -45,11 +48,11 @@ export const useNotification = () => {
 
   const defaultIconNames = useMemo(
     () => ({
-      [NOTIFICATION_TYPE.default]: ICON_NAMES.exclamationCircle,
-      [NOTIFICATION_TYPE.info]: ICON_NAMES.exclamationCircle,
-      [NOTIFICATION_TYPE.success]: ICON_NAMES.checkCircle,
-      [NOTIFICATION_TYPE.error]: ICON_NAMES.xCircle,
-      [NOTIFICATION_TYPE.warning]: ICON_NAMES.shieldExclamation,
+      [NOTIFICATION_TYPE.default]: IconNames.exclamation,
+      [NOTIFICATION_TYPE.info]: IconNames.exclamation,
+      [NOTIFICATION_TYPE.success]: IconNames.check,
+      [NOTIFICATION_TYPE.error]: IconNames.xCircle,
+      [NOTIFICATION_TYPE.warning]: IconNames.shieldExclamation,
     }),
     [],
   )
@@ -61,7 +64,7 @@ export const useNotification = () => {
     ) => {
       let title = ''
       let message = ''
-      let iconName: ICON_NAMES | undefined
+      let iconName: IconNames | undefined
 
       if (isObject(payload)) {
         const msgPayload = payload as NotificationObjectPayload
@@ -96,16 +99,17 @@ export const useNotification = () => {
             error: NOTIFICATION_TYPE.error,
             warning: NOTIFICATION_TYPE.warning,
           }[messageType] as TypeOptions,
-          className: 'default-toast',
-          autoClose: MINUTE / 2,
+          className: 'toast',
+          autoClose: MINUTE / 4,
           closeOnClick: false,
+          position: 'bottom-left',
         },
       )
     },
     [defaultIconNames, defaultMessages, defaultTitles],
   )
 
-  const removeToast = useCallback((toastId: string) => {
+  const removeToast = useCallback((toastId: Id) => {
     toast.dismiss(toastId)
   }, [])
 

@@ -16,7 +16,7 @@ import {
 import { v4 as uuidv4 } from 'uuid'
 
 import { Collapse, Icon } from '@/common'
-import { ICON_NAMES } from '@/enums'
+import { IconNames } from '@/enums'
 
 interface Props<V extends string> extends HTMLAttributes<HTMLInputElement> {
   scheme?: 'primary'
@@ -106,16 +106,12 @@ function InputField<V extends string>({
 
       if (
         String(min) &&
-        BN.fromRaw(value, DECIMALS.WEI).isLessThan(
-          BN.fromRaw(min ?? 0, DECIMALS.WEI),
-        )
+        BN.fromRaw(value, DECIMALS.WEI).lt(BN.fromRaw(min ?? 0, DECIMALS.WEI))
       ) {
         result = Number(min)
       } else if (
         String(max) &&
-        BN.fromRaw(value, DECIMALS.WEI).isGreaterThan(
-          BN.fromRaw(max ?? 0, DECIMALS.WEI),
-        )
+        BN.fromRaw(value, DECIMALS.WEI).gt(BN.fromRaw(max ?? 0, DECIMALS.WEI))
       ) {
         result = Number(max)
       }
@@ -226,14 +222,14 @@ function InputField<V extends string>({
                 >
                   <Icon
                     className='input-field__password-icon'
-                    name={isPasswordShown ? ICON_NAMES.eye : ICON_NAMES.eyeOff}
+                    name={isPasswordShown ? IconNames.eye : IconNames.eyeOff}
                   />
                 </button>
               )) ||
               (errorMessage && (
                 <Icon
                   className='input-field__error-icon'
-                  name={ICON_NAMES.exclamationCircle}
+                  name={IconNames.exclamationCircle}
                 />
               ))}
           </div>

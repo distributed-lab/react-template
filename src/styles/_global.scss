@@ -13,7 +13,7 @@ html {
 }
 
 /* stylelint-disable-next-line */
-body, #app {
+body, #root {
   display: flex;
   flex-direction: column;
   flex: 1;
@@ -39,7 +39,7 @@ body,
 span,
 p,
 a {
-  font-size: toRem(16);
+  font-size: toRem(14);
 }
 
 button {
@@ -91,9 +91,9 @@ h2,
 h3,
 h4,
 h5 {
-  color: var(--text-primary-main);
+  color: var(--text-secondary-main);
   font-family: var(--app-font-family);
-  line-height: 1;
+  line-height: 1.1;
 }
 
 h1 {
@@ -101,19 +101,21 @@ h1 {
 }
 
 h2 {
-  font-size: toRem(24);
+  font-size: toRem(64);
+  font-weight: 700;
 }
 
 h3 {
-  font-size: toRem(18);
+  font-size: toRem(32);
+  font-weight: 600;
 }
 
 h4 {
-  font-size: toRem(16);
+  font-size: toRem(24);
 }
 
 h5 {
-  font-size: toRem(14);
+  font-size: toRem(18);
 }
 
 a {
@@ -131,20 +133,21 @@ a {
   }
 }
 
-.fade-enter-active {
-  animation: fade-in 0.25s;
-}
+.app__main {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding: 0 var(--app-padding-right) 0 var(--app-padding-left);
 
-.fade-leave-active {
-  animation: fade-in 0.25s reverse;
-}
+  & > * {
 
-@keyframes fade-in {
-  0% {
-    opacity: 0;
+    &:first-child {
+      flex: 1;
+    }
   }
 
-  100% {
-    opacity: 1;
+  @include respond-to(xsmall) {
+    padding-top: toRem(24);
+    padding-bottom: toRem(24);
   }
 }
