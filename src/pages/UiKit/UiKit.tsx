@@ -8,6 +8,7 @@ import {
   AppButton,
   BasicModal,
   Collapse,
+  Drawer,
   ErrorMessage,
   Icon,
   Loader,
@@ -55,6 +56,7 @@ const UiKit: FC<Props> = ({ ...rest }) => {
   const [switchValue, setSwitchValue] = useState(false)
 
   const [isCollapseShown, setIsCollapseShown] = useState(false)
+  const [isDrawerShown, setIsDrawerShown] = useState(false)
   const [isModalShown, setIsModalShown] = useState(false)
 
   const { t } = useTranslation()
@@ -584,6 +586,26 @@ const UiKit: FC<Props> = ({ ...rest }) => {
               {t('ui-kit.collapse-text')}
             </div>
           </Collapse>
+        </div>
+        <div className='ui-kit__drawer-wrp'>
+          <AppButton
+            className='ui-kit__drawer-btn'
+            scheme='flat'
+            text={t('ui-kit.drawer-btn')}
+            onClick={() => setIsDrawerShown(!isDrawerShown)}
+          />
+          <Drawer isShown={isDrawerShown} updateIsShown={setIsDrawerShown}>
+            <div className='ui-kit__drawer-body'>
+              {t('ui-kit.drawer-text')}
+
+              <AppButton
+                className='ui-kit__drawer-close-btn'
+                scheme='flat'
+                text={t('ui-kit.drawer-close-btn')}
+                onClick={() => setIsDrawerShown(false)}
+              />
+            </div>
+          </Drawer>
         </div>
 
         <AppButton
