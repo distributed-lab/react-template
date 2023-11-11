@@ -4,18 +4,25 @@ import { AnchorHTMLAttributes, HTMLAttributes, useMemo } from 'react'
 import { LinkProps, NavLink } from 'react-router-dom'
 
 import { Icon } from '@/common'
-import { ICON_NAMES } from '@/enums'
+import { IconNames } from '@/enums'
 
-type Props<R extends string, H extends string> = {
+export type Props<R extends string, H extends string> = {
   text?: string
   scheme?: 'filled' | 'flat' | 'none'
   modification?: 'border-circle' | 'border-rounded' | 'none'
-  color?: 'primary' | 'success' | 'error' | 'warning' | 'info' | 'none'
+  color?:
+    | 'primary'
+    | 'secondary'
+    | 'success'
+    | 'error'
+    | 'warning'
+    | 'info'
+    | 'none'
   size?: 'large' | 'medium' | 'small' | 'x-small' | 'none'
   href?: H
   routePath?: R
-  iconLeft?: ICON_NAMES
-  iconRight?: ICON_NAMES
+  iconLeft?: IconNames
+  iconRight?: IconNames
   isDisabled?: boolean
 } & (R extends string
   ? Omit<LinkProps, 'to'>
@@ -69,20 +76,13 @@ const AppButton = <R extends string, H extends string>({
   const buttonContent = useMemo(
     () => (
       <>
-        {iconLeft ? (
-          <Icon className='app-button__icon-left' name={iconLeft} />
-        ) : (
-          <></>
-        )}
-        {children || text ? (
-          <span className='app-button__text'>{text}</span>
-        ) : (
-          <></>
-        )}
-        {iconRight ? (
+        {iconLeft && <Icon className='app-button__icon-left' name={iconLeft} />}
+
+        {children ||
+          (text && <span className='app-button__text'>{text}</span>) || <></>}
+
+        {iconRight && (
           <Icon className='app-button__icon-right' name={iconRight} />
-        ) : (
-          <></>
         )}
       </>
     ),

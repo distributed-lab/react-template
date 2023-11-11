@@ -14,9 +14,25 @@
   --background-primary-main: #{$background-primary-main};
   --background-primary-dark: #{$background-primary-dark};
 
+  --background-primary-light-rgb: #{$background-primary-light-rgb};
+  --background-primary-main-rgb: #{$background-primary-main-rgb};
+  --background-primary-dark-rgb: #{$background-primary-dark-rgb};
+
   --background-secondary-light: #{$background-secondary-light};
   --background-secondary-main: #{$background-secondary-main};
   --background-secondary-dark: #{$background-secondary-dark};
+
+  --background-secondary-light-rgb: #{$background-secondary-light-rgb};
+  --background-secondary-main-rgb: #{$background-secondary-main-rgb};
+  --background-secondary-dark-rgb: #{$background-secondary-dark-rgb};
+
+  --background-tertiary-light: #{$background-tertiary-light};
+  --background-tertiary-main: #{$background-tertiary-main};
+  --background-tertiary-dark: #{$background-tertiary-dark};
+
+  --background-tertiary-light-rgb: #{$background-tertiary-light-rgb};
+  --background-tertiary-main-rgb: #{$background-tertiary-main-rgb};
+  --background-tertiary-dark-rgb: #{$background-tertiary-dark-rgb};
 
   /* status colors */
   --success-light: #{$success-light};
@@ -56,6 +72,10 @@
   --text-secondary-main: #{$text-secondary-main};
   --text-secondary-dark: #{$text-secondary-dark};
 
+  --text-tertiary-light: #{$text-tertiary-light};
+  --text-tertiary-main: #{$text-tertiary-main};
+  --text-tertiary-dark: #{$text-tertiary-dark};
+
   --text-primary-invert-light: #{$text-primary-invert-light};
   --text-primary-invert-main: #{$text-primary-invert-main};
   --text-primary-invert-dark: #{$text-primary-invert-dark};
@@ -76,17 +96,12 @@
   /* App variables */
   --app-txt: #{$text-primary-main};
   --app-font-family: 'Roboto', 'Arial', sans-serif;
-  --app-padding-right: #{toRem(64)};
-  --app-padding-left: #{toRem(64)};
+  --app-padding-right: #{toRem(132)};
+  --app-padding-left: #{toRem(132)};
 
   @include respond-to(xmedium) {
     --app-padding-right: #{toRem(32)};
     --app-padding-left: #{toRem(32)};
-  }
-
-  @include respond-to(small) {
-    --app-padding-right: #{toRem(12)};
-    --app-padding-left: #{toRem(12)};
   }
 
   /* --------------------------------------- */
@@ -94,7 +109,7 @@
   /* Field variables */
 
   /* --------------------------------------- */
-  --field-bg-primary: var(--background-primary-main);
+  --field-bg-primary: var(--background-secondary-main);
   --field-bg-secondary: var(--background-secondary-light);
 
   /* label */

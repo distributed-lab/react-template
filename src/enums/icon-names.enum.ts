@@ -1,4 +1,4 @@
-export enum ICON_NAMES {
+export enum IconNames {
   academicCap = 'academic-cap',
   adjustments = 'adjustments',
   annotation = 'annotation',

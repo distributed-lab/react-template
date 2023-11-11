@@ -4,26 +4,42 @@ $black: #000000;
 $black-rgb: hexToRGB($black);
 
 $background-primary-light: #ffffff;
-$background-primary-main: #fbfcff;
-$background-primary-dark: #f5f6ff;
+$background-primary-main: #ffffff;
+$background-primary-dark: #ffffff;
 
-$background-secondary-light: #eff2ff;
-$background-secondary-main: #dfe5f8;
-$background-secondary-dark: #cad4f5;
+$background-primary-light-rgb: hexToRGB($background-primary-light);
+$background-primary-main-rgb: hexToRGB($background-primary-main);
+$background-primary-dark-rgb: hexToRGB($background-primary-dark);
+
+$background-secondary-light: $white;
+$background-secondary-main: $white;
+$background-secondary-dark: $white;
+
+$background-secondary-light-rgb: hexToRGB($background-secondary-light);
+$background-secondary-main-rgb: hexToRGB($background-secondary-main);
+$background-secondary-dark-rgb: hexToRGB($background-secondary-dark);
+
+$background-tertiary-light: #1f2124;
+$background-tertiary-main: #1f2124;
+$background-tertiary-dark: #1f2124;
+
+$background-tertiary-light-rgb: hexToRGB($background-tertiary-light);
+$background-tertiary-main-rgb: hexToRGB($background-tertiary-main);
+$background-tertiary-dark-rgb: hexToRGB($background-tertiary-dark);
 
 /* status colors */
 
-$success-light: #edfff2;
-$success-main: #5cc56e;
-$success-dark: #278337;
+$success-light: #d6f4de;
+$success-main: #2ca74b;
+$success-dark: #2ca74b;
 
 $error-light: #fff2f2;
-$error-main: #e46962;
+$error-main: #dd2e2e;
 $error-dark: #b3261e;
 
-$warning-light: #fff9e9;
+$warning-light: rgba(#e18e2d, 0.1);
 $warning-main: #f6851b;
-$warning-dark: #e6661f;
+$warning-dark: #e18e2d;
 
 $info-light: #eff2ff;
 $info-main: #40c4ff;
@@ -31,9 +47,9 @@ $info-dark: #0094cc;
 
 /* brand colors */
 
-$primary-light: #e2ecfc;
-$primary-main: #01579b;
-$primary-dark: #054679;
+$primary-light: #3044fe;
+$primary-main: #3044fe;
+$primary-dark: #3044fe;
 
 $primary-light-rgb: hexToRGB($primary-light);
 $primary-main-rgb: hexToRGB($primary-main);
@@ -45,17 +61,24 @@ $secondary-dark: #5b6271;
 
 /* typography colors */
 
+/* mostly for base text in this app */
 $text-primary-light: #575761;
 $text-primary-main: #2d3441;
 $text-primary-dark: #222834;
 
-$text-secondary-light: #c2c6dc;
-$text-secondary-main: #8d8ea5;
-$text-secondary-dark: #444b58;
+$text-primary-invert-light: #ffffff;
+$text-primary-invert-main: #ffffff;
+$text-primary-invert-dark: #ffffff;
 
-$text-primary-invert-light: #fbfcff;
-$text-primary-invert-main: #fbfcff;
-$text-primary-invert-dark: #fbfbff;
+/* mostly for second text in this app */
+$text-secondary-light: #1f2124;
+$text-secondary-main: #1f2124;
+$text-secondary-dark: #1f2124;
+
+/* mostly for title text in this app */
+$text-tertiary-light: #8f8f8f;
+$text-tertiary-main: #8f8f8f;
+$text-tertiary-dark: #8f8f8f;
 
 $text-secondary-invert-light: rgba(#fffbfe, 0.5);
 $text-secondary-invert-main: rgba(#fffbfe, 0.5);
@@ -63,9 +86,9 @@ $text-secondary-invert-dark: rgba(#fffbfe, 0.5);
 
 /* border colors */
 
-$border-primary-light: #a9abb4;
-$border-primary-main: #74767e;
-$border-primary-dark: #45484f;
+$border-primary-light: #ebecef;
+$border-primary-main: #ebecef;
+$border-primary-dark: #ebecef;
 
 $border-secondary-light: #e0e0ec;
 $border-secondary-main: #c4c4d0;

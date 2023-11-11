@@ -16,7 +16,7 @@ import { useClickAway } from 'react-use'
 import { v4 as uuidv4 } from 'uuid'
 
 import { Collapse, Icon } from '@/common'
-import { ICON_NAMES } from '@/enums'
+import { IconNames } from '@/enums'
 
 interface Props<T> extends HTMLAttributes<HTMLSelectElement> {
   scheme?: 'primary'
@@ -143,24 +143,26 @@ function SelectField<T>({
             {...getToggleButtonProps()}
             onClick={toggleDropdown}
           >
-            {!label && !!placeholder && !value ? (
-              <span className='select-field__placeholder'>{placeholder}</span>
-            ) : headerNode ? (
-              headerNode
-            ) : value ? (
-              value
-            ) : (
-              <></>
-            )}
-            <Icon
-              className={[
-                'select-field__select-head-indicator',
-                ...(isDropdownOpen
-                  ? ['select-field__select-head-indicator--open']
-                  : []),
-              ].join(' ')}
-              name={ICON_NAMES.chevronDown}
-            />
+            <>
+              {!label && !!placeholder && !value ? (
+                <span className='select-field__placeholder'>{placeholder}</span>
+              ) : headerNode ? (
+                headerNode
+              ) : value ? (
+                value
+              ) : (
+                <></>
+              )}
+              <Icon
+                className={[
+                  'select-field__select-head-indicator',
+                  ...(isDropdownOpen
+                    ? ['select-field__select-head-indicator--open']
+                    : []),
+                ].join(' ')}
+                name={IconNames.chevronDown}
+              />
+            </>
           </button>
 
           {label && (
@@ -183,7 +185,6 @@ function SelectField<T>({
               ? children.map((el, idx) => {
                   const newProps = {
                     ...el.props,
-                    key: idx,
                     ...getItemProps({
                       key: idx,
                       index: idx,
@@ -192,6 +193,7 @@ function SelectField<T>({
                         select(valueOptions[idx])
                       },
                     }),
+                    key: idx,
                   }
 
                   return el ? cloneElement(el, newProps) : <></>
@@ -205,6 +207,7 @@ function SelectField<T>({
                         ? ['select-field__select-dropdown-item--active']
                         : []),
                     ].join(' ')}
+                    aria-label={String(el)}
                     key={idx}
                     onClick={() => select(el)}
                   >

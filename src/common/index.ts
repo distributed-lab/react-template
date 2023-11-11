@@ -1,6 +1,7 @@
 export { default as AppButton } from './AppButton'
 export { default as AppLogo } from './AppLogo'
 export { default as AppNavbar } from './AppNavbar'
+export { default as AppTooltip } from './AppTooltip'
 export { default as Collapse } from './Collapse'
 export { default as Drawer } from './Drawer'
 export { default as ErrorMessage } from './ErrorMessage'
