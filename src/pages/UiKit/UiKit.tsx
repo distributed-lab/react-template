@@ -595,13 +595,16 @@ const UiKit: FC<Props> = ({ ...rest }) => {
             onClick={() => setIsDrawerShown(!isDrawerShown)}
           />
           <Drawer isShown={isDrawerShown} updateIsShown={setIsDrawerShown}>
-            <div className='ui-kit__drawer-body'>{t('ui-kit.drawer-text')}</div>
-            <AppButton
-              className='ui-kit__drawer-close-btn'
-              scheme='flat'
-              text={t('ui-kit.drawer-close-btn')}
-              onClick={() => setIsDrawerShown(false)}
-            />
+            <div className='ui-kit__drawer-body'>
+              {t('ui-kit.drawer-text')}
+
+              <AppButton
+                className='ui-kit__drawer-close-btn'
+                scheme='flat'
+                text={t('ui-kit.drawer-close-btn')}
+                onClick={() => setIsDrawerShown(false)}
+              />
+            </div>
           </Drawer>
         </div>
 

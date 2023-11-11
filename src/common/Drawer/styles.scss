@@ -1,15 +1,5 @@
-$z-index: 100;
-
-.drawer {
-  display: flex;
-  position: fixed;
-  height: 100%;
-  z-index: $z-index;
-  top: 0;
-  right: 0;
-  overflow: hidden;
-  transition-duration: 0.15s;
-}
+$z-index-drawer: 100;
+$z-index-drawer-backdrop: $z-index-drawer - 1;
 
 .drawer__backdrop {
   position: fixed;
@@ -18,5 +8,16 @@ $z-index: 100;
   top: 0;
   right: 0;
   background: rgba(var(--black-rgb), 0.5);
-  z-index: $z-index;
+  z-index: $z-index-drawer-backdrop;
+}
+
+.drawer__pane {
+  display: flex;
+  position: fixed;
+  height: 100%;
+  z-index: $z-index-drawer;
+  top: 0;
+  right: 0;
+  overflow: hidden;
+  transition-duration: 0.15s;
 }

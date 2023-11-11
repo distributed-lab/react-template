@@ -28,9 +28,10 @@ const Drawer: FC<Props> = ({
 
   const uid = useMemo(() => uuidv4(), [])
 
-  const drawerRef = useRef(null)
+  const drawerPaneRef = useRef(null)
+  const drawerBackdropRef = useRef(null)
 
-  useClickAway(drawerRef, () => {
+  useClickAway(drawerPaneRef, () => {
     if (isCloseByClickOutside) {
       updateIsShown(false)
     }
@@ -38,44 +39,44 @@ const Drawer: FC<Props> = ({
 
   useEffect(() => {
     updateIsShown(false)
-  }, [location, updateIsShown])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [location])
 
   return (
-    <AnimatePresence>
+    <AnimatePresence initial={false} mode='wait'>
       {isShown && (
         <>
           <motion.div
+            ref={drawerBackdropRef}
             className='drawer__backdrop'
-            onClick={() => updateIsShown(false)}
             variants={{
-              closed: {
-                width: '0',
-              },
-              open: {
-                width: '100%',
-              },
+              hidden: { opacity: 0 },
+              visible: { opacity: 1 },
             }}
-            initial='closed'
-            animate='open'
-            exit='closed'
+            initial='hidden'
+            animate='visible'
+            exit='hidden'
+            transition={{ duration: 0.2 }}
+            onClick={() => updateIsShown(false)}
           />
           <motion.div
+            ref={drawerPaneRef}
             key={`drawer-${uid}`}
-            className={`drawer ${className || ''}`}
+            className={['drawer__pane', className].join(' ')}
             variants={{
-              closed: {
-                width: '0',
+              hidden: {
                 opacity: 0,
+                right: '-100%',
               },
-              open: {
-                width: 'auto',
+              visible: {
                 opacity: 1,
+                right: '0%',
               },
             }}
-            initial='closed'
-            animate='open'
-            exit='closed'
-            ref={drawerRef}
+            initial='hidden'
+            animate='visible'
+            exit='hidden'
+            transition={{ duration: 0.2, ease: 'backInOut' }}
             {...rest}
           >
             {children}
