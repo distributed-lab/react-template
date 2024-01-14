@@ -1,0 +1,42 @@
+$padding-side: toRem(24);
+
+.ui-basic-modal {
+  --ui-basic-modal-max-width: #{toRem(400)};
+  --modal-max-width: var(--ui-basic-modal-max-width);
+}
+
+.ui-basic-modal__inner {
+  background: var(--background-secondary-main);
+  border-radius: toRem(12);
+  width: 100%;
+}
+
+.ui-basic-modal__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: toRem(1) solid rgba(0, 0, 0, 0.05);
+  padding: $padding-side;
+}
+
+.ui-basic-modal__header-titles {
+  display: flex;
+  flex-direction: column;
+  gap: toRem(8);
+}
+
+.ui-basic-modal__title {
+  font-size: toRem(20);
+  font-weight: 600;
+  color: var(--text-secondary-main);
+}
+
+.ui-basic-modal__subtitle {
+  font-size: toRem(14);
+  line-height: 1.45;
+  color: var(--text-primary-main);
+}
+
+.ui-basic-modal__body {
+  padding: $padding-side;
+}

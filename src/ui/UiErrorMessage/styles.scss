@@ -1,0 +1,22 @@
+.ui-error-message {
+  display: grid;
+  place-items: center;
+  text-align: center;
+  grid-gap: toRem(12);
+  color: var(--error-main);
+}
+
+.ui-error-message__img {
+  width: 100%;
+  height: auto;
+}
+
+.ui-error-message__title {
+  color: inherit;
+  font-size: toRem(24);
+}
+
+.ui-error-message__message {
+  color: inherit;
+  font-size: toRem(18);
+}

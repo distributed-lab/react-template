@@ -1,9 +1,9 @@
 import { useCallback, useEffect, useState } from 'react'
 
-import { Loader } from '@/common'
 import { ErrorHandler } from '@/helpers'
 import { useViewportSizes } from '@/hooks'
 import { AppRoutes } from '@/routes'
+import { UiSpinner } from '@/ui'
 
 export function App() {
   const [isAppInitialized, setIsAppInitialized] = useState(false)
@@ -26,6 +26,8 @@ export function App() {
   }, [])
 
   return (
-    <div className='app'>{isAppInitialized ? <AppRoutes /> : <Loader />}</div>
+    <div className='app'>
+      {isAppInitialized ? <AppRoutes /> : <UiSpinner />}
+    </div>
   )
 }
