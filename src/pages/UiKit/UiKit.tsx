@@ -14,6 +14,7 @@ import {
   Loader,
   NoDataMessage,
 } from '@/common'
+import { useToastsManager } from '@/contexts'
 import { IconNames } from '@/enums'
 import {
   BasicSelectField,
@@ -23,7 +24,7 @@ import {
   SwitchField,
   TextareaField,
 } from '@/fields'
-import { bus, BUS_EVENTS, ErrorHandler } from '@/helpers'
+import { bus, BusEvents, ErrorHandler } from '@/helpers'
 
 type Props = HTMLAttributes<HTMLDivElement> & MotionProps
 
@@ -33,17 +34,17 @@ const BASIC_SELECT_OPTIONS = [
   {
     title: 'Option 1',
     value: '1',
-    iconName: IconNames.check,
+    iconName: IconNames.Check,
   },
   {
     title: 'Option 2',
     value: '2',
-    iconName: IconNames.truck,
+    iconName: IconNames.AcademicCap,
   },
   {
     title: 'Option 3',
     value: '3',
-    iconName: IconNames.exclamation,
+    iconName: IconNames.Exclamation,
   },
 ]
 
@@ -64,6 +65,8 @@ const UiKit: FC<Props> = ({ ...rest }) => {
   const handleProcessError = useCallback(() => {
     ErrorHandler.process(new Error('some error message'))
   }, [])
+
+  const { showToast } = useToastsManager()
 
   return (
     <motion.main className='ui-kit' {...rest}>
@@ -115,76 +118,76 @@ const UiKit: FC<Props> = ({ ...rest }) => {
         <AppButton size='large' text='button' scheme='none' />
       </div>
       <div className='ui-kit__buttons'>
-        <AppButton size='small' iconRight={IconNames.plus} />
-        <AppButton size='small' iconRight={IconNames.plus} scheme='flat' />
-        <AppButton size='small' iconRight={IconNames.plus} scheme='none' />
+        <AppButton size='small' iconRight={IconNames.Plus} />
+        <AppButton size='small' iconRight={IconNames.Plus} scheme='flat' />
+        <AppButton size='small' iconRight={IconNames.Plus} scheme='none' />
 
-        <AppButton size='small' iconRight={IconNames.plus} color='success' />
+        <AppButton size='small' iconRight={IconNames.Plus} color='success' />
         <AppButton
           size='small'
-          iconRight={IconNames.plus}
+          iconRight={IconNames.Plus}
           scheme='flat'
           color='success'
         />
         <AppButton
           size='small'
-          iconRight={IconNames.plus}
+          iconRight={IconNames.Plus}
           scheme='none'
           color='success'
         />
 
-        <AppButton size='small' iconRight={IconNames.plus} color='error' />
+        <AppButton size='small' iconRight={IconNames.Plus} color='error' />
         <AppButton
           size='small'
-          iconRight={IconNames.plus}
+          iconRight={IconNames.Plus}
           scheme='flat'
           color='error'
         />
         <AppButton
           size='small'
-          iconRight={IconNames.plus}
+          iconRight={IconNames.Plus}
           scheme='none'
           color='error'
         />
 
-        <AppButton size='small' iconRight={IconNames.plus} color='warning' />
+        <AppButton size='small' iconRight={IconNames.Plus} color='warning' />
         <AppButton
           size='small'
-          iconRight={IconNames.plus}
+          iconRight={IconNames.Plus}
           scheme='flat'
           color='warning'
         />
         <AppButton
           size='small'
-          iconRight={IconNames.plus}
+          iconRight={IconNames.Plus}
           scheme='none'
           color='warning'
         />
 
-        <AppButton size='small' iconRight={IconNames.plus} color='warning' />
+        <AppButton size='small' iconRight={IconNames.Plus} color='warning' />
         <AppButton
           size='small'
-          iconRight={IconNames.plus}
+          iconRight={IconNames.Plus}
           scheme='flat'
           color='warning'
         />
         <AppButton
           size='small'
-          iconRight={IconNames.plus}
+          iconRight={IconNames.Plus}
           scheme='none'
           color='warning'
         />
 
-        <AppButton size='small' iconRight={IconNames.plus} color='info' />
+        <AppButton size='small' iconRight={IconNames.Plus} color='info' />
         <AppButton
           size='small'
-          iconRight={IconNames.plus}
+          iconRight={IconNames.Plus}
           scheme='flat'
           color='info'
         />
         <AppButton
           size='small'
-          iconRight={IconNames.plus}
+          iconRight={IconNames.Plus}
           scheme='none'
           color='info'
         />
@@ -193,38 +196,38 @@ const UiKit: FC<Props> = ({ ...rest }) => {
         <AppButton
           size='small'
           modification='border-circle'
-          iconRight={IconNames.plus}
+          iconRight={IconNames.Plus}
         />
         <AppButton
           size='small'
           modification='border-circle'
-          iconRight={IconNames.plus}
+          iconRight={IconNames.Plus}
           scheme='flat'
         />
         <AppButton
           size='small'
           modification='border-circle'
-          iconRight={IconNames.plus}
+          iconRight={IconNames.Plus}
           scheme='none'
         />
 
         <AppButton
           size='small'
           modification='border-circle'
-          iconRight={IconNames.plus}
+          iconRight={IconNames.Plus}
           color='success'
         />
         <AppButton
           size='small'
           modification='border-circle'
-          iconRight={IconNames.plus}
+          iconRight={IconNames.Plus}
           scheme='flat'
           color='success'
         />
         <AppButton
           size='small'
           modification='border-circle'
-          iconRight={IconNames.plus}
+          iconRight={IconNames.Plus}
           scheme='none'
           color='success'
         />
@@ -232,20 +235,20 @@ const UiKit: FC<Props> = ({ ...rest }) => {
         <AppButton
           size='small'
           modification='border-circle'
-          iconRight={IconNames.plus}
+          iconRight={IconNames.Plus}
           color='error'
         />
         <AppButton
           size='small'
           modification='border-circle'
-          iconRight={IconNames.plus}
+          iconRight={IconNames.Plus}
           scheme='flat'
           color='error'
         />
         <AppButton
           size='small'
           modification='border-circle'
-          iconRight={IconNames.plus}
+          iconRight={IconNames.Plus}
           scheme='none'
           color='error'
         />
@@ -253,20 +256,20 @@ const UiKit: FC<Props> = ({ ...rest }) => {
         <AppButton
           size='small'
           modification='border-circle'
-          iconRight={IconNames.plus}
+          iconRight={IconNames.Plus}
           color='warning'
         />
         <AppButton
           size='small'
           modification='border-circle'
-          iconRight={IconNames.plus}
+          iconRight={IconNames.Plus}
           scheme='flat'
           color='warning'
         />
         <AppButton
           size='small'
           modification='border-circle'
-          iconRight={IconNames.plus}
+          iconRight={IconNames.Plus}
           scheme='none'
           color='warning'
         />
@@ -274,20 +277,20 @@ const UiKit: FC<Props> = ({ ...rest }) => {
         <AppButton
           size='small'
           modification='border-circle'
-          iconRight={IconNames.plus}
+          iconRight={IconNames.Plus}
           color='warning'
         />
         <AppButton
           size='small'
           modification='border-circle'
-          iconRight={IconNames.plus}
+          iconRight={IconNames.Plus}
           scheme='flat'
           color='warning'
         />
         <AppButton
           size='small'
           modification='border-circle'
-          iconRight={IconNames.plus}
+          iconRight={IconNames.Plus}
           scheme='none'
           color='warning'
         />
@@ -295,49 +298,68 @@ const UiKit: FC<Props> = ({ ...rest }) => {
         <AppButton
           size='small'
           modification='border-circle'
-          iconRight={IconNames.plus}
+          iconRight={IconNames.Plus}
           color='info'
         />
         <AppButton
           size='small'
           modification='border-circle'
-          iconRight={IconNames.plus}
+          iconRight={IconNames.Plus}
           scheme='flat'
           color='info'
         />
         <AppButton
           size='small'
           modification='border-circle'
-          iconRight={IconNames.plus}
+          iconRight={IconNames.Plus}
           scheme='none'
           color='info'
         />
       </div>
 
       <div className='ui-kit__buttons'>
+        <AppButton
+          size='small'
+          text='custom'
+          onClick={() =>
+            showToast(
+              BusEvents.success,
+              <div className='ui-kit__custom-toast'>
+                <h3 className='ui-kit__custom-toast-title'>{`Hello yopta`}</h3>
+                <span className='ui-kit__custom-toast-message'>{`lol kek cheburek`}</span>
+                <AppButton
+                  text={'click me'}
+                  onClick={() =>
+                    bus.emit(BusEvents.success, 'Some success message')
+                  }
+                />
+              </div>,
+            )
+          }
+        />
         <AppButton
           size='small'
           text="'bus.success'"
           color='success'
-          onClick={() => bus.emit(BUS_EVENTS.success, 'Some success message')}
+          onClick={() => bus.emit(BusEvents.success, 'Some success message')}
         />
         <AppButton
           size='small'
           text="'bus.error'"
           color='error'
-          onClick={() => bus.emit(BUS_EVENTS.error, 'Some error message')}
+          onClick={() => bus.emit(BusEvents.error, 'Some error message')}
         />
         <AppButton
           size='small'
           text="'bus.warning'"
           color='warning'
-          onClick={() => bus.emit(BUS_EVENTS.warning, 'Some warning message')}
+          onClick={() => bus.emit(BusEvents.warning, 'Some warning message')}
         />
         <AppButton
           size='small'
           text="'bus.info'"
           color='info'
-          onClick={() => bus.emit(BUS_EVENTS.info, 'Some info message')}
+          onClick={() => bus.emit(BusEvents.info, 'Some info message')}
         />
 
         <AppButton
@@ -369,15 +391,15 @@ const UiKit: FC<Props> = ({ ...rest }) => {
           updateValue={setInput}
           label={`label`}
           placeholder={`placeholder`}
-          nodeLeft={<Icon className='input__icon' name={IconNames.search} />}
+          nodeLeft={<Icon className='input__icon' name={IconNames.Plus} />}
         />
         <InputField
           value={input}
           updateValue={setInput}
           label={`label`}
           placeholder={`placeholder`}
-          nodeLeft={<Icon className='input__icon' name={IconNames.search} />}
-          nodeRight={<Icon className='input__icon' name={IconNames.plus} />}
+          nodeLeft={<Icon className='input__icon' name={IconNames.Plus} />}
+          nodeRight={<Icon className='input__icon' name={IconNames.Plus} />}
         />
         <InputField
           value={input}
@@ -385,8 +407,8 @@ const UiKit: FC<Props> = ({ ...rest }) => {
           label={`label`}
           placeholder={`placeholder`}
           note='lorem ipsum dolor sit amet concestetur!'
-          nodeLeft={<Icon className='input__icon' name={IconNames.search} />}
-          nodeRight={<Icon className='input__icon' name={IconNames.plus} />}
+          nodeLeft={<Icon className='input__icon' name={IconNames.Plus} />}
+          nodeRight={<Icon className='input__icon' name={IconNames.Plus} />}
         />
         <InputField
           value={input}
@@ -395,8 +417,8 @@ const UiKit: FC<Props> = ({ ...rest }) => {
           placeholder={`placeholder`}
           note='lorem ipsum dolor sit amet concestetur!'
           isDisabled={true}
-          nodeLeft={<Icon className='input__icon' name={IconNames.search} />}
-          nodeRight={<Icon className='input__icon' name={IconNames.plus} />}
+          nodeLeft={<Icon className='input__icon' name={IconNames.Plus} />}
+          nodeRight={<Icon className='input__icon' name={IconNames.Plus} />}
         />
       </div>
 
@@ -623,16 +645,16 @@ const UiKit: FC<Props> = ({ ...rest }) => {
         </BasicModal>
 
         <div className='ui-kit__icons'>
-          <Icon name={IconNames.academicCap} />
-          <Icon name={IconNames.adjustments} />
-          <Icon name={IconNames.annotation} />
-          <Icon name={IconNames.archive} />
-          <Icon name={IconNames.arrowCircleDown} />
-          <Icon name={IconNames.arrowCircleLeft} />
-          <Icon name={IconNames.arrowCircleRight} />
-          <Icon name={IconNames.arrowCircleUp} />
-          <Icon name={IconNames.arrowDown} />
-          <Icon name={IconNames.arrowLeft} />
+          <Icon name={IconNames.AcademicCap} />
+          <Icon name={IconNames.Adjustments} />
+          <Icon name={IconNames.Annotation} />
+          <Icon name={IconNames.Archive} />
+          <Icon name={IconNames.ArrowCircleDown} />
+          <Icon name={IconNames.ArrowCircleLeft} />
+          <Icon name={IconNames.ArrowCircleRight} />
+          <Icon name={IconNames.ArrowCircleUp} />
+          <Icon name={IconNames.ArrowDown} />
+          <Icon name={IconNames.ArrowLeft} />
         </div>
       </section>
     </motion.main>

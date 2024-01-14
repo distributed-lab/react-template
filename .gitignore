@@ -24,9 +24,8 @@ deprecated
 *.local
 stats.html
 .yarn
-.yarnrc.yml
 
-.env
 .env.production
+.env.development
 .env.analyze
 tsconfig.tsbuildinfo

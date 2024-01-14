@@ -1,6 +1,6 @@
 import { EventEmitter } from '@distributedlab/tools'
 
-export enum BUS_EVENTS {
+export enum BusEvents {
   error = 'error',
   warning = 'warning',
   success = 'success',
@@ -8,10 +8,10 @@ export enum BUS_EVENTS {
 }
 
 export type DefaultBusEventMap = {
-  [BUS_EVENTS.success]: unknown
-  [BUS_EVENTS.error]: unknown
-  [BUS_EVENTS.warning]: unknown
-  [BUS_EVENTS.info]: unknown
+  [BusEvents.success]: unknown
+  [BusEvents.error]: unknown
+  [BusEvents.warning]: unknown
+  [BusEvents.info]: unknown
 }
 
 export const bus = new EventEmitter<DefaultBusEventMap>()

@@ -3,7 +3,7 @@ import './styles.scss'
 import { FC, HTMLAttributes } from 'react'
 
 import { AppButton, AppLogo } from '@/common'
-import { RoutesPaths } from '@/enums'
+import { RoutePaths } from '@/enums'
 
 const AppNavbar: FC<HTMLAttributes<HTMLDivElement>> = ({
   className = '',
@@ -16,22 +16,22 @@ const AppNavbar: FC<HTMLAttributes<HTMLDivElement>> = ({
       <AppButton
         className='app-navbar__link'
         scheme='flat'
-        text={RoutesPaths.storeOverview}
-        routePath={RoutesPaths.storeOverview}
+        text={RoutePaths.StoreOverview}
+        routePath={RoutePaths.StoreOverview}
       />
 
       <AppButton
         className='app-navbar__link'
         scheme='flat'
-        text={RoutesPaths.uiKit}
-        routePath={RoutesPaths.uiKit}
+        text={RoutePaths.UiKit}
+        routePath={RoutePaths.UiKit}
       />
 
       <AppButton
         className='app-navbar__link'
         scheme='flat'
-        text={RoutesPaths.complexForm}
-        routePath={RoutesPaths.complexForm}
+        text={RoutePaths.ComplexForm}
+        routePath={RoutePaths.ComplexForm}
       />
     </div>
   )
