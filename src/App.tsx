@@ -1,3 +1,4 @@
+import { config } from '@config'
 import { useCallback, useEffect, useState } from 'react'
 
 import { Loader } from '@/common'
@@ -12,7 +13,7 @@ export function App() {
 
   const init = useCallback(async () => {
     try {
-      setIsAppInitialized(true)
+      document.title = config.APP_NAME
     } catch (error) {
       ErrorHandler.processWithoutFeedback(error)
     }
