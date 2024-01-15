@@ -13,5 +13,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 #### Fixed
 
-[Unreleased]: https://gitlab.com/distributed_lab/frontend/react-template/compare/1.0.0...main
-[1.0.0]: https://gitlab.com/distributed_lab/frontend/react-template/tags/1.0.0
+[Unreleased]: https://github.com/distributed-lab/react-template/compare/1.0.0...main
+[1.0.0]: https://github.com/distributed-lab/react-template/tags/1.0.0
