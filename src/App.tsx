@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from 'react'
 
+import { config } from '@/config'
 import { ErrorHandler } from '@/helpers'
 import { useViewportSizes } from '@/hooks'
 import { AppRoutes } from '@/routes'
@@ -12,6 +13,7 @@ export function App() {
 
   const init = useCallback(async () => {
     try {
+      document.title = config.APP_NAME
       setIsAppInitialized(true)
     } catch (error) {
       ErrorHandler.processWithoutFeedback(error)
