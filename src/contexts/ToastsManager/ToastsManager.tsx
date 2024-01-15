@@ -140,16 +140,16 @@ export const ToastsManager = ({ children }: { children: ReactNode }) => {
   )
 
   useEffect(() => {
-    bus.on(BusEvents.success, showSuccessToast)
-    bus.on(BusEvents.warning, showWarningToast)
-    bus.on(BusEvents.error, showErrorToast)
-    bus.on(BusEvents.info, showInfoToast)
+    bus.on(BusEvents.Success, showSuccessToast)
+    bus.on(BusEvents.Warning, showWarningToast)
+    bus.on(BusEvents.Error, showErrorToast)
+    bus.on(BusEvents.Info, showInfoToast)
 
     return () => {
-      bus.off(BusEvents.success, showSuccessToast)
-      bus.off(BusEvents.warning, showWarningToast)
-      bus.off(BusEvents.error, showErrorToast)
-      bus.off(BusEvents.info, showInfoToast)
+      bus.off(BusEvents.Success, showSuccessToast)
+      bus.off(BusEvents.Warning, showWarningToast)
+      bus.off(BusEvents.Error, showErrorToast)
+      bus.off(BusEvents.Info, showInfoToast)
     }
   }, [showErrorToast, showInfoToast, showSuccessToast, showWarningToast])
 

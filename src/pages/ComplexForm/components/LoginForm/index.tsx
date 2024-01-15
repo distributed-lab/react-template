@@ -156,15 +156,15 @@ const LoginForm = () => {
     e.preventDefault()
     touchForm()
     if (!isFieldsValid) {
-      bus.emit(BusEvents.error, 'form invalid')
+      bus.emit(BusEvents.Error, 'form invalid')
       return
     }
 
     disableForm()
     try {
       await sleep(3000)
-      bus.emit(BusEvents.success, t('login-form.login-success-msg'))
-      bus.emit(BusEvents.success, `${login}, ${password}`)
+      bus.emit(BusEvents.Success, t('login-form.login-success-msg'))
+      bus.emit(BusEvents.Success, `${login}, ${password}`)
     } catch (error) {
       ErrorHandler.process(error)
     }
@@ -223,7 +223,7 @@ const LoginForm = () => {
           size='small'
           onClick={() => {
             bus.emit(
-              BusEvents.info,
+              BusEvents.Info,
               String(isFieldValid('someComplexObject.fullName.firstName')),
             )
           }}

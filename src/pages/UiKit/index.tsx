@@ -323,14 +323,14 @@ export default function UiKit({ ...rest }: Props) {
           text='custom'
           onClick={() =>
             showToast(
-              BusEvents.success,
+              BusEvents.Success,
               <div className='ui-kit__custom-toast'>
                 <h3 className='ui-kit__custom-toast-title'>{`Hello yopta`}</h3>
                 <span className='ui-kit__custom-toast-message'>{`lol kek cheburek`}</span>
                 <UiButton
                   text={'click me'}
                   onClick={() =>
-                    bus.emit(BusEvents.success, 'Some success message')
+                    bus.emit(BusEvents.Success, 'Some success message')
                   }
                 />
               </div>,
@@ -341,25 +341,25 @@ export default function UiKit({ ...rest }: Props) {
           size='small'
           text="'bus.success'"
           color='success'
-          onClick={() => bus.emit(BusEvents.success, 'Some success message')}
+          onClick={() => bus.emit(BusEvents.Success, 'Some success message')}
         />
         <UiButton
           size='small'
           text="'bus.error'"
           color='error'
-          onClick={() => bus.emit(BusEvents.error, 'Some error message')}
+          onClick={() => bus.emit(BusEvents.Error, 'Some error message')}
         />
         <UiButton
           size='small'
           text="'bus.warning'"
           color='warning'
-          onClick={() => bus.emit(BusEvents.warning, 'Some warning message')}
+          onClick={() => bus.emit(BusEvents.Warning, 'Some warning message')}
         />
         <UiButton
           size='small'
           text="'bus.info'"
           color='info'
-          onClick={() => bus.emit(BusEvents.info, 'Some info message')}
+          onClick={() => bus.emit(BusEvents.Info, 'Some info message')}
         />
 
         <UiButton
