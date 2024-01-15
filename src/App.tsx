@@ -1,5 +1,6 @@
 import { config } from '@config'
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useState } from 'react'
+import { useEffectOnce } from 'react-use'
 
 import { Loader } from '@/common'
 import { ErrorHandler } from '@/helpers'
@@ -21,10 +22,9 @@ export function App() {
     setIsAppInitialized(true)
   }, [])
 
-  useEffect(() => {
+  useEffectOnce(() => {
     init()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  })
 
   return (
     <div className='app'>{isAppInitialized ? <AppRoutes /> : <Loader />}</div>
