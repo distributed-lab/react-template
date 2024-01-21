@@ -6,12 +6,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [1.0.0] - 2024-01-14
-#### Added
-
-#### Changed
-
-#### Fixed
-
-[Unreleased]: https://github.com/distributed-lab/react-template/compare/1.0.0...main
-[1.0.0]: https://github.com/distributed-lab/react-template/tags/1.0.0
+[Keep a Changelog]: https://keepachangelog.com/en/1.0.0/
+[Semantic Versioning]: https://semver.org/spec/v2.0.0.html

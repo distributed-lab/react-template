@@ -1,6 +1,6 @@
 import { HTMLAttributes, isValidElement, ReactNode } from 'react'
 
-import { ToastPayload } from '@/contexts/ToastsManager'
+import { ToastPayload } from '@/contexts'
 import { UiIcon } from '@/ui'
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
