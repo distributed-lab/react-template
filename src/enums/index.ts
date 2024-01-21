@@ -1,2 +1,2 @@
-export * from './icon-names.enum'
-export * from './routes.enum'
+export * from './icon-names'
+export * from './routes'

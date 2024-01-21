@@ -168,9 +168,7 @@ export const ToastsManager = ({ children }: { children: ReactNode }) => {
 }
 
 export const useToastsManager = () => {
-  const toastsManagerValue = useContext(toastsManagerContext)
-
   return {
-    ...toastsManagerValue,
+    ...useContext(toastsManagerContext),
   }
 }
