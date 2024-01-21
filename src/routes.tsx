@@ -59,7 +59,7 @@ export const AppRoutes = () => {
             },
             {
               path: '*',
-              element: <Navigate replace to={RoutePaths.Root} />,
+              element: <Navigate replace to={RoutePaths.UiKit} />,
             },
           ],
         },
