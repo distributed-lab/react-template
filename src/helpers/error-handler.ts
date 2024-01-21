@@ -1,13 +1,13 @@
 import log from 'loglevel'
 
-import { bus, BUS_EVENTS } from '@/helpers'
+import { bus, BusEvents } from '@/helpers'
 import i18n from '@/localization'
 
 export class ErrorHandler {
   static process(error: Error | unknown, errorMessage = ''): void {
     const { msgTranslation, msgType } = ErrorHandler._getErrorMessage(error)
     if (msgTranslation) {
-      bus.emit(msgType as BUS_EVENTS, msgTranslation || errorMessage)
+      bus.emit(msgType as BusEvents, msgTranslation || errorMessage)
     }
 
     ErrorHandler.processWithoutFeedback(error)

@@ -1,4 +1,3 @@
-import { AnimatePresence } from 'framer-motion'
 import { lazy, Suspense } from 'react'
 import {
   createBrowserRouter,
@@ -7,8 +6,8 @@ import {
   RouterProvider,
 } from 'react-router-dom'
 
-import { App } from '@/App'
-import { RoutesPaths } from '@/enums'
+import { RoutePaths } from '@/enums'
+import { MainLayout } from '@/layouts'
 
 export const AppRoutes = () => {
   const StoreOverview = lazy(() => import('@/pages/StoreOverview'))
@@ -32,37 +31,33 @@ export const AppRoutes = () => {
 
   const router = createBrowserRouter([
     {
-      path: '/',
+      path: RoutePaths.Root,
       element: (
         <Suspense fallback={<></>}>
-          <App>
-            <AnimatePresence>
-              <Outlet />
-            </AnimatePresence>
-          </App>
+          <Outlet />
         </Suspense>
       ),
       children: [
         {
-          index: true,
-          path: RoutesPaths.uiKit,
-          element: <UiKit {...pageAnimationOpts} />,
-        },
-        {
-          path: RoutesPaths.complexForm,
-          element: <ComplexForm {...pageAnimationOpts} />,
-        },
-        {
-          path: RoutesPaths.storeOverview,
-          element: <StoreOverview {...pageAnimationOpts} />,
-        },
-        {
-          path: '/',
-          element: <Navigate replace to={RoutesPaths.uiKit} />,
-        },
-        {
-          path: '*',
-          element: <Navigate replace to={RoutesPaths.uiKit} />,
+          element: <MainLayout />,
+          children: [
+            {
+              path: RoutePaths.UiKit,
+              element: <UiKit {...pageAnimationOpts} />,
+            },
+            {
+              path: RoutePaths.ComplexForm,
+              element: <ComplexForm {...pageAnimationOpts} />,
+            },
+            {
+              path: RoutePaths.StoreOverview,
+              element: <StoreOverview {...pageAnimationOpts} />,
+            },
+            {
+              path: '*',
+              element: <Navigate replace to={RoutePaths.UiKit} />,
+            },
+          ],
         },
       ],
     },

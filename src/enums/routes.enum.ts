@@ -1,5 +1,6 @@
-export enum RoutesPaths {
-  storeOverview = '/store',
-  uiKit = '/ui-kit',
-  complexForm = '/complex-form',
+export enum RoutePaths {
+  Root = '/',
+  StoreOverview = '/store',
+  UiKit = '/ui-kit',
+  ComplexForm = '/complex-form',
 }

@@ -103,3 +103,16 @@
 .ui-kit__modal-action-btn {
   width: 100%;
 }
+
+.ui-kit__custom-toast {
+  color: var(--text-primary-invert-main);
+}
+
+.ui-kit__custom-toast-title {
+  color: inherit;
+}
+
+.ui-kit__custom-toast-message {
+  color: inherit;
+}
+

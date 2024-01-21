@@ -7,7 +7,6 @@ module.exports = {
     /* disable unnecessary rules from recommended extends */
     'function-no-unknown': null,
     'at-rule-no-unknown': null,
-    'no-empty-first-line': null,
     'selector-class-pattern': null,
     'function-name-case': null,
     'selector-no-vendor-prefix': null,
@@ -18,7 +17,6 @@ module.exports = {
     'scss/at-if-closing-brace-newline-after': null,
     'scss/at-else-closing-brace-newline-after': null,
     'scss/at-else-closing-brace-space-after': null,
-    'declaration-colon-newline-after': null,
     'scss/at-function-pattern': null,
     'scss/at-rule-no-unknown': null,
     'scss/selector-no-redundant-nesting-selector': null,
@@ -148,6 +146,7 @@ module.exports = {
       },
     ],
     'comment-whitespace-inside': ['always', { severity: 'warning' }],
+
     /**
      * disallow to use defined properties without variables
      */

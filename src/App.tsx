@@ -1,40 +1,32 @@
-import { FC, HTMLAttributes, useEffect } from 'react'
-import { ToastContainer } from 'react-toastify'
+import { config } from '@config'
+import { useCallback, useState } from 'react'
+import { useEffectOnce } from 'react-use'
 
-import { AppNavbar } from '@/common'
-import { bus, BUS_EVENTS } from '@/helpers'
-import { useNotification, useViewportSizes } from '@/hooks'
+import { Loader } from '@/common'
+import { ErrorHandler } from '@/helpers'
+import { useViewportSizes } from '@/hooks'
+import { AppRoutes } from '@/routes'
 
-export const App: FC<HTMLAttributes<HTMLDivElement>> = ({ children }) => {
+export function App() {
+  const [isAppInitialized, setIsAppInitialized] = useState(false)
+
   useViewportSizes()
 
-  const { showToast } = useNotification()
-
-  useEffect(() => {
-    const showSuccessToast = (payload: unknown) => showToast('success', payload)
-    const showWarningToast = (payload: unknown) => showToast('warning', payload)
-    const showErrorToast = (payload: unknown) => showToast('error', payload)
-    const showInfoToast = (payload: unknown) => showToast('info', payload)
-
-    bus.on(BUS_EVENTS.success, showSuccessToast)
-    bus.on(BUS_EVENTS.warning, showWarningToast)
-    bus.on(BUS_EVENTS.error, showErrorToast)
-    bus.on(BUS_EVENTS.info, showInfoToast)
-
-    return () => {
-      bus.off(BUS_EVENTS.success, showSuccessToast)
-      bus.off(BUS_EVENTS.warning, showWarningToast)
-      bus.off(BUS_EVENTS.error, showErrorToast)
-      bus.off(BUS_EVENTS.info, showInfoToast)
+  const init = useCallback(async () => {
+    try {
+      document.title = config.APP_NAME
+    } catch (error) {
+      ErrorHandler.processWithoutFeedback(error)
     }
-  }, [showToast])
+
+    setIsAppInitialized(true)
+  }, [])
+
+  useEffectOnce(() => {
+    init()
+  })
 
   return (
-    <div className='app'>
-      <AppNavbar className='app__navbar' />
-      {children}
-
-      <ToastContainer />
-    </div>
+    <div className='app'>{isAppInitialized ? <AppRoutes /> : <Loader />}</div>
   )
 }

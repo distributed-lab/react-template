@@ -27,8 +27,8 @@ export type Props<R extends string, H extends string> = {
 } & (R extends string
   ? Omit<LinkProps, 'to'>
   : H extends string
-  ? AnchorHTMLAttributes<HTMLAnchorElement>
-  : HTMLAttributes<HTMLButtonElement>)
+    ? AnchorHTMLAttributes<HTMLAnchorElement>
+    : HTMLAttributes<HTMLButtonElement>)
 
 const AppButton = <R extends string, H extends string>({
   text,

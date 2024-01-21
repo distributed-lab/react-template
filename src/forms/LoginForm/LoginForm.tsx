@@ -7,7 +7,7 @@ import { AppButton } from '@/common'
 import { InputField } from '@/fields'
 import {
   bus,
-  BUS_EVENTS,
+  BusEvents,
   ErrorHandler,
   maxLength,
   minLength,
@@ -157,15 +157,15 @@ const LoginForm = () => {
     e.preventDefault()
     touchForm()
     if (!isFieldsValid) {
-      bus.emit(BUS_EVENTS.error, 'form invalid')
+      bus.emit(BusEvents.Error, 'form invalid')
       return
     }
 
     disableForm()
     try {
       await sleep(3000)
-      bus.emit(BUS_EVENTS.success, t('login-form.login-success-msg'))
-      bus.emit(BUS_EVENTS.success, `${login}, ${password}`)
+      bus.emit(BusEvents.Success, t('login-form.login-success-msg'))
+      bus.emit(BusEvents.Success, `${login}, ${password}`)
     } catch (error) {
       ErrorHandler.process(error)
     }
@@ -224,7 +224,7 @@ const LoginForm = () => {
           size='small'
           onClick={() => {
             bus.emit(
-              BUS_EVENTS.info,
+              BusEvents.Info,
               String(isFieldValid('someComplexObject.fullName.firstName')),
             )
           }}
