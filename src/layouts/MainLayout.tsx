@@ -2,7 +2,7 @@ import { AnimatePresence } from 'framer-motion'
 import { HTMLAttributes } from 'react'
 import { Outlet } from 'react-router-dom'
 
-import { AppNavbar } from '@/common'
+import { UiNavbar } from '@/ui'
 
 export default function MainLayout({
   className,
@@ -13,7 +13,7 @@ export default function MainLayout({
       {...rest}
       className={['main-layout', ...(className ? [className] : [])].join(' ')}
     >
-      <AppNavbar className='app__navbar' />
+      <UiNavbar className='app__navbar' />
 
       <AnimatePresence>
         <Outlet />

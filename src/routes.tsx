@@ -54,6 +54,10 @@ export const AppRoutes = () => {
               element: <StoreOverview {...pageAnimationOpts} />,
             },
             {
+              path: RoutePaths.Root,
+              element: <Navigate replace to={RoutePaths.UiKit} />,
+            },
+            {
               path: '*',
               element: <Navigate replace to={RoutePaths.UiKit} />,
             },
