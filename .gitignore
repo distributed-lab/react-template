@@ -24,6 +24,7 @@ deprecated
 *.local
 stats.html
 
+# https://yarnpkg.com/getting-started/qa#which-files-should-be-gitignored
 .pnp.*
 .yarn/*
 !.yarn/patches
