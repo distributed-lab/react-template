@@ -30,4 +30,4 @@ jobs:
           VITE_MODE: development
         run: |
           . $(werf ci-env github --as-file)
-          werf export --dev web --tag ghcr.io/$GITHUB_REPOSITORY:$GITHUB_SHA --set-parameter viteMode=${{ env.VITE_MODE }}
+          werf export --dev web --tag ghcr.io/$GITHUB_REPOSITORY:$GITHUB_SHA --values viteMode=${{ env.VITE_MODE }}
