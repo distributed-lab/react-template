@@ -35,19 +35,19 @@ jobs:
           . $(werf ci-env github --as-file)
           werf export --dev web --tag ghcr.io/$GITHUB_REPOSITORY:$GITHUB_REF_NAME
 
-  deploy:
-      name: Deploy
-      needs: converge
-      runs-on: ubuntu-latest
-      steps:
-        - name: Checkout code
-          uses: actions/checkout@v3
-          with:
-            fetch-depth: 0
-        - name: ConfigCreate
-          run: |
-            mkdir ~/.kube/
-            echo "${{ secrets.K8SCONFIG_MAIN }}" | base64 -d > config
-            mv config ~/.kube/
-#            TODO: change this
-#            kubectl set image deployment [my-name-web] template=ghcr.io/$GITHUB_REPOSITORY:$GITHUB_REF_NAME -n [my-name]
+#  deploy:
+#      name: Deploy
+#      needs: converge
+#      runs-on: ubuntu-latest
+#      steps:
+#        - name: Checkout code
+#          uses: actions/checkout@v3
+#          with:
+#            fetch-depth: 0
+#        - name: ConfigCreate
+#          run: |
+#            mkdir ~/.kube/
+#            echo "${{ secrets.K8SCONFIG_MAIN }}" | base64 -d > config
+#            mv config ~/.kube/
+##            TODO: change this
+##            kubectl set image deployment [my-name-web] template=ghcr.io/$GITHUB_REPOSITORY:$GITHUB_REF_NAME -n [my-name]
