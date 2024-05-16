@@ -30,10 +30,10 @@ jobs:
 
       - name: Run Build
         env: # Or as an environment variable
-          VITE_MODE: 'production'
+          VITE_MODE: production
         run: |
           . $(werf ci-env github --as-file)
-          werf export --dev web --tag ghcr.io/$GITHUB_REPOSITORY:$GITHUB_REF_NAME
+          werf export --dev web --tag ghcr.io/$GITHUB_REPOSITORY:$GITHUB_REF_NAME --set-parameter viteMode=${{ env.VITE_MODE }}
 
 #  deploy:
 #      name: Deploy
