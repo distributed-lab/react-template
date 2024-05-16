@@ -22,7 +22,8 @@ shell:
     - yarn install
   setup:
     - cd /app
-    - yarn build
+    - export VITE_MODE="{{ env "VITE_MODE" }}"
+    - if [ -n "$VITE_MODE" ]; then yarn build --mode $VITE_MODE; else yarn build; fi
     #- sh -c '[ -d /app/dist/files ] && echo "$FILE exist." || mkdir -p /app/dist/files'
     #- sh -c '[ -d /app/files ] && echo "$FILE exist." || mkdir -p /app/files'
     #- sh -c '[ -z "`ls /app/files`" ] && echo "Empty" || cp -r /app/files/* /app/dist/files'

@@ -7,8 +7,8 @@
     "pre-push": "yarn rsc"
   },
   "scripts": {
-    "build": "dotenv -e .env vite build",
-    "start": "dotenv -e .env vite",
+    "build": "vite build",
+    "start": "vite",
     "analyze": "vite build --mode analyze",
     "lint": "yarn lint:styles && yarn lint:scripts",
     "lint:styles": "stylelint \"src/**/*.{css,sass,scss}\" --max-warnings=0",

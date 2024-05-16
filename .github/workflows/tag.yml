@@ -1,7 +1,7 @@
 on:
   push:
-    branches:
-      - 'main'
+    tags:
+      - '[0-9]+.[0-9]+.[0-9]+.*'
 
 jobs:
   converge:
@@ -26,14 +26,14 @@ jobs:
           werf version
           docker version
           echo $GITHUB_REPOSITORY
-          echo $GITHUB_SHA
+          echo $GITHUB_REF_NAME
+
       - name: Run Build
         env: # Or as an environment variable
-#          VITE_APP_DOMAIN: https://my.domain.com
+          VITE_MODE: 'production'
         run: |
-          cp .env-development .env
           . $(werf ci-env github --as-file)
-          werf export --dev web --tag ghcr.io/$GITHUB_REPOSITORY:$GITHUB_SHA
+          werf export --dev web --tag ghcr.io/$GITHUB_REPOSITORY:$GITHUB_REF_NAME
 
   deploy:
       name: Deploy
@@ -47,7 +47,7 @@ jobs:
         - name: ConfigCreate
           run: |
             mkdir ~/.kube/
-            echo "${{ secrets.K8SCONFIG_DEV }}" | base64 -d > config
+            echo "${{ secrets.K8SCONFIG_MAIN }}" | base64 -d > config
             mv config ~/.kube/
 #            TODO: change this
-#            kubectl set image deployment [my-name-web] template=ghcr.io/$GITHUB_REPOSITORY:$GITHUB_SHA -n [my-name]
+#            kubectl set image deployment [my-name-web] template=ghcr.io/$GITHUB_REPOSITORY:$GITHUB_REF_NAME -n [my-name]
