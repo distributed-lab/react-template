@@ -33,7 +33,7 @@ jobs:
           VITE_MODE: production
         run: |
           . $(werf ci-env github --as-file)
-          werf export --dev web --tag ghcr.io/$GITHUB_REPOSITORY:$GITHUB_REF_NAME --values viteMode=${{ env.VITE_MODE }}
+          werf export --dev web --tag ghcr.io/$GITHUB_REPOSITORY:$GITHUB_REF_NAME
 
 #  deploy:
 #      name: Deploy

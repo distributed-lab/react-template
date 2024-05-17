@@ -22,7 +22,7 @@ shell:
     - yarn install
   setup:
     - cd /app
-    - if [ -n "{{ .Values.viteMode }}" ]; then yarn build --mode {{ .Values.viteMode }}; else yarn build; fi
+    - yarn build
     #- sh -c '[ -d /app/dist/files ] && echo "$FILE exist." || mkdir -p /app/dist/files'
     #- sh -c '[ -d /app/files ] && echo "$FILE exist." || mkdir -p /app/files'
     #- sh -c '[ -z "`ls /app/files`" ] && echo "Empty" || cp -r /app/files/* /app/dist/files'
