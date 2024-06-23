@@ -138,7 +138,7 @@ export default function UiSelect<T>({
           <button
             type='button'
             className='ui-select__select-head'
-            aria-label={'toggle menu'}
+            aria-label='toggle menu'
             tabIndex={isDisabled || isReadonly ? -1 : tabindex}
             {...getToggleButtonProps()}
             onClick={toggleDropdown}

@@ -3,17 +3,15 @@ import { LogLevelDesc } from 'loglevel'
 import packageJson from '../package.json'
 
 type Config = {
-  API_URL: string
   APP_NAME: string
-  LOG_LEVEL: LogLevelDesc
   BUILD_VERSION: string
+  LOG_LEVEL: LogLevelDesc
 }
 
 export const config: Config = {
-  API_URL: import.meta.env.VITE_API_URL,
   APP_NAME: import.meta.env.VITE_APP_NAME,
   LOG_LEVEL: 'trace' as LogLevelDesc,
-  BUILD_VERSION: packageJson.version || import.meta.env.VITE_APP_BUILD_VERSION,
+  BUILD_VERSION: packageJson.version || import.meta.env.VITE_BUILD_VERSION,
 }
 
 /**

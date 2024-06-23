@@ -211,7 +211,7 @@ const LoginForm = () => {
               return next
             })
           }}
-          label={'someComplexObject.fullName.firstName'}
+          label='someComplexObject.fullName.firstName'
           errorMessage={getFieldErrorMessage(
             'someComplexObject.fullName.firstName',
           )}
@@ -219,7 +219,7 @@ const LoginForm = () => {
         />
         <UiButton
           type='button'
-          text={'isFieldValid'}
+          text='isFieldValid'
           size='small'
           onClick={() => {
             bus.emit(

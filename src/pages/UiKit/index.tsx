@@ -325,10 +325,14 @@ export default function UiKit({ ...rest }: Props) {
             showToast(
               BusEvents.Success,
               <div className='ui-kit__custom-toast'>
-                <h3 className='ui-kit__custom-toast-title'>{`Hello yopta`}</h3>
-                <span className='ui-kit__custom-toast-message'>{`lol kek cheburek`}</span>
+                <h3 className='ui-kit__custom-toast-title'>
+                  {t('Hello yopta')}
+                </h3>
+                <span className='ui-kit__custom-toast-message'>
+                  {t('lol kek cheburek')}
+                </span>
                 <UiButton
-                  text={'click me'}
+                  text='click me'
                   onClick={() =>
                     bus.emit(BusEvents.Success, 'Some success message')
                   }
@@ -372,40 +376,40 @@ export default function UiKit({ ...rest }: Props) {
 
       <div className='ui-kit__inputs'>
         <UiTextField value={input} updateValue={setInput} />
-        <UiTextField value={input} updateValue={setInput} label={`label`} />
+        <UiTextField value={input} updateValue={setInput} label='label' />
         <UiTextField
           value={input}
           updateValue={setInput}
-          label={`label`}
-          placeholder={`placeholder`}
+          label='label'
+          placeholder='placeholder'
         />
         <UiTextField
           value={input}
           updateValue={setInput}
-          label={`label`}
-          placeholder={`placeholder`}
+          label='label'
+          placeholder='placeholder'
           errorMessage='error message'
         />
         <UiTextField
           value={input}
           updateValue={setInput}
-          label={`label`}
-          placeholder={`placeholder`}
+          label='label'
+          placeholder='placeholder'
           nodeLeft={<UiIcon className='input__icon' name={IconNames.Plus} />}
         />
         <UiTextField
           value={input}
           updateValue={setInput}
-          label={`label`}
-          placeholder={`placeholder`}
+          label='label'
+          placeholder='placeholder'
           nodeLeft={<UiIcon className='input__icon' name={IconNames.Plus} />}
           nodeRight={<UiIcon className='input__icon' name={IconNames.Plus} />}
         />
         <UiTextField
           value={input}
           updateValue={setInput}
-          label={`label`}
-          placeholder={`placeholder`}
+          label='label'
+          placeholder='placeholder'
           note='lorem ipsum dolor sit amet concestetur!'
           nodeLeft={<UiIcon className='input__icon' name={IconNames.Plus} />}
           nodeRight={<UiIcon className='input__icon' name={IconNames.Plus} />}
@@ -413,8 +417,8 @@ export default function UiKit({ ...rest }: Props) {
         <UiTextField
           value={input}
           updateValue={setInput}
-          label={`label`}
-          placeholder={`placeholder`}
+          label='label'
+          placeholder='placeholder'
           note='lorem ipsum dolor sit amet concestetur!'
           isDisabled={true}
           nodeLeft={<UiIcon className='input__icon' name={IconNames.Plus} />}
@@ -432,27 +436,27 @@ export default function UiKit({ ...rest }: Props) {
           value={select}
           updateValue={setSelect}
           valueOptions={SELECT_OPTIONS}
-          label={`Label`}
+          label='Label'
         />
         <UiSelect
           value={select}
           updateValue={setSelect}
           valueOptions={SELECT_OPTIONS}
-          label={`Label`}
+          label='Label'
           errorMessage='error message'
         />
         <UiSelect
           value={select}
           updateValue={setSelect}
           valueOptions={SELECT_OPTIONS}
-          label={`Label`}
+          label='Label'
           note='Note message'
         />
         <UiSelect
           value={select}
           updateValue={setSelect}
           valueOptions={SELECT_OPTIONS}
-          label={`Label`}
+          label='Label'
           isDisabled={true}
         />
 
@@ -465,56 +469,56 @@ export default function UiKit({ ...rest }: Props) {
           value={basicSelect}
           updateValue={value => setBasicSelect(value as string)}
           valueOptions={BASIC_SELECT_OPTIONS}
-          label={`Label`}
+          label='Label'
         />
         <UiBasicSelectField
           value={basicSelect}
           updateValue={value => setBasicSelect(value as string)}
           valueOptions={BASIC_SELECT_OPTIONS}
-          placeholder={`placeholder`}
-        />
-
-        <UiBasicSelectField
-          value={basicSelect}
-          updateValue={value => setBasicSelect(value as string)}
-          valueOptions={BASIC_SELECT_OPTIONS}
-          errorMessage={`error message`}
-        />
-        <UiBasicSelectField
-          value={basicSelect}
-          updateValue={value => setBasicSelect(value as string)}
-          valueOptions={BASIC_SELECT_OPTIONS}
-          label={`Label`}
-          errorMessage={`error message`}
-        />
-        <UiBasicSelectField
-          value={basicSelect}
-          updateValue={value => setBasicSelect(value as string)}
-          valueOptions={BASIC_SELECT_OPTIONS}
-          placeholder={`placeholder`}
-          errorMessage={`error message`}
+          placeholder='placeholder'
         />
 
         <UiBasicSelectField
           value={basicSelect}
           updateValue={value => setBasicSelect(value as string)}
           valueOptions={BASIC_SELECT_OPTIONS}
-          note={`lorem ipsum dolor sit amet`}
+          errorMessage='error message'
         />
         <UiBasicSelectField
           value={basicSelect}
           updateValue={value => setBasicSelect(value as string)}
           valueOptions={BASIC_SELECT_OPTIONS}
-          label={`Label`}
-          note={`lorem ipsum dolor sit amet`}
+          label='Label'
+          errorMessage='error message'
+        />
+        <UiBasicSelectField
+          value={basicSelect}
+          updateValue={value => setBasicSelect(value as string)}
+          valueOptions={BASIC_SELECT_OPTIONS}
+          placeholder='placeholder'
+          errorMessage='error message'
+        />
+
+        <UiBasicSelectField
+          value={basicSelect}
+          updateValue={value => setBasicSelect(value as string)}
+          valueOptions={BASIC_SELECT_OPTIONS}
+          note='lorem ipsum dolor sit amet'
+        />
+        <UiBasicSelectField
+          value={basicSelect}
+          updateValue={value => setBasicSelect(value as string)}
+          valueOptions={BASIC_SELECT_OPTIONS}
+          label='Label'
+          note='lorem ipsum dolor sit amet'
           errorMessage={basicSelect}
         />
         <UiBasicSelectField
           value={basicSelect}
           updateValue={value => setBasicSelect(value as string)}
           valueOptions={BASIC_SELECT_OPTIONS}
-          placeholder={`placeholder`}
-          note={`lorem ipsum dolor sit amet`}
+          placeholder='placeholder'
+          note='lorem ipsum dolor sit amet'
         />
 
         <UiBasicSelectField
@@ -527,53 +531,45 @@ export default function UiKit({ ...rest }: Props) {
           value={basicSelect}
           updateValue={value => setBasicSelect(value as string)}
           valueOptions={BASIC_SELECT_OPTIONS}
-          label={`Label`}
+          label='Label'
           isDisabled={true}
         />
         <UiBasicSelectField
           value={basicSelect}
           updateValue={value => setBasicSelect(value as string)}
           valueOptions={BASIC_SELECT_OPTIONS}
-          placeholder={`placeholder`}
+          placeholder='placeholder'
           isDisabled={true}
         />
 
         <UiTextarea value={textarea} updateValue={setTextarea} />
+        <UiTextarea value={textarea} updateValue={setTextarea} label='Label' />
         <UiTextarea
           value={textarea}
           updateValue={setTextarea}
-          label={`Label`}
-        />
-        <UiTextarea
-          value={textarea}
-          updateValue={setTextarea}
-          label={`Label`}
+          label='Label'
           errorMessage='Error message'
         />
         <UiTextarea
           value={textarea}
           updateValue={setTextarea}
-          label={`Label`}
+          label='Label'
           isDisabled={true}
         />
         <UiTextarea
           value={textarea}
           updateValue={setTextarea}
-          label={`Label`}
+          label='Label'
           errorMessage='Error message'
           isDisabled={true}
         />
 
         <UiCheckbox value={checkbox} updateValue={setCheckbox} />
+        <UiCheckbox value={checkbox} updateValue={setCheckbox} label='Label' />
         <UiCheckbox
           value={checkbox}
           updateValue={setCheckbox}
-          label={`Label`}
-        />
-        <UiCheckbox
-          value={checkbox}
-          updateValue={setCheckbox}
-          label={`Label`}
+          label='Label'
           isDisabled={true}
         />
 
@@ -631,21 +627,16 @@ export default function UiKit({ ...rest }: Props) {
             </div>
           </UiDrawer>
         </div>
-
-        <UiButton
-          text={t('ui-kit.modal-btn')}
-          onClick={() => setIsModalShown(true)}
-        />
+        <UiButton text='asdfasdf' onClick={() => setIsModalShown(true)} />
         <UiBasicModal
           className='ui-kit__basic-modal'
           isShown={isModalShown}
           updateIsShown={setIsModalShown}
-          title={`Modal Title`}
-          subtitle={`Lorem ipsum dolor sit amet, consectetur adipisicing elit.`}
+          title='Modal Title'
+          subtitle='Lorem ipsum dolor sit amet, consectetur adipisicing elit.'
         >
           <div className='ui-kit__modal-body'>{t('ui-kit.collapse-text')}</div>
         </UiBasicModal>
-
         <div className='ui-kit__icons'>
           <UiIcon name={IconNames.AcademicCap} />
           <UiIcon name={IconNames.Adjustments} />
