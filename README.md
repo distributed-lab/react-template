@@ -1,5 +1,7 @@
 # Distributed Lab react started template
 
+## Deprecation warning
+
 
 | command                      | description                             |
 |------------------------------|-----------------------------------------|
@@ -10,7 +12,14 @@
 | `yarn rsc [release-version]` | Lints release/release candidate version |
 |                              |                                         |
 
-### important:
+## Soft deprecation notice
+
+---
+
+I now consider this repo as softly deprecated, since it's based on pure scss and aimed to maximize the flexibility of designing possibilities. Tailwind and MUI now, can cover all the needs and provide the same flexibility with cleaner code, so I recommend using them instead.
+
+---
+
 `.env-development` and `.env-production` is the custom solution for CI, which is used to build the app for different environments e.g. staging and production in github workflow files.
 
 Before start development or manual deploy app with `dist` dir - make sure you have copied `.env-[environment]` file in to `.env.[environment]` file, where `[environment]` is the name of the environment, e.g. `.env-production` or `.env-staging` and fulfill it with your own values.
